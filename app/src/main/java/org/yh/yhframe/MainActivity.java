@@ -66,7 +66,7 @@ public class MainActivity extends YHActivity
         switch (v.getId())
         {
             case R.id.menu:
-                showActivity(null,DemoActivity.class);
+                showActivity(aty,DemoActivity.class);
                 break;
         }
     }
