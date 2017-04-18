@@ -8,7 +8,7 @@ import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.okhttp.callback.StringCallback;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.LogUtils;
-import org.yh.library.utils.YHUtils;
+import org.yh.library.utils.StringUtils;
 
 import java.io.File;
 import java.util.Iterator;
@@ -18,7 +18,7 @@ import java.util.Map.Entry;
 import okhttp3.Call;
 import okhttp3.Request;
 
-import static org.yh.library.utils.YHUtils.isEmpty;
+import static org.yh.library.utils.StringUtils.isEmpty;
 
 /**
  * 
@@ -342,7 +342,7 @@ public class YHOkHttp
 		{
 			error = ERROR_UNKNOWN;
 		}
-		if (!isEmpty(error) && YHUtils.isNumber(error))
+		if (!isEmpty(error) && StringUtils.isNumber(error))
 		{
 			if (Integer.parseInt(error) >= ERROR_4XX)
 			{
@@ -366,7 +366,7 @@ public class YHOkHttp
 	
 	public static void cancel(Object tag)
 	{
-		if (!isEmpty(OkHttpUtils.getInstance()))
+		if (!StringUtils.isEmpty(OkHttpUtils.getInstance()))
 		{
 			OkHttpUtils.getInstance().cancelTag(tag);
 		}
@@ -374,7 +374,7 @@ public class YHOkHttp
 	
 	public static void cancelAll()
 	{
-		if (!isEmpty(OkHttpUtils.getInstance()))
+		if (!StringUtils.isEmpty(OkHttpUtils.getInstance()))
 		{
 			OkHttpUtils.getInstance().cancelTagAll();
 		}

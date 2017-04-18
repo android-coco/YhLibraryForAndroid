@@ -7,7 +7,7 @@ import org.yh.library.db.YhDBManager;
  * 
  * @ClassName: Constants
  * @Description: 框架全局设置
- * @author yh
+ * @author yh (https://github.com/android-coco)
  * @date 2016-3-3 上午9:45:49
  * 
  */
@@ -40,6 +40,24 @@ public final class Constants
 	public final static String HOST_MAIN = "http://user.fitcome.net";
 	// 服务器返回码 "0"表示请求成功
 	public static String RESULT = "result";
+
+	public static final double VERSION = 2.6;
+
+	/**
+	 * 错误处理广播
+	 */
+	public static final String RECEIVER_ERROR = Constants.class.getName()
+			+ "org.yh.android.frame.error";
+	/**
+	 * 无网络警告广播
+	 */
+	public static final String RECEIVER_NOT_NET_WARN = Constants.class.getName()
+			+ "org.yh.android.frame.notnet";
+	/**
+	 * preference键值对
+	 */
+	public static final String SETTING_FILE = "yhframe_preference";
+	public static final String ONLY_WIFI = "only_wifi";
 	private Constants()
 	{
 	}

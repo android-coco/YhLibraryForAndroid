@@ -8,7 +8,7 @@ import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.okhttp.callback.StringCallback;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.LogUtils;
-import org.yh.library.utils.YHUtils;
+import org.yh.library.utils.StringUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.Map.Entry;
 import okhttp3.Call;
 import okhttp3.Request;
 
-import static org.yh.library.utils.YHUtils.isEmpty;
+import static org.yh.library.utils.StringUtils.isEmpty;
 
 /**
  * 
@@ -486,7 +486,7 @@ public class YHOkHttp1
 		{
 			error = ERROR_UNKNOWN;
 		}
-		if (!isEmpty(error) && YHUtils.isNumber(error))
+		if (!isEmpty(error) && StringUtils.isNumber(error))
 		{
 			if (Integer.parseInt(error) >= ERROR_4XX)
 			{

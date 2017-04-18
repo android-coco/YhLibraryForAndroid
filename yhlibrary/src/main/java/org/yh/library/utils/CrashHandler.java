@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 
+import org.yh.library.ui.YHActivityStack;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -47,7 +49,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
  * 
  * <b>创建时间</b> 2014-7-2
  * 
- * @author yh
+ * @author yh (https://github.com/android-coco)
  */
 public class CrashHandler implements UncaughtExceptionHandler
 {
@@ -56,7 +58,7 @@ public class CrashHandler implements UncaughtExceptionHandler
 	private UncaughtExceptionHandler mDefaultHandler;
 	private final Context mContext;
 	// log文件的后缀名
-	public static final String FILE_NAME_SUFFIX = "YHHealth.txt";
+	public static final String FILE_NAME_SUFFIX = "yherror.txt";
 	private static CrashHandler sInstance = null;
 	
 	private CrashHandler(Context cxt)
@@ -103,6 +105,7 @@ public class CrashHandler implements UncaughtExceptionHandler
 				LogUtils.e(TAG, "error : ", e);
 			}
 			//退出应用
+			YHActivityStack.create().finishAllActivity();
 			// 退出程序
 			android.os.Process.killProcess(android.os.Process.myPid());
 			System.exit(1);
@@ -145,7 +148,7 @@ public class CrashHandler implements UncaughtExceptionHandler
 		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(
 				file, append)));
 		// 导出发生异常的时间
-		pw.println(YHUtils.getDataTime("yyyy-MM-dd HH-mm-ss"));
+		pw.println(StringUtils.getDataTime("yyyy-MM-dd HH-mm-ss"));
 		// 导出手机信息
 		dumpPhoneInfo(pw);
 		pw.println();

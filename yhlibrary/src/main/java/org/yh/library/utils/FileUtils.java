@@ -26,7 +26,7 @@ import java.nio.channels.FileChannel;
  * 
  * @ClassName: FileUtils
  * @Description: 文件与流处理工具类
- * @author YH
+ * @author yh (https://github.com/android-coco)
  * @date 2015-8-14 下午6:58:31
  * 
  */
@@ -526,7 +526,7 @@ public class FileUtils
 	 */
 	public static long getFolderSize(File file)
 	{
-		if (YHUtils.isEmpty(file))
+		if (StringUtils.isEmpty(file))
 		{
 			return 0;
 		}

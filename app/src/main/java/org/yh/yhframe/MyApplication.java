@@ -3,7 +3,6 @@ package org.yh.yhframe;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Handler;
 
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -22,8 +21,9 @@ import org.yh.library.okhttp.https.HttpsUtils;
 import org.yh.library.okhttp.utils.LoggerInterceptor;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.CrashHandler;
+import org.yh.library.utils.DensityUtils;
 import org.yh.library.utils.LogUtils;
-import org.yh.library.utils.YHUtils;
+import org.yh.library.utils.StringUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -43,6 +43,7 @@ import okhttp3.OkHttpClient;
 public class MyApplication extends Application
 {
     private static final String TAG = "MyApplication";
+    private static final int REQUECT_CODE_SDCARD = 1;
     private static MyApplication mInstance = null;
     SendEmailThread sendEmail;
     public static int width = 1080;
@@ -53,9 +54,9 @@ public class MyApplication extends Application
     {
         super.onCreate();
         mInstance = this;
-        width = YHUtils.getScreenWidth(MyApplication.getInstance()
+        width = DensityUtils.getScreenW(MyApplication.getInstance()
                 .getApplicationContext());
-        height = YHUtils.getScreenHeight(MyApplication.getInstance()
+        height = DensityUtils.getScreenH(MyApplication.getInstance()
                 .getApplicationContext());
         if (width == 0)
         {
@@ -77,7 +78,6 @@ public class MyApplication extends Application
                 initSystem();
             }
         }, 500);
-        LogUtils.e("MyApplication:", "onCreate()" + Build.CPU_ABI + " " + Build.CPU_ABI2);
     }
 
     public synchronized static MyApplication getInstance()
@@ -91,7 +91,7 @@ public class MyApplication extends Application
     public void initSystem()
     {
 
-        if (!YHUtils.isEmpty(mInstance))
+        if (!StringUtils.isEmpty(mInstance))
         {
 
 

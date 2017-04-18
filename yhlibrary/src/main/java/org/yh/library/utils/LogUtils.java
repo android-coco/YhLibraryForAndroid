@@ -6,9 +6,9 @@ package org.yh.library.utils;
 * 项目名称：healthplus   
 * 类名称：LogUtils   
 * 类描述：  Log日志工具类 
-* 创建人：hao   
+* 创建人：yh (https://github.com/android-coco)
 * 创建时间：2015-5-15 下午2:01:36   
-* 修改人：hao   
+* 修改人：yh (https://github.com/android-coco)
 * 修改时间：2015-5-15 下午2:01:36   
 * 修改备注：   
 * @version 1.0
