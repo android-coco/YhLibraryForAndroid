@@ -30,6 +30,8 @@ public class DemoActivity extends YHActivity
         super.initData();
     }
 
+
+
     @Override
     public void initWidget()
     {

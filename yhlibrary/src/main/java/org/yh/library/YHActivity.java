@@ -20,6 +20,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -38,6 +39,8 @@ import org.yh.library.ui.YHFragment;
 import org.yh.library.utils.LogUtils;
 
 import java.lang.ref.SoftReference;
+
+import static org.yh.library.utils.SystemTool.isGranted;
 
 /**
  * @author yh (https://github.com/android-coco) on 11/19/15.
@@ -122,7 +125,10 @@ public abstract class YHActivity extends AppCompatActivity implements
     public void initWidget()
     {
     }
-
+    @Override
+    public void requestPermissionSuccess()
+    {
+    }
     // 仅仅是为了代码整洁点
     private void initializer()
     {
@@ -197,7 +203,23 @@ public abstract class YHActivity extends AppCompatActivity implements
         initializer();
         registerBroadcast();
     }
-
+    protected void requestPermission(String permission, int requestCode)
+    {
+        if (!isGranted(getApplicationContext(), permission))
+        {
+            //主要用于给用户一个申请权限的解释，该方法只有在用户在上一次已经拒绝过你的这个权限申请。
+            // 也就是说，用户已经拒绝一次了，
+            // 你又弹个授权框，你需要给用户一个解释，为什么要授权，则使用该方法。
+            if (ActivityCompat.shouldShowRequestPermissionRationale(aty, permission))
+            {
+                ActivityCompat.requestPermissions(aty, new String[]{permission}, requestCode);
+            }
+        } else
+        {
+            //直接执行相应操作了
+            requestPermissionSuccess();
+        }
+    }
     @Override
     protected void onStart()
     {

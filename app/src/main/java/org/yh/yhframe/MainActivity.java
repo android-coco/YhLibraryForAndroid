@@ -1,14 +1,11 @@
 package org.yh.yhframe;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.zhy.m.permission.MPermissions;
-import com.zhy.m.permission.PermissionDenied;
-import com.zhy.m.permission.PermissionGrant;
 
 import org.yh.library.YHActivity;
 import org.yh.library.okhttp.YHOkHttp;
@@ -20,13 +17,15 @@ public class MainActivity extends YHActivity
 {
 
     private static final int REQUECT_CODE_SDCARD = 1;
-    @BindView(id = R.id.menu,click = true)
-    public Button menu;
+    @BindView(id = R.id.menu, click = true)
+    Button menu;
+
     @Override
     public void setRootView()
     {
         setContentView(R.layout.activity_main);
     }
+
     @Override
     public void initWidget()
     {
@@ -38,8 +37,6 @@ public class MainActivity extends YHActivity
     public void initData()
     {
         super.initData();
-        MPermissions.requestPermissions(MainActivity.this, REQUECT_CODE_SDCARD, Manifest
-                .permission.WRITE_EXTERNAL_STORAGE);
         //网络请求简单操作
         YHOkHttp.get("http://192.168.0.5/", "", new HttpCallBack()
         {
@@ -66,28 +63,32 @@ public class MainActivity extends YHActivity
         switch (v.getId())
         {
             case R.id.menu:
-                showActivity(aty,DemoActivity.class);
+                requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUECT_CODE_SDCARD);
                 break;
         }
+    }
+
+    @Override
+    public void requestPermissionSuccess()
+    {
+        //直接执行相应操作了
+        showActivity(aty, DemoActivity.class);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults)
     {
-        MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @PermissionGrant(REQUECT_CODE_SDCARD)
-    public void requestCallPhoneSuccess()
-    {
-        //Toast.makeText(this, "请打开写权限!", Toast.LENGTH_SHORT).show();
-    }
-
-    @PermissionDenied(REQUECT_CODE_SDCARD)
-    public void requestSdcardFailed()
-    {
-        Toast.makeText(this, "请打开写权限!", Toast.LENGTH_SHORT).show();
+        if (requestCode == REQUECT_CODE_SDCARD)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Toast.makeText(MainActivity.this, "授权成功", Toast.LENGTH_SHORT).show();
+                showActivity(aty, DemoActivity.class);
+            } else
+            {
+                Toast.makeText(MainActivity.this, "您没有授权该权限，请在设置中打开授权", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

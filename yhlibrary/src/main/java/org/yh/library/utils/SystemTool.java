@@ -31,6 +31,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.view.inputmethod.InputMethodManager;
 
@@ -58,6 +60,20 @@ public final class SystemTool {
         return df.format(new Date());
     }
 
+    //判断是否拥有该权限的使用权限
+    public static boolean isGranted(Context context,String permission) {
+        return !isMarshmallow() || isGranted_(context,permission);
+    }
+    //判断是否是Android 6.0以上
+    public static boolean isMarshmallow() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
+    //是否申请了该使用权限
+    public static boolean isGranted_(Context context,String permission) {
+        int checkSelfPermission = ActivityCompat.checkSelfPermission(context, permission);
+        return checkSelfPermission == PackageManager.PERMISSION_GRANTED;
+    }
     /**
      * 返回当前系统时间(格式以HH:mm形式)
      */

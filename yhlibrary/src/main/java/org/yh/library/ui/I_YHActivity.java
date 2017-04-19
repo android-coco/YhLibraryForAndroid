@@ -57,4 +57,8 @@ public interface I_YHActivity
      * 点击事件回调方法
      */
     void widgetClick(View v);
+    /**
+     * 权限用户授权后回调
+     */
+    void requestPermissionSuccess();
 }

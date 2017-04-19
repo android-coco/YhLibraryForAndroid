@@ -12,7 +12,5 @@ Android实用框架采用MVC设计模式,多个项目经验总结,还在完善�
 
 ```XML
 <uses-permission android:name="android.permission.INTERNET" />
-```
-```XML
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
