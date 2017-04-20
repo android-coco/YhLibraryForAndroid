@@ -16,7 +16,6 @@
 package org.yh.library;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,9 +32,7 @@ import org.yh.library.ui.AnnotateUtil;
 import org.yh.library.ui.I_BroadcastReg;
 import org.yh.library.ui.I_SkipActivity;
 import org.yh.library.ui.I_YHActivity;
-import org.yh.library.ui.SupportFragment;
 import org.yh.library.ui.YHActivityStack;
-import org.yh.library.ui.YHFragment;
 import org.yh.library.utils.LogUtils;
 
 import java.lang.ref.SoftReference;
@@ -53,8 +50,7 @@ public abstract class YHActivity extends AppCompatActivity implements
 
     public Activity aty;
 
-    protected YHFragment currentKJFragment;
-    protected SupportFragment currentSupportFragment;
+    protected YHFragment currentYHFragment;
     private ThreadDataCallBack callback;
     private YHActivityHandle threadHandle = new YHActivityHandle(this);
 
@@ -266,8 +262,7 @@ public abstract class YHActivity extends AppCompatActivity implements
         LogUtils.e(TAG, "---------onDestroy ");
         super.onDestroy();
         YHActivityStack.create().finishActivity(this);
-        currentKJFragment = null;
-        currentSupportFragment = null;
+        currentYHFragment = null;
         callback = null;
         threadHandle = null;
         aty = null;
@@ -336,7 +331,6 @@ public abstract class YHActivity extends AppCompatActivity implements
         intent.setClass(aty, cls);
         aty.startActivity(intent);
     }
-
     /**
      * 用Fragment替换视图
      *
@@ -345,39 +339,7 @@ public abstract class YHActivity extends AppCompatActivity implements
      */
     public void changeFragment(int resView, YHFragment targetFragment)
     {
-        if (targetFragment.equals(currentKJFragment))
-        {
-            return;
-        }
-        FragmentTransaction transaction = getFragmentManager()
-                .beginTransaction();
-        if (!targetFragment.isAdded())
-        {
-            transaction.add(resView, targetFragment, targetFragment.getClass()
-                    .getName());
-        }
-        if (targetFragment.isHidden())
-        {
-            transaction.show(targetFragment);
-            targetFragment.onChange();
-        }
-        if (currentKJFragment != null && currentKJFragment.isVisible())
-        {
-            transaction.hide(currentKJFragment);
-        }
-        currentKJFragment = targetFragment;
-        transaction.commit();
-    }
-
-    /**
-     * 用Fragment替换视图
-     *
-     * @param resView        将要被替换掉的视图
-     * @param targetFragment 用来替换的Fragment
-     */
-    public void changeFragment(int resView, SupportFragment targetFragment)
-    {
-        if (targetFragment.equals(currentSupportFragment))
+        if (targetFragment.equals(currentYHFragment))
         {
             return;
         }
@@ -393,12 +355,12 @@ public abstract class YHActivity extends AppCompatActivity implements
             transaction.show(targetFragment);
             targetFragment.onChange();
         }
-        if (currentSupportFragment != null
-                && currentSupportFragment.isVisible())
+        if (currentYHFragment != null
+                && currentYHFragment.isVisible())
         {
-            transaction.hide(currentSupportFragment);
+            transaction.hide(currentYHFragment);
         }
-        currentSupportFragment = targetFragment;
+        currentYHFragment = targetFragment;
         transaction.commit();
     }
 

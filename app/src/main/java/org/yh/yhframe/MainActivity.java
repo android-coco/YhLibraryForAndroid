@@ -85,7 +85,8 @@ public class MainActivity extends YHActivity
             {
                 Toast.makeText(MainActivity.this, "授权成功", Toast.LENGTH_SHORT).show();
                 showActivity(aty, DemoActivity.class);
-            } else
+            }
+            else
             {
                 Toast.makeText(MainActivity.this, "您没有授权该权限，请在设置中打开授权", Toast.LENGTH_SHORT).show();
             }

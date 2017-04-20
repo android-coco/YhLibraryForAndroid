@@ -60,7 +60,7 @@ public class DemoActivity extends YHActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
+    //获取Back键的按下事件
     @Override
     public void onBackPressed()
     {
@@ -99,6 +99,7 @@ public class DemoActivity extends YHActivity
 //        invalidateOptionsMenu();
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

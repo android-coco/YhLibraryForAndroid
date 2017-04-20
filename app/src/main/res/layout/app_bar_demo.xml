@@ -31,7 +31,7 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_demo"/>
+    <include android:id="@+id/content" layout="@layout/content_demo"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

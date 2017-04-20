@@ -13,7 +13,9 @@
         layout="@layout/app_bar_demo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
+    <!--1.android:layout_gravity="start"属性表示该View是左边的滑出菜单，这个属性的含义不用多说，这是DrawerLayout使用方式中的知识点。
+2.app:headerLayout="@layout/nav_header_demo"表示引用一个头布局文件，这个头就是我们在上面看到的那个背景图片，包括背景图片上面的显示用户名的控件等等。
+3.app:menu="@menu/activity_demo_drawer"表示引用一个menu作为下面的点击项-->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
