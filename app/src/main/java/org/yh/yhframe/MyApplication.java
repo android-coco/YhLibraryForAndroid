@@ -43,7 +43,6 @@ import okhttp3.OkHttpClient;
 public class MyApplication extends Application
 {
     private static final String TAG = "MyApplication";
-    private static final int REQUECT_CODE_SDCARD = 1;
     private static MyApplication mInstance = null;
     SendEmailThread sendEmail;
     public static int width = 1080;

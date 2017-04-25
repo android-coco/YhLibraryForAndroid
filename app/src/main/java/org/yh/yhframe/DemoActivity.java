@@ -11,9 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import org.yh.library.YHActivity;
-
-public class DemoActivity extends YHActivity
+public class DemoActivity extends BaseActiciy
         implements NavigationView.OnNavigationItemSelectedListener
 {
     View view;
@@ -37,9 +35,10 @@ public class DemoActivity extends YHActivity
     {
         super.initWidget();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+        toolbar.setTitle("");//设置左边标题为空
         setSupportActionBar(toolbar);
 
+        changeFragment(R.id.content,new OneFragment());
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
@@ -110,16 +109,19 @@ public class DemoActivity extends YHActivity
 
         if (id == R.id.nav_camera)
         {
+            changeFragment(R.id.content,new TwoFragment());
             Snackbar.make(view, "nav_camera", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
         else if (id == R.id.nav_gallery)
         {
+            changeFragment(R.id.content,new ThreeFragment());
             Snackbar.make(view, "nav_camera", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
         else if (id == R.id.nav_slideshow)
         {
+            changeFragment(R.id.content,new FourFragment());
             Snackbar.make(view, "nav_camera", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
