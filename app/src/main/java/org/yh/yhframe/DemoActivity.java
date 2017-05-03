@@ -6,7 +6,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,15 +27,10 @@ public class DemoActivity extends BaseActiciy
         super.initData();
     }
 
-
-
     @Override
     public void initWidget()
     {
         super.initWidget();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");//设置左边标题为空
-        setSupportActionBar(toolbar);
 
         changeFragment(R.id.content,new OneFragment());
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -55,6 +49,9 @@ public class DemoActivity extends BaseActiciy
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        //导航图标
+        toolbar.setNavigationIcon(R.mipmap.ic_launcher);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
