@@ -19,11 +19,11 @@
 
             <ImageView
                 android:id="@+id/toolbar_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="5dp"
-                android:background="@drawable/ic_menu_camera"/>
+                android:background="@mipmap/logo_white_210"/>
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -37,11 +37,11 @@
 
             <ImageView
                 android:id="@+id/toolbar_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_gravity="end"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_menu_camera"/>
+                android:background="@mipmap/icon_home_menu_more"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 </LinearLayout>

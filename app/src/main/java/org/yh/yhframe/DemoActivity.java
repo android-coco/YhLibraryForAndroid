@@ -51,7 +51,7 @@ public class DemoActivity extends BaseActiciy
         toggle.syncState();
 
         //导航图标
-        toolbar.setNavigationIcon(R.mipmap.ic_launcher);
+        //toolbar.setNavigationIcon(R.mipmap.ic_launcher);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

@@ -5,11 +5,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import org.yh.library.YHFragment;
+import org.yh.library.utils.StringUtils;
 
 /**
  * 具有ActionBar的Activity的基类
- *
- *
  */
 public abstract class BaseFragment extends YHFragment
 {
@@ -17,21 +16,24 @@ public abstract class BaseFragment extends YHFragment
     /**
      * 封装一下方便一起返回(JAVA没有结构体这么一种东西实在是个遗憾)
      *
-     * @author kymjs (http://www.kymjs.com/)
+     * @author yh (https://github.com/android-coco)
      */
     public class ActionBarRes
     {
         public CharSequence title;
         public int backImageId;
         public Drawable backImageDrawable;
-        public int menuImageId;
-        public Drawable menuImageDrawable;
+        public int logoImageId;
+        public Drawable logoImageDrawable;
+        public int rightImageId;
+        public Drawable rightImageDrawable;
     }
 
     private final ActionBarRes actionBarRes = new ActionBarRes();
     protected BaseActiciy outsideAty;
     protected MyApplication app;
     protected final String TAG = this.getClass().getSimpleName();
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -51,19 +53,37 @@ public abstract class BaseFragment extends YHFragment
         setTitle(actionBarRes.title);
         if (actionBarRes.backImageId == 0)
         {
-            setBackImage(actionBarRes.backImageDrawable);
+            if (!StringUtils.isEmpty(actionBarRes.backImageDrawable))
+            {
+                setBackImage(actionBarRes.backImageDrawable);
+            }
         }
         else
         {
             setBackImage(actionBarRes.backImageId);
         }
-        if (actionBarRes.menuImageId == 0)
+        if (actionBarRes.logoImageId == 0)
         {
-            setMenuImage(actionBarRes.menuImageDrawable);
+            if (!StringUtils.isEmpty(actionBarRes.logoImageDrawable))
+            {
+                setLogoImage(actionBarRes.logoImageDrawable);
+            }
         }
         else
         {
-            setMenuImage(actionBarRes.menuImageId);
+            setLogoImage(actionBarRes.logoImageId);
+        }
+
+        if (actionBarRes.rightImageId == 0)
+        {
+            if (!StringUtils.isEmpty(actionBarRes.rightImageDrawable))
+            {
+                setMenuImage(actionBarRes.rightImageDrawable);
+            }
+        }
+        else
+        {
+            setMenuImage(actionBarRes.rightImageId);
         }
     }
 
@@ -111,7 +131,7 @@ public abstract class BaseFragment extends YHFragment
     {
         if (outsideAty != null)
         {
-            //outsideAty.mImgBack.setImageResource(resId);
+            outsideAty.toolbar.setNavigationIcon(resId);
         }
     }
 
@@ -122,29 +142,52 @@ public abstract class BaseFragment extends YHFragment
     {
         if (outsideAty != null)
         {
-            //outsideAty.mImgBack.setImageDrawable(drawable);
+            outsideAty.toolbar.setNavigationIcon(drawable);
         }
     }
 
     /**
-     * 设置菜单键图标
+     * 设置标题右边图标
      */
     protected void setMenuImage(int resId)
     {
         if (outsideAty != null)
         {
-            //outsideAty.mImgMenu.setImageResource(resId);
+            outsideAty.toolbar_right.setImageResource(resId);
         }
     }
 
     /**
-     * 设置菜单键图标
+     * 设置标题右边图标
      */
     protected void setMenuImage(Drawable drawable)
     {
         if (outsideAty != null)
         {
-            //outsideAty.mImgMenu.setImageDrawable(drawable);
+            outsideAty.toolbar_right.setImageDrawable(drawable);
+        }
+    }
+
+
+    /**
+     * 设置标题logo图标
+     */
+    protected void setLogoImage(int resId)
+    {
+        if (outsideAty != null)
+        {
+            outsideAty.toolbar_logo.setImageResource(resId);
+        }
+    }
+
+    /**
+     * 设置标题logo图标
+     */
+    protected void setLogoImage(Drawable drawable)
+    {
+        if (outsideAty != null)
+        {
+            outsideAty.toolbar_logo.setImageDrawable(drawable);
         }
     }
 }

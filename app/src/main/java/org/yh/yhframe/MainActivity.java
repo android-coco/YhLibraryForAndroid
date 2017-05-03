@@ -67,6 +67,20 @@ public class MainActivity extends BaseActiciy
     }
 
     @Override
+    protected void onBackClick()
+    {
+        super.onBackClick();
+        showActivity(aty, DemoActivity.class);
+    }
+
+    @Override
+    protected void onMenuClick()
+    {
+        super.onMenuClick();
+        Toast.makeText(MainActivity.this, "更多被点击", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void requestPermissionSuccess()
     {
         //直接执行相应操作了

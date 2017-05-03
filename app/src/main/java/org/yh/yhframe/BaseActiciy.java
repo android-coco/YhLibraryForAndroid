@@ -3,6 +3,8 @@ package org.yh.yhframe;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +38,7 @@ public abstract class BaseActiciy extends YHActivity
             mTvTitle = (TextView) findViewById(R.id.toolbar_title);
             toolbar_right = (ImageView) findViewById(R.id.toolbar_right);
             toolbar_logo = (ImageView) findViewById(R.id.toolbar_logo);
+            toolbar_right.setOnClickListener(this);
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null)
             {
@@ -50,4 +53,35 @@ public abstract class BaseActiciy extends YHActivity
         }
     }
 
+    @Override
+    public void widgetClick(View v)
+    {
+        super.widgetClick(v);
+        switch (v.getId())
+        {
+            case R.id.toolbar_right:
+                onMenuClick();
+                break;
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                onBackClick();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void onBackClick()
+    {
+    }
+
+    protected void onMenuClick()
+    {
+    }
 }

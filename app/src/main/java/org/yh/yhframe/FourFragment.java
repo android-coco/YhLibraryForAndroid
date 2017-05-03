@@ -21,6 +21,9 @@ public class FourFragment extends BaseFragment
     protected void setActionBarRes(ActionBarRes actionBarRes)
     {
         actionBarRes.title = TAG;
+        actionBarRes.backImageId = R.mipmap.icon_left_menu;
+        actionBarRes.logoImageId = R.mipmap.logo_white_210;
+        actionBarRes.rightImageId = R.mipmap.icon_home_menu_more;
     }
 
     @Override
