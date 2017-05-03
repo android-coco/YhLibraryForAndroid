@@ -1,21 +1,18 @@
 package org.yh.yhframe;
 
 import android.Manifest;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.yh.library.YHActivity;
 import org.yh.library.okhttp.YHOkHttp;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
 import org.yh.library.utils.LogUtils;
 
-public class MainActivity extends YHActivity
+public class MainActivity extends BaseActiciy
 {
 
     private static final int REQUECT_CODE_SDCARD = 1;
@@ -25,8 +22,6 @@ public class MainActivity extends YHActivity
     @Override
     public void setRootView()
     {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
     }
 
@@ -34,7 +29,6 @@ public class MainActivity extends YHActivity
     public void initWidget()
     {
         super.initWidget();
-
     }
 
     @Override

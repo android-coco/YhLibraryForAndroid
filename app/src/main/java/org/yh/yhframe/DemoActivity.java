@@ -55,6 +55,7 @@ public class DemoActivity extends BaseActiciy
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
     //获取Back键的按下事件
     @Override
@@ -106,24 +107,25 @@ public class DemoActivity extends BaseActiciy
 
         if (id == R.id.nav_camera)
         {
-            changeFragment(R.id.content,new TwoFragment());
+            changeFragment(R.id.content,new OneFragment());
             Snackbar.make(view, "nav_camera", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
         else if (id == R.id.nav_gallery)
         {
-            changeFragment(R.id.content,new ThreeFragment());
+            changeFragment(R.id.content,new TwoFragment());
             Snackbar.make(view, "nav_camera", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
         else if (id == R.id.nav_slideshow)
         {
-            changeFragment(R.id.content,new FourFragment());
+            changeFragment(R.id.content,new ThreeFragment());
             Snackbar.make(view, "nav_camera", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
         else if (id == R.id.nav_manage)
         {
+            changeFragment(R.id.content,new FourFragment());
             Snackbar.make(view, "nav_manage", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
