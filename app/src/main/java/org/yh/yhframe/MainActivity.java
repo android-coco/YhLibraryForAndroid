@@ -10,7 +10,12 @@ import android.widget.Toast;
 import org.yh.library.okhttp.YHOkHttp;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
+import org.yh.library.utils.JsonUitl;
 import org.yh.library.utils.LogUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends BaseActiciy
 {
@@ -35,14 +40,34 @@ public class MainActivity extends BaseActiciy
     public void initData()
     {
         super.initData();
+        Map<String,String> params = new HashMap<>();
+        params.put("user","123456");
+        params.put("pass","123456");
         //网络请求简单操作
-        YHOkHttp.get("http://192.168.0.5/", "", new HttpCallBack()
+        YHOkHttp.post("http://192.168.0.3/CI/api/login/login", "",params, new HttpCallBack()
         {
             @Override
             public void onSuccess(String t)
             {
                 super.onSuccess(t);
                 LogUtils.e(TAG, t);
+                //User user = (User)JsonUitl.stringToObject(t,User.class);
+                //LogUtils.e(TAG, user.getResult());
+                t = "[\n" +
+                        "    {\n" +
+                        "        \"username\": 123456,\n" +
+                        "        \"pass\": 123456\n" +
+                        "    },\n" +
+                        "    {\n" +
+                        "        \"username\": 123456,\n" +
+                        "        \"pass\": 123456\n" +
+                        "    }\n" +
+                        "]";
+                List<User> listuser =JsonUitl.stringToList(t,User.class);
+                for (int i = 0; i <listuser.size() ; i++)
+                {
+                    LogUtils.e(TAG, listuser.get(i));
+                }
             }
 
             @Override

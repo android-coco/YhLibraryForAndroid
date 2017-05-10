@@ -21,5 +21,24 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class YHModel implements Serializable
 {
-	
+    //结果
+	protected String result;
+
+    public String getResult()
+    {
+        return result;
+    }
+
+    public void setResult(String result)
+    {
+        this.result = result;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "YHModel{" +
+                "result='" + result + '\'' +
+                '}';
+    }
 }
