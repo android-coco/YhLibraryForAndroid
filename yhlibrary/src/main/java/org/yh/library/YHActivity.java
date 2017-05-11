@@ -199,6 +199,7 @@ public abstract class YHActivity extends AppCompatActivity implements
         initializer();
         registerBroadcast();
     }
+    //申请权限
     protected void requestPermission(String permission, int requestCode)
     {
         if (!isGranted(getApplicationContext(), permission))

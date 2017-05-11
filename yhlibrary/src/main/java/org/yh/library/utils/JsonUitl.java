@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yhlyl on 2017/5/11.
@@ -58,17 +60,19 @@ public class JsonUitl
         }
         return list;
     }
+
     /**
      * 把json 字符串转化成list
      *
      * @param json
-     * @param cls
-     * @param <T>
      * @return
      */
-//    public static <T> List<T> stringToList1(String json,Class<T> cls)
-//    {
-//        List<T> list = mGson.fromJson(json,new TypeToken<List<T>>(){}.getType());
-//        return list;
-//    }
+    public static Map<String, Object> stringToMap(String json)
+    {
+        Map<String, Object> retMap = mGson.fromJson(json,
+                new TypeToken<Map<String, List<Object>>>()
+                {
+                }.getType());
+        return retMap;
+    }
 }

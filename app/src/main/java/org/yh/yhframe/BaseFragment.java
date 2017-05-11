@@ -100,15 +100,23 @@ public abstract class BaseFragment extends YHFragment
     /**
      * 当ActionBar上的返回键被按下时
      */
-    public void onBackClick()
+    protected void onBackClick()
     {
+        if (null != outsideAty)
+        {
+            outsideAty.onBackClick();
+        }
     }
 
     /**
      * 当ActionBar上的菜单键被按下时
      */
-    public void onMenuClick()
+    protected void onMenuClick()
     {
+        if (null != outsideAty)
+        {
+            outsideAty.onMenuClick();
+        }
     }
 
     /**

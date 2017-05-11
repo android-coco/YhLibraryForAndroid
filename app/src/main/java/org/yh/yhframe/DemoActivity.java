@@ -10,10 +10,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.yh.library.YHFragment;
+
 public class DemoActivity extends BaseActiciy
         implements NavigationView.OnNavigationItemSelectedListener
 {
     View view;
+    YHFragment oneFragment = null;
+    YHFragment twoFragment = null;
+    YHFragment threeFragment = null;
+    YHFragment fourFragment = null;
     @Override
     public void setRootView()
     {
@@ -25,6 +31,10 @@ public class DemoActivity extends BaseActiciy
     public void initData()
     {
         super.initData();
+        oneFragment = new OneFragment();
+        twoFragment = new TwoFragment();
+        threeFragment = new ThreeFragment();
+        fourFragment = new FourFragment();
     }
 
     @Override
@@ -32,7 +42,7 @@ public class DemoActivity extends BaseActiciy
     {
         super.initWidget();
 
-        changeFragment(R.id.content,new OneFragment());
+        changeFragment(R.id.content,oneFragment);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
@@ -107,25 +117,25 @@ public class DemoActivity extends BaseActiciy
 
         if (id == R.id.nav_camera)
         {
-            changeFragment(R.id.content,new OneFragment());
+            changeFragment(R.id.content,oneFragment);
             Snackbar.make(view, "nav_camera", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
         else if (id == R.id.nav_gallery)
         {
-            changeFragment(R.id.content,new TwoFragment());
+            changeFragment(R.id.content,twoFragment);
             Snackbar.make(view, "nav_camera", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
         else if (id == R.id.nav_slideshow)
         {
-            changeFragment(R.id.content,new ThreeFragment());
+            changeFragment(R.id.content,threeFragment);
             Snackbar.make(view, "nav_camera", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
         else if (id == R.id.nav_manage)
         {
-            changeFragment(R.id.content,new FourFragment());
+            changeFragment(R.id.content,fourFragment);
             Snackbar.make(view, "nav_manage", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }

@@ -3,6 +3,8 @@
  */
 package org.yh.library.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**   
@@ -22,6 +24,7 @@ import java.io.Serializable;
 public class YHModel implements Serializable
 {
     //结果
+    @SerializedName("result")
 	protected String result;
 
     public String getResult()

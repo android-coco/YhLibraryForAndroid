@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.yh.library.okhttp.YHOkHttp;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
@@ -40,11 +42,11 @@ public class MainActivity extends BaseActiciy
     public void initData()
     {
         super.initData();
-        Map<String,String> params = new HashMap<>();
-        params.put("user","123456");
-        params.put("pass","123456");
+        Map<String, String> params = new HashMap<>();
+        params.put("user", "123456");
+        params.put("pass", "123456");
         //网络请求简单操作
-        YHOkHttp.post("http://192.168.0.3/CI/api/login/login", "",params, new HttpCallBack()
+        YHOkHttp.post("http://192.168.0.197:8080/Ci/api/Login/login", "", params, new HttpCallBack()
         {
             @Override
             public void onSuccess(String t)
@@ -53,20 +55,24 @@ public class MainActivity extends BaseActiciy
                 LogUtils.e(TAG, t);
                 //User user = (User)JsonUitl.stringToObject(t,User.class);
                 //LogUtils.e(TAG, user.getResult());
-                t = "[\n" +
-                        "    {\n" +
-                        "        \"username\": 123456,\n" +
-                        "        \"pass\": 123456\n" +
-                        "    },\n" +
-                        "    {\n" +
-                        "        \"username\": 123456,\n" +
-                        "        \"pass\": 123456\n" +
-                        "    }\n" +
-                        "]";
-                List<User> listuser =JsonUitl.stringToList(t,User.class);
-                for (int i = 0; i <listuser.size() ; i++)
+                Gson gson = new Gson();
+//                Map<String, Object> retMap = gson.fromJson(t,
+//                        new TypeToken<Map<String, List<Object>>>()
+//                        {
+//                        }.getType());
+                Map<String, Object> retMap = JsonUitl.stringToMap(t);
+                for (String key : retMap.keySet())
                 {
-                    LogUtils.e(TAG, listuser.get(i));
+                    LogUtils.e(TAG, "key:" + key + " values:" + retMap.get(key));
+                    if (key.equals("students"))
+                    {
+                        List<Student> stuList = (List<Student>) retMap.get(key);
+                        LogUtils.e(TAG, stuList);
+                    } else if (key.equals("teachers"))
+                    {
+                        List<Teacher> tchrList = (List<Teacher>) retMap.get(key);
+                        LogUtils.e(TAG, tchrList);
+                    }
                 }
             }
 
@@ -118,15 +124,15 @@ public class MainActivity extends BaseActiciy
     {
         if (requestCode == REQUECT_CODE_SDCARD)
         {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
                 Toast.makeText(MainActivity.this, "授权成功", Toast.LENGTH_SHORT).show();
                 showActivity(aty, DemoActivity.class);
-            }
-            else
+            } else
             {
                 Toast.makeText(MainActivity.this, "您没有授权该权限，请在设置中打开授权", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
 }
