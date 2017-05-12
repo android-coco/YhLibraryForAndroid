@@ -4,12 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.yh.library.ui.BindView;
 import org.yh.library.utils.LogUtils;
 
 public class OneFragment extends BaseFragment
 {
+    @BindView(id = R.id.one_text, click = true)
+    TextView oneText;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle)
@@ -17,6 +21,17 @@ public class OneFragment extends BaseFragment
         return inflater.inflate(R.layout.fragment_one, container, false);
     }
 
+    @Override
+    protected void widgetClick(View v)
+    {
+        super.widgetClick(v);
+        switch (v.getId())
+        {
+            case R.id.one_text:
+                outsideAty.showActivity(outsideAty, YHRecyclerviewActivity.class);
+                break;
+        }
+    }
 
     @Override
     protected void setActionBarRes(ActionBarRes actionBarRes)
@@ -30,7 +45,7 @@ public class OneFragment extends BaseFragment
     public void onChange()
     {
         super.onChange();
-        LogUtils.e(TAG,"OneFragment onChange()");
+        LogUtils.e(TAG, "OneFragment onChange()");
     }
 
 

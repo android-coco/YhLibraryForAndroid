@@ -12,7 +12,6 @@ import org.yh.library.YHActivity;
 public abstract class BaseActiciy extends YHActivity
 {
     public YhToolbar toolbar;//标题栏
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -50,18 +49,6 @@ public abstract class BaseActiciy extends YHActivity
                 break;
         }
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item)
-//    {
-//        switch (item.getItemId())
-//        {
-//            case android.R.id.home:
-//                onBackClick();
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     protected void onBackClick()
     {

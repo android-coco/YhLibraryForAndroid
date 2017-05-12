@@ -5,15 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="org.yh.yhframe.MainActivity">
+    tools:context="org.yh.yhframe.YHRecyclerviewActivity">
 
     <include layout="@layout/basetitle"/>
 
-    <Button
-        android:id="@+id/menu"
-        android:layout_width="match_parent"
+    <org.yh.library.view.YHRecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:text="菜单Aciticty"/>
-
+        android:layout_marginTop="?attr/actionBarSize"/>
 </android.support.design.widget.CoordinatorLayout>
