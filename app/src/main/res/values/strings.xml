@@ -8,5 +8,8 @@
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="one_fragment">One fragment</string>
+    <string name="two_fragment">Two fragment</string>
+    <string name="three_fragment">Three fragment</string>
+    <string name="four_fragment">Four fragment</string>
 </resources>

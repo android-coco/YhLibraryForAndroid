@@ -21,10 +21,10 @@ public abstract class BaseFragment extends YHFragment
     public class ActionBarRes
     {
         public CharSequence title;
-        public int backImageId;
-        public Drawable backImageDrawable;
-        public int logoImageId;
-        public Drawable logoImageDrawable;
+        public int leftImageId;
+        public Drawable leftImageDrawable;
+        public int mainImageId;
+        public Drawable mainImageDrawable;
         public int rightImageId;
         public Drawable rightImageDrawable;
     }
@@ -50,40 +50,43 @@ public abstract class BaseFragment extends YHFragment
     {
         super.onResume();
         setActionBarRes(actionBarRes);
-        setTitle(actionBarRes.title);
-        if (actionBarRes.backImageId == 0)
+        if (!StringUtils.isEmpty(actionBarRes.title))
         {
-            if (!StringUtils.isEmpty(actionBarRes.backImageDrawable))
+            setMainTitle(actionBarRes.title);
+        }else
+        {
+            setMainTitle("标题");
+        }
+        if (actionBarRes.leftImageId == 0)
+        {
+            if (!StringUtils.isEmpty(actionBarRes.leftImageDrawable))
             {
-                setBackImage(actionBarRes.backImageDrawable);
+                seLeftImage(actionBarRes.leftImageDrawable);
             }
-        }
-        else
+        } else
         {
-            setBackImage(actionBarRes.backImageId);
+            seLeftImage(actionBarRes.leftImageId);
         }
-        if (actionBarRes.logoImageId == 0)
+        if (actionBarRes.mainImageId == 0)
         {
-            if (!StringUtils.isEmpty(actionBarRes.logoImageDrawable))
+            if (!StringUtils.isEmpty(actionBarRes.mainImageDrawable))
             {
-                setLogoImage(actionBarRes.logoImageDrawable);
+                setMianImage(actionBarRes.mainImageDrawable);
             }
-        }
-        else
+        } else
         {
-            setLogoImage(actionBarRes.logoImageId);
+            setMianImage(actionBarRes.mainImageId);
         }
 
         if (actionBarRes.rightImageId == 0)
         {
             if (!StringUtils.isEmpty(actionBarRes.rightImageDrawable))
             {
-                setMenuImage(actionBarRes.rightImageDrawable);
+                setRightImage(actionBarRes.rightImageDrawable);
             }
-        }
-        else
+        } else
         {
-            setMenuImage(actionBarRes.rightImageId);
+            setRightImage(actionBarRes.rightImageId);
         }
     }
 
@@ -124,78 +127,78 @@ public abstract class BaseFragment extends YHFragment
      *
      * @param text
      */
-    protected void setTitle(CharSequence text)
+    protected void setMainTitle(CharSequence text)
     {
         if (outsideAty != null)
         {
-            outsideAty.mTvTitle.setText(text);
+            outsideAty.toolbar.setMainTitle(text);
         }
     }
 
     /**
-     * 设置返回键图标
+     * 设置左边键图标
      */
-    protected void setBackImage(int resId)
+    protected void seLeftImage(int resId)
     {
         if (outsideAty != null)
         {
-            outsideAty.toolbar.setNavigationIcon(resId);
+            outsideAty.toolbar.setLeftTitleDrawable(resId);
         }
     }
 
     /**
-     * 设置返回键图标
+     * 设置左边键图标
      */
-    protected void setBackImage(Drawable drawable)
+    protected void seLeftImage(Drawable drawable)
     {
         if (outsideAty != null)
         {
-            outsideAty.toolbar.setNavigationIcon(drawable);
-        }
-    }
-
-    /**
-     * 设置标题右边图标
-     */
-    protected void setMenuImage(int resId)
-    {
-        if (outsideAty != null)
-        {
-            outsideAty.toolbar_right.setImageResource(resId);
+            outsideAty.toolbar.setLeftTitleDrawable(drawable);
         }
     }
 
     /**
      * 设置标题右边图标
      */
-    protected void setMenuImage(Drawable drawable)
+    protected void setRightImage(int resId)
     {
         if (outsideAty != null)
         {
-            outsideAty.toolbar_right.setImageDrawable(drawable);
+            outsideAty.toolbar.setRightTitleDrawable(resId);
+        }
+    }
+
+    /**
+     * 设置标题右边图标
+     */
+    protected void setRightImage(Drawable drawable)
+    {
+        if (outsideAty != null)
+        {
+            outsideAty.toolbar.setRightTitleDrawable(drawable);
         }
     }
 
 
     /**
-     * 设置标题logo图标
+     * 设置中间图标
      */
-    protected void setLogoImage(int resId)
+    protected void setMianImage(int resId)
     {
         if (outsideAty != null)
         {
-            outsideAty.toolbar_logo.setImageResource(resId);
+            outsideAty.toolbar.setMainTitleDrawable(resId);
         }
     }
 
     /**
-     * 设置标题logo图标
+     * 设置中间图标
      */
-    protected void setLogoImage(Drawable drawable)
+    protected void setMianImage(Drawable drawable)
     {
         if (outsideAty != null)
         {
-            outsideAty.toolbar_logo.setImageDrawable(drawable);
+            outsideAty.toolbar.setMainTitleDrawable(drawable);
         }
     }
 }

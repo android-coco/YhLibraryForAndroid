@@ -1,20 +1,22 @@
 <resources>
-
+    <!--
+        //要设置主题，隐藏原来自带的，我是直接在style中设置了
+        //Theme.AppCompat.Light.NoActionBar
+        //或者代码设置
+        //如果你不想改主题，可以在BaseActivity中添加这段代码，在onCreate中，setContentView之前
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
+        //如果是继承Activity就应该调用requestWindowFeature(Window.FEATURE_NO_TITLE)）；
+        colorPrimary 对应标题栏，也就是toolbar的颜色
+        colorPrimaryDark对应状态栏的颜色
+        colorAccent 对应一些控件，像输入框编辑，RadioButton选中、CheckBox等选中时的颜色。
+        -->
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="AppTheme" parent="@style/BaseAppTheme">
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
-
 </resources>

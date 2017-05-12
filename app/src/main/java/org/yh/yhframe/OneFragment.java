@@ -21,9 +21,8 @@ public class OneFragment extends BaseFragment
     @Override
     protected void setActionBarRes(ActionBarRes actionBarRes)
     {
-        actionBarRes.title = TAG;
-        actionBarRes.backImageId = R.mipmap.icon_left_menu;
-        actionBarRes.logoImageId = R.mipmap.logo_white_210;
+        actionBarRes.title = "One";
+        actionBarRes.mainImageId = R.mipmap.logo_white_210;
         actionBarRes.rightImageId = R.mipmap.icon_home_menu_more;
     }
 
@@ -34,12 +33,6 @@ public class OneFragment extends BaseFragment
         LogUtils.e(TAG,"OneFragment onChange()");
     }
 
-    @Override
-    protected void onBackClick()
-    {
-        super.onBackClick();
-        Toast.makeText(outsideAty, "返回键", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     protected void onMenuClick()

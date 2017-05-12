@@ -36,6 +36,10 @@ public class MainActivity extends BaseActiciy
     public void initWidget()
     {
         super.initWidget();
+        toolbar.setLeftTitleText("返回");
+        toolbar.setMainTitle("主页");
+        toolbar.setMainTitleDrawable(R.mipmap.logo_white_210);
+        toolbar.setRightTitleDrawable(R.mipmap.icon_home_menu_more);
     }
 
     @Override
@@ -110,6 +114,8 @@ public class MainActivity extends BaseActiciy
         super.onMenuClick();
         Toast.makeText(MainActivity.this, "更多被点击", Toast.LENGTH_SHORT).show();
     }
+
+
 
     @Override
     public void requestPermissionSuccess()

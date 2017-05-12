@@ -155,5 +155,19 @@ public class DemoActivity extends BaseActiciy
         return true;
     }
 
+    @Override
+    protected void onMenuClick()
+    {
+        super.onMenuClick();
+        Snackbar.make(view, "onMenuClick", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
 
+    @Override
+    protected void onBackClick()
+    {
+        super.onBackClick();
+        Snackbar.make(view, "onBackClick", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
 }
