@@ -16,7 +16,6 @@ import java.util.Map;
 
 public class JsonUitl
 {
-    private static Gson mGson = new Gson();
 
     /**
      * 将json字符串转化成实体对象
@@ -25,7 +24,7 @@ public class JsonUitl
      * @param classOfT
      * @return
      */
-    public static Object stringToObject(String json, Class classOfT)
+    public static Object stringToObject(Gson mGson,String json, Class classOfT)
     {
         return mGson.fromJson(json, classOfT);
     }
@@ -37,9 +36,22 @@ public class JsonUitl
      * @param <T>
      * @return
      */
-    public static <T> String objectToString(T object)
+    public static <T> String objectToString(Gson mGson,T object)
     {
         return mGson.toJson(object);
+    }
+
+    /**
+     * 把json 字符串转化成Objct
+     *
+     * @param json
+     * @param cls
+     * @param <T>
+     * @return
+     */
+    public static <T> T stringToT(Gson mGson,String json, Class<T> cls)
+    {
+        return mGson.fromJson(json,cls);
     }
 
     /**
@@ -50,7 +62,7 @@ public class JsonUitl
      * @param <T>
      * @return
      */
-    public static <T> List<T> stringToList(String json, Class<T> cls)
+    public static <T> List<T> stringToList(Gson mGson,String json, Class<T> cls)
     {
         List<T> list = new ArrayList<>();
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
@@ -67,7 +79,7 @@ public class JsonUitl
      * @param json
      * @return
      */
-    public static Map<String, Object> stringToMap(String json)
+    public static Map<String, Object> stringToMap(Gson mGson,String json)
     {
         Map<String, Object> retMap = mGson.fromJson(json,
                 new TypeToken<Map<String, List<Object>>>()

@@ -7,16 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import org.yh.library.okhttp.YHOkHttp;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
-import org.yh.library.utils.JsonUitl;
 import org.yh.library.utils.LogUtils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends BaseActiciy
@@ -50,7 +46,7 @@ public class MainActivity extends BaseActiciy
         params.put("user", "123456");
         params.put("pass", "123456");
         //网络请求简单操作
-        YHOkHttp.post("http://192.168.0.197:8080/Ci/api/Login/login", "", params, new HttpCallBack()
+        YHOkHttp.post("http://192.168.0.3/Ci/api/Login/login", "", params, new HttpCallBack()
         {
             @Override
             public void onSuccess(String t)
@@ -59,25 +55,6 @@ public class MainActivity extends BaseActiciy
                 LogUtils.e(TAG, t);
                 //User user = (User)JsonUitl.stringToObject(t,User.class);
                 //LogUtils.e(TAG, user.getResult());
-                Gson gson = new Gson();
-//                Map<String, Object> retMap = gson.fromJson(t,
-//                        new TypeToken<Map<String, List<Object>>>()
-//                        {
-//                        }.getType());
-                Map<String, Object> retMap = JsonUitl.stringToMap(t);
-                for (String key : retMap.keySet())
-                {
-                    LogUtils.e(TAG, "key:" + key + " values:" + retMap.get(key));
-                    if (key.equals("students"))
-                    {
-                        List<Student> stuList = (List<Student>) retMap.get(key);
-                        LogUtils.e(TAG, stuList);
-                    } else if (key.equals("teachers"))
-                    {
-                        List<Teacher> tchrList = (List<Teacher>) retMap.get(key);
-                        LogUtils.e(TAG, tchrList);
-                    }
-                }
             }
 
             @Override

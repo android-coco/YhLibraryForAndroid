@@ -1,10 +1,11 @@
-package org.yh.yhframe;
+package org.yh.yhframe.app;
 
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 
+import com.google.gson.Gson;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -24,6 +25,7 @@ import org.yh.library.utils.CrashHandler;
 import org.yh.library.utils.DensityUtils;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
+import org.yh.yhframe.R;
 
 import java.util.concurrent.TimeUnit;
 
@@ -48,6 +50,7 @@ public class MyApplication extends Application
     public static int width = 1080;
     public static int height = 960;
     private Handler mHandler = new Handler();
+    public Gson yhGson = null;
     @Override
     public void onCreate()
     {
@@ -92,8 +95,8 @@ public class MyApplication extends Application
 
         if (!StringUtils.isEmpty(mInstance))
         {
-
-
+            //Gson解析
+            yhGson = new Gson();
             // 图片缓存框架初始化
             initImageLoader(mInstance);
             // 网络框架初始化

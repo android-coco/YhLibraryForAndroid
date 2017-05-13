@@ -4,7 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.yh.yhframe.bean.MenuModel;
 
 import java.util.ArrayList;
 
@@ -14,9 +19,9 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
 {
-    public ArrayList<String> datas = null;
+    public ArrayList<MenuModel> datas = null;
 
-    public MyAdapter(ArrayList<String> datas)
+    public MyAdapter(ArrayList<MenuModel> datas)
     {
         this.datas = datas;
     }
@@ -27,14 +32,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
     {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup,
                 false);
-        return new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        //点击事件
+        return holder;
     }
 
     //将数据与界面进行绑定的操作
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position)
     {
-        viewHolder.mTextView.setText(datas.get(position));
+        MenuModel menuModel = datas.get(position);
+        viewHolder.menu_name.setText(menuModel.getMenuname());
+        viewHolder.menu_price.setText(menuModel.getPrice() + " 元");
+        ImageLoader.getInstance().displayImage(menuModel.getPic(), viewHolder.menu_pic);
     }
 
     //获取数据的数量
@@ -47,12 +57,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        public TextView mTextView;
-
+        public TextView menu_name;//菜品名称
+        public TextView menu_price;//菜品价格
+        public ImageView menu_pic;//菜品图片
         public ViewHolder(View view)
         {
             super(view);
-            mTextView = (TextView) view.findViewById(R.id.text);
+            menu_name = (TextView) view.findViewById(R.id.menu_name);
+            menu_price = (TextView) view.findViewById(R.id.menu_price);
+            menu_pic = (ImageView) view.findViewById(R.id.menu_pic);
         }
     }
 }

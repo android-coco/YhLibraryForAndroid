@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import org.yh.library.YHFragment;
 import org.yh.library.utils.StringUtils;
+import org.yh.yhframe.app.MyApplication;
 
 /**
  * 具有ActionBar的Activity的基类
@@ -49,6 +50,51 @@ public abstract class BaseFragment extends YHFragment
     public void onResume()
     {
         super.onResume();
+        setActionBarRes(actionBarRes);
+        if (!StringUtils.isEmpty(actionBarRes.title))
+        {
+            setMainTitle(actionBarRes.title);
+        }else
+        {
+            setMainTitle("标题");
+        }
+        if (actionBarRes.leftImageId == 0)
+        {
+            if (!StringUtils.isEmpty(actionBarRes.leftImageDrawable))
+            {
+                seLeftImage(actionBarRes.leftImageDrawable);
+            }
+        } else
+        {
+            seLeftImage(actionBarRes.leftImageId);
+        }
+        if (actionBarRes.mainImageId == 0)
+        {
+            if (!StringUtils.isEmpty(actionBarRes.mainImageDrawable))
+            {
+                setMianImage(actionBarRes.mainImageDrawable);
+            }
+        } else
+        {
+            setMianImage(actionBarRes.mainImageId);
+        }
+
+        if (actionBarRes.rightImageId == 0)
+        {
+            if (!StringUtils.isEmpty(actionBarRes.rightImageDrawable))
+            {
+                setRightImage(actionBarRes.rightImageDrawable);
+            }
+        } else
+        {
+            setRightImage(actionBarRes.rightImageId);
+        }
+    }
+
+    @Override
+    public void onChange()
+    {
+        super.onChange();
         setActionBarRes(actionBarRes);
         if (!StringUtils.isEmpty(actionBarRes.title))
         {

@@ -1,4 +1,4 @@
-package org.yh.yhframe;
+package org.yh.yhframe.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.yh.library.utils.DensityUtils;
+import org.yh.yhframe.R;
 
 /**
  * Created by yhlyl on 2017/5/11.
