@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import org.yh.library.okhttp.YHOkHttp;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
+import org.yh.library.utils.Constants;
 import org.yh.library.utils.JsonUitl;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
@@ -111,6 +112,7 @@ public class YHRecyclerviewActivity extends BaseActiciy
             public void onFinish()
             {
                 super.onFinish();
+                Constants.Config.yhDBManager.insertAll(menuModelListList);
             }
         }, TAG);
     }
