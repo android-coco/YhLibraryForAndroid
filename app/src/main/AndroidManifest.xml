@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -24,8 +24,8 @@
             android:name=".DemoActivity"
             android:label="@string/title_activity_demo">
         </activity>
-        <activity android:name=".YHRecyclerviewActivity">
-        </activity>
+        <activity android:name=".YHRecyclerviewActivity"/>
+        <activity android:name=".HTML5WebViewCustomAD"/>
     </application>
 
 </manifest>

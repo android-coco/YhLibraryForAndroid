@@ -13,7 +13,7 @@ import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
 import org.yh.library.view.YHRecyclerView;
 import org.yh.library.view.yhrecyclerview.ProgressStyle;
-import org.yh.library.view.yhrecyclerview.YHItemClickListener;
+import org.yh.library.adapter.I_YHItemClickListener;
 import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.bean.JsonMenuModel;
 import org.yh.yhframe.bean.MenuModel;
@@ -21,14 +21,13 @@ import org.yh.yhframe.utils.ToastUtils;
 
 import java.util.ArrayList;
 
-public class YHRecyclerviewActivity extends BaseActiciy
+public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClickListener<MenuModel>
 {
     @BindView(id = R.id.recyclerview)
     private YHRecyclerView mRecyclerView;
     @BindView(id = R.id.empty_layout)
     private LinearLayout empty_layout;
     private MyAdapter mAdapter;
-    private ArrayList<MenuModel> menuModelListList;
     private int page = 0;
     private String url = "";
     private boolean isRefresh = true;//是否上拉刷新
@@ -49,9 +48,9 @@ public class YHRecyclerviewActivity extends BaseActiciy
     private void getDataByLine()
     {
         //家里
-        //url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
+        url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
         //公司
-        url = "http://192.168.0.197:8080/Ci/api/menu/menulist?page=" + page;
+        //url = "http://192.168.0.197:8080/Ci/api/menu/menulist?page=" + page;
         YHOkHttp.get(url, "", new HttpCallBack()
         {
             @Override
@@ -66,28 +65,17 @@ public class YHRecyclerviewActivity extends BaseActiciy
                     ArrayList<MenuModel> list = (ArrayList<MenuModel>) jsonMenuModel.getDatas();
                     if (isRefresh)
                     {
-                        menuModelListList.clear();//必须在数据更新前清空，不能太早
+                        mAdapter.getDatas().clear();//必须在数据更新前清空，不能太早
                         if (!StringUtils.isEmpty(list))
                         {
-                            for (int i = 0; i < list.size(); i++)
-                            {
-                                menuModelListList.add(list.get(i));
-                            }
+                            mAdapter.setDatas(list);
+                            //刷新完毕
+                            mRecyclerView.refreshComplete();
                         }
-                        //刷新完毕
-                        mRecyclerView.refreshComplete();
-                        mAdapter.notifyDataSetChanged();
                     } else
                     {
                         if (!StringUtils.isEmpty(list))
                         {
-                            for (int i = 0; i < list.size(); i++)
-                            {
-                                menuModelListList.add(list.get(i));
-                            }
-                            //加载完毕
-                            mRecyclerView.loadMoreComplete();
-                            mAdapter.notifyDataSetChanged();
                             //每页数据16条,如果少于16条代表没有更多数据
                             //让用户少刷新一次
                             if (list.size() < 16)
@@ -95,6 +83,11 @@ public class YHRecyclerviewActivity extends BaseActiciy
                                 //没有更多
                                 mRecyclerView.setNoMore(true);
                                 mAdapter.notifyDataSetChanged();
+                            }else
+                            {
+                                mAdapter.addDatas(list);
+                                //加载完毕
+                                mRecyclerView.loadMoreComplete();
                             }
                         } else
                         {
@@ -105,7 +98,7 @@ public class YHRecyclerviewActivity extends BaseActiciy
                     }
                 } else
                 {
-                    menuModelListList.clear();//必须在数据更新前清空，不能太早
+                    mAdapter.getDatas().clear();//必须在数据更新前清空，不能太早
                     //刷新完毕
                     mRecyclerView.refreshComplete();
                     mAdapter.notifyDataSetChanged();
@@ -117,7 +110,7 @@ public class YHRecyclerviewActivity extends BaseActiciy
             {
                 super.onFailure(errorNo, strMsg);
                 LogUtils.e(TAG, strMsg);
-                menuModelListList.clear();//必须在数据更新前清空，不能太早
+                mAdapter.getDatas().clear();//必须在数据更新前清空，不能太早
                 //刷新完毕
                 mRecyclerView.refreshComplete();
                 mAdapter.notifyDataSetChanged();
@@ -127,7 +120,7 @@ public class YHRecyclerviewActivity extends BaseActiciy
             public void onFinish()
             {
                 super.onFinish();
-                Constants.Config.yhDBManager.insertAll(menuModelListList);
+                Constants.Config.yhDBManager.insertAll(mAdapter.getDatas());
             }
         }, TAG);
     }
@@ -153,26 +146,8 @@ public class YHRecyclerviewActivity extends BaseActiciy
         mRecyclerView.setFootViewText(getString(R.string.listview_loading), "没有更多");
         //mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
 
-
-
-
-        menuModelListList = new ArrayList<>();
-        mAdapter = new MyAdapter(menuModelListList);
-        mAdapter.setYhItemClickListener(new YHItemClickListener()
-        {
-            @Override
-            public void onItemClick(View view, int postion)
-            {
-                ToastUtils.showTips("点击：" + menuModelListList.get(postion).getMenuname());
-            }
-
-            @Override
-            public void onItemLongClick(View view, int postion)
-            {
-                ToastUtils.showTips("长按：" + menuModelListList.get(postion).getMenuname());
-            }
-        });
-
+        mAdapter = new MyAdapter();
+        mAdapter.setOnItemClickListener(this);
 
         mRecyclerView.setLoadingListener(new YHRecyclerView.LoadingListener()
         {
@@ -203,5 +178,17 @@ public class YHRecyclerviewActivity extends BaseActiciy
     {
         super.onBackClick();
         finish();
+    }
+
+    @Override
+    public void onItemLongClick(View view, MenuModel data)
+    {
+        ToastUtils.showTips("点击了：" + data.getMenuname());
+    }
+
+    @Override
+    public void onItemClick(View view, MenuModel data)
+    {
+        ToastUtils.showTips("长按：" + data.getMenuname());
     }
 }

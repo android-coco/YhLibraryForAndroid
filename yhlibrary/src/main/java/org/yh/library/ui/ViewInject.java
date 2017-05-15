@@ -83,7 +83,7 @@ public class ViewInject {
      *
      * @param msg
      */
-    public static void longToast(Context context, String msg) {
+    private static void longToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 
@@ -92,7 +92,7 @@ public class ViewInject {
      *
      * @param msg
      */
-    public static void toast(Context context, String msg) {
+    private static void toast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -113,7 +113,6 @@ public class ViewInject {
         builder.setPositiveButton("确定", l);
         builder.create();
         builder.show();
-        builder = null;
     }
 
     /**
