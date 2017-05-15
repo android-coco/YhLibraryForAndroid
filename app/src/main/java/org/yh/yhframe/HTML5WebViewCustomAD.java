@@ -10,8 +10,8 @@ import android.view.MotionEvent;
 import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 
+import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.StringUtils;
-import org.yh.yhframe.utils.ToastUtils;
 import org.yh.yhframe.view.YHWebView;
 
 /**
@@ -183,11 +183,11 @@ public class HTML5WebViewCustomAD extends BaseActiciy
             if (productId != null)
             {
                 //进行跳转商品详情
-                ToastUtils.showTips("点击的商品的ID为:" + productId);
+                YHViewInject.create().showTips("点击的商品的ID为:" + productId);
             }
             else
             {
-                ToastUtils.showTips("商品ID为空!");
+                YHViewInject.create().showTips("商品ID为空!");
             }
         }
     }

@@ -4,20 +4,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.yh.library.adapter.I_YHItemClickListener;
 import org.yh.library.okhttp.YHOkHttp;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
+import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.JsonUitl;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
 import org.yh.library.view.YHRecyclerView;
 import org.yh.library.view.yhrecyclerview.ProgressStyle;
-import org.yh.library.adapter.I_YHItemClickListener;
 import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.bean.JsonMenuModel;
 import org.yh.yhframe.bean.MenuModel;
-import org.yh.yhframe.utils.ToastUtils;
 
 import java.util.ArrayList;
 
@@ -183,12 +183,12 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     @Override
     public void onItemLongClick(View view, MenuModel data)
     {
-        ToastUtils.showTips("点击了：" + data.getMenuname());
+        YHViewInject.create().showTips("点击了：" + data.getMenuname());
     }
 
     @Override
     public void onItemClick(View view, MenuModel data)
     {
-        ToastUtils.showTips("长按：" + data.getMenuname());
+        YHViewInject.create().showTips("长按：" + data.getMenuname());
     }
 }

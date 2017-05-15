@@ -10,8 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.yh.library.ui.BindView;
+import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
-import org.yh.yhframe.utils.ToastUtils;
+
 public class TwoFragment extends BaseFragment
 {
     private static final int REQUECT_CODE_SDCARD = 1;
@@ -47,7 +48,7 @@ public class TwoFragment extends BaseFragment
         switch (v.getId())
         {
             case R.id.two_txt:
-                ToastUtils.showTips("授权开始");
+                YHViewInject.create().showTips("授权开始");
                 requestPermission(Manifest.permission.ACCESS_NETWORK_STATE, REQUECT_CODE_SDCARD);
                 break;
         }
@@ -61,12 +62,12 @@ public class TwoFragment extends BaseFragment
         {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
-                ToastUtils.showTips("授权成功");
+                YHViewInject.create().showTips("授权成功");
                 outsideAty.showActivity(outsideAty, HTML5WebViewCustomAD.class);
             }
             else
             {
-                ToastUtils.showTips( "您没有授权该权限，请在设置中打开授权");
+                YHViewInject.create().showTips( "您没有授权该权限，请在设置中打开授权");
             }
         }
     }

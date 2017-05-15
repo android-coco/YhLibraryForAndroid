@@ -33,6 +33,7 @@ import org.yh.library.ui.I_BroadcastReg;
 import org.yh.library.ui.I_SkipActivity;
 import org.yh.library.ui.I_YHActivity;
 import org.yh.library.ui.YHActivityStack;
+import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
 
 import java.lang.ref.SoftReference;
@@ -267,7 +268,8 @@ public abstract class YHActivity extends AppCompatActivity implements
         callback = null;
         threadHandle = null;
         aty = null;
-        YHOkHttp.cancel(TAG);
+        YHOkHttp.cancel(TAG);//取消网络请求
+        YHViewInject.create().disMisTip();
         EventBus.getDefault().unregister(this);
     }
 

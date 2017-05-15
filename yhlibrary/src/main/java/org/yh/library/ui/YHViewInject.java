@@ -36,13 +36,15 @@ import org.yh.library.utils.StringUtils;
  *
  * @author yh (https://github.com/android-coco)
  */
-public class ViewInject {
+public class YHViewInject
+{
 
-    private ViewInject() {
+    public  Toast tipsToast = null;
+    private YHViewInject() {
     }
 
     private static class ClassHolder {
-        private static final ViewInject instance = new ViewInject();
+        private static final YHViewInject instance = new YHViewInject();
     }
 
     /**
@@ -50,50 +52,62 @@ public class ViewInject {
      *
      * @return 本类的对象
      */
-    public static ViewInject create() {
+    public static YHViewInject create() {
         return ClassHolder.instance;
     }
 
     /**
-     * 显示一个toast
-     *
-     * @param msg
+     * @param @param tips 文件资源ID
+     * @return void 返回类型
+     * @throws
+     * @Title: showTips
+     * @Description: 文字资源 提示
      */
-    public static void toast(String msg) {
-        try {
-            toast(YHActivityStack.create().topActivity(), msg);
-        } catch (Exception e) {
+    public void showTips(int tips)
+    {
+        showTips(YHActivityStack.create().topActivity().getString(tips));
+    }
+
+    /**
+     * @param @param tips 字符串文字
+     * @return void 返回类型
+     * @throws
+     * @Title: showTips
+     * @Description: 字符串提示
+     */
+    public  void showTips(String tips)
+    {
+        showTips(0, tips);
+    }
+
+    /**
+     * @param @param iconResId 图片ID
+     * @param @param tips 文字ID
+     * @return void 返回类型
+     * @throws
+     * @Title: showTips
+     * @Description:
+     */
+    public  void showTips(int iconResId, String tips)
+    {
+        if (StringUtils.isEmpty(tipsToast))
+        {
+            tipsToast = Toast.makeText(YHActivityStack.create().topActivity(), tips, Toast.LENGTH_SHORT);
+        } else
+        {
+            tipsToast.setText(tips);
+            tipsToast.setDuration(Toast.LENGTH_SHORT);
         }
+        tipsToast.show();
     }
 
-    /**
-     * 长时间显示一个toast
-     *
-     * @param msg
-     */
-    public static void longToast(String msg) {
-        try {
-            longToast(YHActivityStack.create().topActivity(), msg);
-        } catch (Exception e) {
+    public  void disMisTip()
+    {
+        if (!StringUtils.isEmpty(tipsToast))
+        {
+            tipsToast.cancel();
+            tipsToast = null;
         }
-    }
-
-    /**
-     * 长时间显示一个toast
-     *
-     * @param msg
-     */
-    private static void longToast(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * 显示一个toast
-     *
-     * @param msg
-     */
-    private static void toast(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**

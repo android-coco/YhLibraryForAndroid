@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.yh.library.ui.BindView;
+import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
 
 public class OneFragment extends BaseFragment
@@ -53,6 +53,6 @@ public class OneFragment extends BaseFragment
     protected void onMenuClick()
     {
         super.onMenuClick();
-        Toast.makeText(outsideAty, "菜单键", Toast.LENGTH_SHORT).show();
+        YHViewInject.create().showTips("菜单键");
     }
 }
