@@ -18,13 +18,13 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback
     public static final float ALPHA_FULL = 1.0f;
 
     private final ItemTouchHelperAdapter mAdapter;
-    private YHRecyclerView mXrecyclerView;
+    private YHRecyclerView mYHrecyclerView;
 
     public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter, YHRecyclerView
             recyclerView)
     {
         mAdapter = adapter;
-        this.mXrecyclerView = recyclerView;
+        this.mYHrecyclerView = recyclerView;
     }
 
     @Override

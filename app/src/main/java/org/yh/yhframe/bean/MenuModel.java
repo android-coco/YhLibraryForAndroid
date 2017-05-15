@@ -12,7 +12,7 @@ import org.yh.library.bean.YHModel;
 @Table("_menu")
 public class MenuModel extends YHModel
 {
-    public static final String BASE_IMG_URL = "http://image.51efan.me";
+    public static final String BASE_IMG_URL = "http://image.51efan.com";
     public static final String COL_MENUID = "_menuid";
     public static final String COL_NAME = "_menuname";
     public static final String COL_PIC = "_pic";

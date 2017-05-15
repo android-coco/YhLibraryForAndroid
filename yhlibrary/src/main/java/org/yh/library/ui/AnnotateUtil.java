@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import java.lang.reflect.Field;
-
 /**
  * 注解工具类<br>
  * 

@@ -1,11 +1,14 @@
 package org.yh.library.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -126,8 +129,7 @@ public class YHRecyclerView extends RecyclerView
                 .contains(itemViewType))
         {
             return true;
-        }
-        else
+        } else
         {
             return false;
         }
@@ -144,8 +146,7 @@ public class YHRecyclerView extends RecyclerView
         if (mFootView instanceof LoadingMoreFooter)
         {
             ((LoadingMoreFooter) mFootView).setState(LoadingMoreFooter.STATE_COMPLETE);
-        }
-        else
+        } else
         {
             mFootView.setVisibility(View.GONE);
         }
@@ -159,8 +160,7 @@ public class YHRecyclerView extends RecyclerView
         {
             ((LoadingMoreFooter) mFootView).setState(isNoMore ? LoadingMoreFooter.STATE_NOMORE :
                     LoadingMoreFooter.STATE_COMPLETE);
-        }
-        else
+        } else
         {
             mFootView.setVisibility(View.GONE);
         }
@@ -263,8 +263,7 @@ public class YHRecyclerView extends RecyclerView
         if (mWrapAdapter != null)
         {
             return mWrapAdapter.getOriginalAdapter();
-        }
-        else
+        } else
         {
             return null;
         }
@@ -307,14 +306,12 @@ public class YHRecyclerView extends RecyclerView
             {
                 lastVisibleItemPosition = ((GridLayoutManager) layoutManager)
                         .findLastVisibleItemPosition();
-            }
-            else if (layoutManager instanceof StaggeredGridLayoutManager)
+            } else if (layoutManager instanceof StaggeredGridLayoutManager)
             {
                 int[] into = new int[((StaggeredGridLayoutManager) layoutManager).getSpanCount()];
                 ((StaggeredGridLayoutManager) layoutManager).findLastVisibleItemPositions(into);
                 lastVisibleItemPosition = findMax(into);
-            }
-            else
+            } else
             {
                 lastVisibleItemPosition = ((LinearLayoutManager) layoutManager)
                         .findLastVisibleItemPosition();
@@ -328,8 +325,7 @@ public class YHRecyclerView extends RecyclerView
                 if (mFootView instanceof LoadingMoreFooter)
                 {
                     ((LoadingMoreFooter) mFootView).setState(LoadingMoreFooter.STATE_LOADING);
-                }
-                else
+                } else
                 {
                     mFootView.setVisibility(View.VISIBLE);
                 }
@@ -400,8 +396,7 @@ public class YHRecyclerView extends RecyclerView
         if (mRefreshHeader.getParent() != null)
         {
             return true;
-        }
-        else
+        } else
         {
             return false;
         }
@@ -427,8 +422,7 @@ public class YHRecyclerView extends RecyclerView
                 {
                     mEmptyView.setVisibility(View.VISIBLE);
                     YHRecyclerView.this.setVisibility(View.GONE);
-                }
-                else
+                } else
                 {
 
                     mEmptyView.setVisibility(View.GONE);
@@ -468,8 +462,6 @@ public class YHRecyclerView extends RecyclerView
         }
     }
 
-    ;
-
     private class WrapAdapter extends Adapter<ViewHolder>
     {
 
@@ -495,8 +487,7 @@ public class YHRecyclerView extends RecyclerView
             if (loadingMoreEnabled)
             {
                 return position == getItemCount() - 1;
-            }
-            else
+            } else
             {
                 return false;
             }
@@ -518,12 +509,10 @@ public class YHRecyclerView extends RecyclerView
             if (viewType == TYPE_REFRESH_HEADER)
             {
                 return new SimpleViewHolder(mRefreshHeader);
-            }
-            else if (isHeaderType(viewType))
+            } else if (isHeaderType(viewType))
             {
                 return new SimpleViewHolder(getHeaderViewByType(viewType));
-            }
-            else if (viewType == TYPE_FOOTER)
+            } else if (viewType == TYPE_FOOTER)
             {
                 return new SimpleViewHolder(mFootView);
             }
@@ -567,8 +556,7 @@ public class YHRecyclerView extends RecyclerView
                     if (payloads.isEmpty())
                     {
                         adapter.onBindViewHolder(holder, adjPosition);
-                    }
-                    else
+                    } else
                     {
                         adapter.onBindViewHolder(holder, adjPosition, payloads);
                     }
@@ -584,19 +572,16 @@ public class YHRecyclerView extends RecyclerView
                 if (adapter != null)
                 {
                     return getHeadersCount() + adapter.getItemCount() + 2;
-                }
-                else
+                } else
                 {
                     return getHeadersCount() + 2;
                 }
-            }
-            else
+            } else
             {
                 if (adapter != null)
                 {
                     return getHeadersCount() + adapter.getItemCount() + 1;
-                }
-                else
+                } else
                 {
                     return getHeadersCount() + 1;
                 }
@@ -629,7 +614,7 @@ public class YHRecyclerView extends RecyclerView
                     int type = adapter.getItemViewType(adjPosition);
                     if (isReservedItemViewType(type))
                     {
-                        throw new IllegalStateException("XRecyclerView require itemViewType in " +
+                        throw new IllegalStateException("YHRecyclerView require itemViewType in " +
                                 "adapter should be less than 10000 ");
                     }
                     return type;
@@ -791,11 +776,23 @@ public class YHRecyclerView extends RecyclerView
         }
     }
 
-    public class DividerItemDecoration extends ItemDecoration
+    //分割线
+    public class YHItemDecoration extends ItemDecoration
     {
 
         private Drawable mDivider;
-        private int mOrientation;
+        private int mOrientation;//列表的方向：LinearLayoutManager.VERTICAL或LinearLayoutManager.HORIZONTAL
+        private Paint mPaint;
+        private int mDividerHeight = 2;//分割线高度，默认为1px
+        private final int[] ATTRS = new int[]{android.R.attr.listDivider};
+
+        //默认构造方法
+        public YHItemDecoration()
+        {
+            final TypedArray a = getContext().obtainStyledAttributes(ATTRS);
+            mDivider = a.getDrawable(0);
+            a.recycle();
+        }
 
         /**
          * Sole constructor. Takes in a {@link Drawable} to be used as the interior
@@ -803,9 +800,35 @@ public class YHRecyclerView extends RecyclerView
          *
          * @param divider A divider {@code Drawable} to be drawn on the RecyclerView
          */
-        public DividerItemDecoration(Drawable divider)
+        public YHItemDecoration(Drawable divider)
         {
             mDivider = divider;
+        }
+
+
+        /**
+         * 自定义分割线
+         *
+         * @param drawableId 分割线图片
+         */
+        public YHItemDecoration(int drawableId)
+        {
+            mDivider = ContextCompat.getDrawable(getContext(), drawableId);
+            mDividerHeight = mDivider.getIntrinsicHeight();
+        }
+
+        /**
+         * 自定义分割线
+         *
+         * @param dividerHeight 分割线高度
+         * @param dividerColor  分割线颜色
+         */
+        public YHItemDecoration(int dividerHeight, int dividerColor)
+        {
+            mDividerHeight = dividerHeight;
+            mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mPaint.setColor(dividerColor);
+            mPaint.setStyle(Paint.Style.FILL);
         }
 
         /**
@@ -821,8 +844,7 @@ public class YHRecyclerView extends RecyclerView
             if (mOrientation == LinearLayoutManager.HORIZONTAL)
             {
                 drawHorizontalDividers(canvas, parent);
-            }
-            else if (mOrientation == LinearLayoutManager.VERTICAL)
+            } else if (mOrientation == LinearLayoutManager.VERTICAL)
             {
                 drawVerticalDividers(canvas, parent);
             }
@@ -850,11 +872,22 @@ public class YHRecyclerView extends RecyclerView
             mOrientation = ((LinearLayoutManager) parent.getLayoutManager()).getOrientation();
             if (mOrientation == LinearLayoutManager.HORIZONTAL)
             {
-                outRect.left = mDivider.getIntrinsicWidth();
-            }
-            else if (mOrientation == LinearLayoutManager.VERTICAL)
+                if (null != mDivider)
+                {
+                    outRect.left = mDivider.getIntrinsicWidth();
+                } else
+                {
+                    outRect.left = mDividerHeight;
+                }
+            } else if (mOrientation == LinearLayoutManager.VERTICAL)
             {
-                outRect.top = mDivider.getIntrinsicHeight();
+                if (null != mDivider)
+                {
+                    outRect.top = mDivider.getIntrinsicHeight();
+                } else
+                {
+                    outRect.top = mDividerHeight;
+                }
             }
         }
 
@@ -880,10 +913,19 @@ public class YHRecyclerView extends RecyclerView
                 LayoutParams params = (LayoutParams) child.getLayoutParams();
 
                 int parentLeft = child.getRight() + params.rightMargin;
-                int parentRight = parentLeft + mDivider.getIntrinsicWidth();
+                //int parentRight = parentLeft + mDivider.getIntrinsicWidth();
+                int parentRight = parentLeft + mDividerHeight;
 
-                mDivider.setBounds(parentLeft, parentTop, parentRight, parentBottom);
-                mDivider.draw(canvas);
+                if (mDivider != null)
+                {
+                    mDivider.setBounds(parentLeft, parentTop, parentRight, parentBottom);
+                    mDivider.draw(canvas);
+                }
+                if (mPaint != null)
+                {
+                    canvas.drawRect(parentLeft, parentTop, parentRight, parentBottom, mPaint);
+                }
+
             }
         }
 
@@ -909,10 +951,17 @@ public class YHRecyclerView extends RecyclerView
                 LayoutParams params = (LayoutParams) child.getLayoutParams();
 
                 int parentTop = child.getBottom() + params.bottomMargin;
-                int parentBottom = parentTop + mDivider.getIntrinsicHeight();
-
-                mDivider.setBounds(parentLeft, parentTop, parentRight, parentBottom);
-                mDivider.draw(canvas);
+                //int parentBottom = parentTop + mDivider.getIntrinsicHeight();
+                int parentBottom = parentTop + mDividerHeight;
+                if (mDivider != null)
+                {
+                    mDivider.setBounds(parentLeft, parentTop, parentRight, parentBottom);
+                    mDivider.draw(canvas);
+                }
+                if (mPaint != null)
+                {
+                    canvas.drawRect(parentLeft, parentTop, parentRight, parentBottom, mPaint);
+                }
             }
         }
     }

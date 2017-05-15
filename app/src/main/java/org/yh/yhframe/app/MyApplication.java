@@ -141,7 +141,7 @@ public class MyApplication extends Application
                 .showImageOnLoading(R.mipmap.ic_launcher)//加载中图片
                 .showImageForEmptyUri(R.mipmap.ic_launcher)//加载空URL图片
                 .showImageOnFail(R.mipmap.ic_launcher)//加载错误图片
-                .cacheInMemory(false).cacheOnDisk(false)
+                .cacheInMemory(true).cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .resetViewBeforeLoading(true).considerExifParams(false)
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
