@@ -18,7 +18,7 @@ import org.yh.library.view.yhrecyclerview.ProgressStyle;
 import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.bean.JsonMenuModel;
 import org.yh.yhframe.bean.MenuModel;
-import org.yh.yhframe.frame.BaseActiciy;
+import org.yh.yhframe.base.BaseActiciy;
 
 import java.util.ArrayList;
 

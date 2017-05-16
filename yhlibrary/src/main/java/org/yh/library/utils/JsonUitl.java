@@ -12,6 +12,7 @@ import java.util.Map;
 
 /**
  * Created by yhlyl on 2017/5/11.
+ * Gson处理json数据
  */
 
 public class JsonUitl

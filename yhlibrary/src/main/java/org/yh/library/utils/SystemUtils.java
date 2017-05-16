@@ -51,7 +51,8 @@ import java.util.List;
  * @version 1.1
  */
 @SuppressLint("SimpleDateFormat")
-public final class SystemTool {
+public final class SystemUtils
+{
     /**
      * 指定格式返回当前系统时间
      */
@@ -132,7 +133,7 @@ public final class SystemTool {
      * 仅wifi联网功能是否开启
      */
     public static boolean checkOnlyWifi(Context context) {
-        if (PreferenceHelper.readBoolean(context, Constants.SETTING_FILE,
+        if (PreferenceUtils.readBoolean(context, Constants.SETTING_FILE,
                 Constants.ONLY_WIFI)) {
             return isWiFi(context);
         } else {
@@ -226,7 +227,7 @@ public final class SystemTool {
             version = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), 0).versionName;
         } catch (NameNotFoundException e) {
-            throw new RuntimeException(SystemTool.class.getName()
+            throw new RuntimeException(SystemUtils.class.getName()
                     + "the application not found");
         }
         return version;
@@ -241,7 +242,7 @@ public final class SystemTool {
             version = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), 0).versionCode;
         } catch (NameNotFoundException e) {
-            throw new RuntimeException(SystemTool.class.getName()
+            throw new RuntimeException(SystemUtils.class.getName()
                     + "the application not found");
         }
         return version;
@@ -270,7 +271,7 @@ public final class SystemTool {
                     pkgName, PackageManager.GET_SIGNATURES);
             return hexdigest(pis.signatures[0].toByteArray());
         } catch (NameNotFoundException e) {
-            throw new RuntimeException(SystemTool.class.getName() + "the "
+            throw new RuntimeException(SystemUtils.class.getName() + "the "
                     + pkgName + "'s application not found");
         }
     }

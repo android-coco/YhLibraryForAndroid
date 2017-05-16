@@ -161,7 +161,7 @@ public class CrashHandler implements UncaughtExceptionHandler
 	@SuppressWarnings("deprecation")
 	private void dumpPhoneInfo(PrintWriter pw) throws NameNotFoundException
 	{
-//		String userName = PreferenceHelper.readString(AppConfig.user_xml,
+//		String userName = PreferenceUtils.readString(AppConfig.user_xml,
 //				"userName");
 //		User mUser = null;
 //		if (!StringUtils.isEmpty(Constants.Config.db))

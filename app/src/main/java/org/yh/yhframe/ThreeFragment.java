@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.yh.library.utils.LogUtils;
-import org.yh.yhframe.frame.BaseFragment;
+import org.yh.yhframe.base.BaseFragment;
 
 public class ThreeFragment extends BaseFragment
 {

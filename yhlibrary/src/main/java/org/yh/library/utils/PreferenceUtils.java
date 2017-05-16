@@ -32,7 +32,8 @@ import android.content.SharedPreferences.Editor;
  * 
  * @author yh (https://github.com/android-coco)
  */
-public class PreferenceHelper {
+public class PreferenceUtils
+{
     public static void write(Context context, String fileName, String k, int v) {
         SharedPreferences preference = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);

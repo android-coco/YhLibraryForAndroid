@@ -38,7 +38,7 @@ import org.yh.library.utils.LogUtils;
 
 import java.lang.ref.SoftReference;
 
-import static org.yh.library.utils.SystemTool.isGranted;
+import static org.yh.library.utils.SystemUtils.isGranted;
 
 /**
  * @author yh (https://github.com/android-coco) on 11/19/15.

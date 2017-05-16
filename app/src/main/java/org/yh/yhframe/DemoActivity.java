@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.yh.library.YHFragment;
-import org.yh.yhframe.frame.BaseActiciy;
+import org.yh.yhframe.base.BaseActiciy;
 
 public class DemoActivity extends BaseActiciy
         implements NavigationView.OnNavigationItemSelectedListener
