@@ -1,4 +1,4 @@
- # YhLibraryForAndroid
+# YhLibraryForAndroid
 Android实用框架采用MVC设计模式,多个项目经验总结,持续完善中
 
 包括：<br>
@@ -16,14 +16,13 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 ```
-# base包说明：
+#base包说明：
 ```
 1.BaseActiciy    所有Acticiy的基类
 2.BaseFragment   所有Fragment的基类
 ```
 # 对Utils的说明：
 ```
-
  1.PreferenceUtils.java   对SharedPreferences的封装
  2.CipherUtils.java       对常用加密方法进行整理
  3.Constants.java         全局常量
@@ -67,36 +66,36 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
  5.I_YHHolder<D>       Holder相关接口
  6.I_YHItemClickListener<T>   事件接口
 
-  LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-  layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-  mRecyclerView.addItemDecoration(mRecyclerView.new YHItemDecoration());//分割线
-  mRecyclerView.setLayoutManager(layoutManager);
-  mRecyclerView.setEmptyView(empty_layout);//没有数据的空布局
-  mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-  mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-  mRecyclerView.setFootViewText(getString(R.string.listview_loading), "没有更多");
- //mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
+         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+         mRecyclerView.addItemDecoration(mRecyclerView.new YHItemDecoration());//分割线
+         mRecyclerView.setLayoutManager(layoutManager);
+         mRecyclerView.setEmptyView(empty_layout);//没有数据的空布局
+         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+         mRecyclerView.setFootViewText(getString(R.string.listview_loading), "没有更多");
+         //mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
  
-  mAdapter = new MyAdapter();
-  mAdapter.setOnItemClickListener(this);
+         mAdapter = new MyAdapter();
+         mAdapter.setOnItemClickListener(this);
  
-  mRecyclerView.setLoadingListener(new YHRecyclerView.LoadingListener()
-    {
-     @Override
-     public void onRefresh()
-     {
-        //下拉
+         mRecyclerView.setLoadingListener(new YHRecyclerView.LoadingListener()
+         {
+             @Override
+             public void onRefresh()
+             {
+                 //下拉
+             }
+ 
+             @Override
+             public void onLoadMore()
+             {
+                //上拉
+             }
+         });
+         mRecyclerView.setAdapter(mAdapter);
+         mRecyclerView.refresh();
      }
- 
-      @Override
-      public void onLoadMore()
-      {
-         //上拉
-      }
-   });
-   mRecyclerView.setAdapter(mAdapter);
-   mRecyclerView.refresh();
-  }
    //刷新
    mAdapter.setDatas(list);
   //刷新完毕
@@ -111,7 +110,7 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
    //加载完毕
    mRecyclerView.loadMoreComplete();
  ```
- # 网络操作
+ #网络操作
  ```
  1.YHOkHttp.java
   YHOkHttp.get(url, "", new HttpCallBack()
