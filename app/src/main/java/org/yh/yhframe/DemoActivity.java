@@ -43,7 +43,7 @@ public class DemoActivity extends BaseActiciy
         super.initWidget();
 
         changeFragment(R.id.content,oneFragment);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = bindView(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -54,7 +54,7 @@ public class DemoActivity extends BaseActiciy
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = bindView(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -63,7 +63,7 @@ public class DemoActivity extends BaseActiciy
         //导航图标
         //toolbar.setNavigationIcon(R.mipmap.ic_launcher);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView =bindView(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
     }

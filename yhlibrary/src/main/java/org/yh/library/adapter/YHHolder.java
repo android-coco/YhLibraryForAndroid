@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import org.yh.library.ui.AnnotateUtil;
+
 /**
  * Created by yhlyl on 2017/5/15.
  * Holder的基类，都应该继承该类
@@ -34,6 +36,8 @@ public abstract class YHHolder<D> extends RecyclerView.ViewHolder implements I_Y
         super(itemView);
         this.context = context;
         this.adapter = adapter;
+        //绑定控件
+        AnnotateUtil.initBindView(this,itemView);
     }
 
     public void setData(D data)

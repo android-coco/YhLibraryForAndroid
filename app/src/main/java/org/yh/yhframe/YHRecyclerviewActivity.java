@@ -48,9 +48,9 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     private void getDataByLine()
     {
         //家里
-        url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
+        //url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
         //公司
-        //url = "http://192.168.0.197:8080/Ci/api/menu/menulist?page=" + page;
+        url = "http://192.168.0.197:8080/Ci/api/menu/menulist?page=" + page;
         YHOkHttp.get(url, "", new HttpCallBack()
         {
             @Override
@@ -183,12 +183,12 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     @Override
     public void onItemLongClick(View view, MenuModel data)
     {
-        YHViewInject.create().showTips("点击了：" + data.getMenuname());
+        YHViewInject.create().showTips("长按：" + data.getMenuname());
     }
 
     @Override
     public void onItemClick(View view, MenuModel data)
     {
-        YHViewInject.create().showTips("长按：" + data.getMenuname());
+        YHViewInject.create().showTips("点击了：" + data.getMenuname());
     }
 }

@@ -43,6 +43,7 @@ public abstract class YHAdapter<D> extends RecyclerView.Adapter<YHHolder> implem
             }
         }
         itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
         return createViewHolder(itemView, parent.getContext(), viewType);
     }
 

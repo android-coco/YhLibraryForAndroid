@@ -5,11 +5,9 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Button;
 
 import org.yh.library.okhttp.YHOkHttp;
 import org.yh.library.okhttp.callback.HttpCallBack;
-import org.yh.library.ui.BindView;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
 
@@ -20,9 +18,6 @@ public class MainActivity extends BaseActiciy
 {
 
     private static final int REQUECT_CODE_SDCARD = 1;
-    @BindView(id = R.id.menu, click = true)
-    Button menu;
-
     @Override
     public void setRootView()
     {
@@ -33,6 +28,7 @@ public class MainActivity extends BaseActiciy
     public void initWidget()
     {
         super.initWidget();
+        bindView(R.id.menu, true);
         toolbar.setLeftTitleText("返回");
         toolbar.setMainTitle("主页");
         toolbar.setMainTitleDrawable(R.mipmap.logo_white_210);

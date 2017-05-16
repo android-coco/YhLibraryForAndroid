@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
+import org.yh.library.ui.AnnotateUtil;
+import org.yh.library.ui.BindView;
 import org.yh.library.utils.DensityUtils;
 import org.yh.yhframe.R;
 
@@ -22,14 +24,17 @@ public class YhToolbar extends Toolbar
     /**
      * 左侧Title
      */
+    @BindView(id = R.id.txt_left_title)
     private TextView mTxtLeftTitle;
     /**
      * 中间Title
      */
+    @BindView(id = R.id.txt_main_title)
     private TextView mTxtMiddleTitle;
     /**
      * 右侧Title
      */
+    @BindView(id = R.id.txt_right_title)
     private TextView mTxtRightTitle;
 
 
@@ -52,9 +57,11 @@ public class YhToolbar extends Toolbar
     protected void onFinishInflate()
     {
         super.onFinishInflate();
-        mTxtLeftTitle = (TextView) findViewById(R.id.txt_left_title);
-        mTxtMiddleTitle = (TextView) findViewById(R.id.txt_main_title);
-        mTxtRightTitle = (TextView) findViewById(R.id.txt_right_title);
+        //绑定控件
+        AnnotateUtil.initBindView(this,getRootView());
+//        mTxtLeftTitle = (TextView) findViewById(R.id.txt_left_title);
+//        mTxtMiddleTitle = (TextView) findViewById(R.id.txt_main_title);
+//        mTxtRightTitle = (TextView) findViewById(R.id.txt_right_title);
     }
 
     //设置中间title的内容

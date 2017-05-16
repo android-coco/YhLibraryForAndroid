@@ -11,6 +11,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.yh.library.adapter.YHAdapter;
 import org.yh.library.adapter.YHHolder;
+import org.yh.library.ui.BindView;
 import org.yh.yhframe.bean.MenuModel;
 
 /**
@@ -40,16 +41,15 @@ public class MyAdapter extends YHAdapter<MenuModel>
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public class MyHolder extends YHHolder<MenuModel>
     {
+        @BindView(id = R.id.menu_name)
         public TextView menu_name;//菜品名称
+        @BindView(id = R.id.menu_price)
         public TextView menu_price;//菜品价格
+        @BindView(id = R.id.menu_pic)
         public ImageView menu_pic;//菜品图片
-
         public MyHolder(View itemView, Context context, RecyclerView.Adapter adapter)
         {
             super(itemView, context, adapter);
-            menu_name = (TextView) itemView.findViewById(R.id.menu_name);
-            menu_price = (TextView) itemView.findViewById(R.id.menu_price);
-            menu_pic = (ImageView) itemView.findViewById(R.id.menu_pic);
         }
         //将数据与界面进行绑定的操作
         @Override
