@@ -1,9 +1,10 @@
-package org.yh.yhframe;
+package org.yh.yhframe.frame;
 
 import android.os.Bundle;
 import android.view.View;
 
 import org.yh.library.YHActivity;
+import org.yh.yhframe.R;
 import org.yh.yhframe.view.YhToolbar;
 
 /**

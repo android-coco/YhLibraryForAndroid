@@ -10,6 +10,7 @@ import org.yh.library.okhttp.YHOkHttp;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
+import org.yh.yhframe.frame.BaseActiciy;
 
 import java.util.HashMap;
 import java.util.Map;

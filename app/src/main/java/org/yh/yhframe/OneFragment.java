@@ -9,6 +9,7 @@ import android.widget.TextView;
 import org.yh.library.ui.BindView;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
+import org.yh.yhframe.frame.BaseFragment;
 
 public class OneFragment extends BaseFragment
 {

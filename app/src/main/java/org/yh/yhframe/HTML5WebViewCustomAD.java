@@ -12,6 +12,7 @@ import android.webkit.JavascriptInterface;
 
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.StringUtils;
+import org.yh.yhframe.frame.BaseActiciy;
 import org.yh.yhframe.view.YHWebView;
 
 /**
