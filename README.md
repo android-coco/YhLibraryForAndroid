@@ -11,18 +11,18 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
 
 注，需要在AndroidManifest.xml 中声明如下权限
 
-```
+```XML
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 ```
-#base包说明：
-```
+# base包说明：
+```Java
 1.BaseActiciy    所有Acticiy的基类
 2.BaseFragment   所有Fragment的基类
 ```
 # 对Utils的说明：
-```
+```java
  1.PreferenceUtils.java   对SharedPreferences的封装
  2.CipherUtils.java       对常用加密方法进行整理
  3.Constants.java         全局常量
@@ -39,8 +39,8 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
  14.YHViewInject.java     侵入式View的调用工具类
  15.AnnotateUtil.java     注解工具类(View id绑定)
  ```
- #view包说明：
- ```
+ # view包说明：
+ ```java
  1.YhToolbar     标题栏
   <include layout="@layout/basetitle"/>
  2.YHWebView     继承WebView
@@ -50,15 +50,15 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
   }
  ```
  
- #数据库操作
- ```
+ # 数据库操作
+ ```java
  1.YhDBManager.java
  2.Constants.Config.yhDBManager
  Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance,"yh.db",true);
  Constants.Config.yhDBManager.insertAll(mAdapter.getDatas());
  ```
- #RecyclerView和Adapter,Holder
- ```
+ # RecyclerView和Adapter,Holder
+ ```java
  1.YHAdapter<D>     adatper
  2.YHHolder<D>      holder
  3.YHRecyclerView   RecyclerView
@@ -110,8 +110,10 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
    //加载完毕
    mRecyclerView.loadMoreComplete();
  ```
- #网络操作
- ```
+ 
+ 
+ # 网络操作
+ ```java
  1.YHOkHttp.java
   YHOkHttp.get(url, "", new HttpCallBack()
          {
@@ -135,8 +137,10 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
          }, TAG);
      }
  ```
+ 
+ 
  # 图片操作
- ```
+ ```java
  1.ImageLoader
  ImageLoader.getInstance().displayImage(data.getPic(), menu_pic);
  ```
