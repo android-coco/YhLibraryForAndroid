@@ -29,28 +29,33 @@ import java.util.Stack;
  */
 final public class YHActivityStack
 {
-    private static Stack<I_YHActivity> activityStack;
+    private static Stack<Activity> activityStack;
     private static final YHActivityStack instance = new YHActivityStack();
 
-    private YHActivityStack() {
+    private YHActivityStack()
+    {
     }
 
-    public static YHActivityStack create() {
+    public static YHActivityStack create()
+    {
         return instance;
     }
 
     /**
      * 获取当前Activity栈中元素个数
      */
-    public int getCount() {
+    public int getCount()
+    {
         return activityStack.size();
     }
 
     /**
      * 添加Activity到栈
      */
-    public void addActivity(I_YHActivity activity) {
-        if (activityStack == null) {
+    public void addActivity(Activity activity)
+    {
+        if (activityStack == null)
+        {
             activityStack = new Stack<>();
         }
         activityStack.add(activity);
@@ -59,45 +64,54 @@ final public class YHActivityStack
     /**
      * 获取当前Activity（栈顶Activity）
      */
-    public Activity topActivity() {
-        if (activityStack == null) {
+    public Activity topActivity()
+    {
+        if (activityStack == null)
+        {
             throw new NullPointerException(
                     "Activity stack is Null,your Activity must extend KJActivity");
         }
-        if (activityStack.isEmpty()) {
+        if (activityStack.isEmpty())
+        {
             return null;
         }
-        I_YHActivity activity = activityStack.lastElement();
-        return (Activity) activity;
+        Activity activity = activityStack.lastElement();
+        return activity;
     }
 
     /**
      * 获取当前Activity（栈顶Activity） 没有找到则返回null
      */
-    public Activity findActivity(Class<?> cls) {
-        I_YHActivity activity = null;
-        for (I_YHActivity aty : activityStack) {
-            if (aty.getClass().equals(cls)) {
+    public Activity findActivity(Class<?> cls)
+    {
+        Activity activity = null;
+        for (Activity aty : activityStack)
+        {
+            if (aty.getClass().equals(cls))
+            {
                 activity = aty;
                 break;
             }
         }
-        return (Activity) activity;
+        return activity;
     }
 
     /**
      * 结束当前Activity（栈顶Activity）
      */
-    public void finishActivity() {
-        I_YHActivity activity = activityStack.lastElement();
+    public void finishActivity()
+    {
+        Activity activity = activityStack.lastElement();
         finishActivity((Activity) activity);
     }
 
     /**
      * 结束指定的Activity(重载)
      */
-    public void finishActivity(Activity activity) {
-        if (activity != null) {
+    public void finishActivity(Activity activity)
+    {
+        if (activity != null)
+        {
             activityStack.remove(activity);
             // activity.finish();//此处不用finish
             activity = null;
@@ -107,10 +121,13 @@ final public class YHActivityStack
     /**
      * 结束指定的Activity(重载)
      */
-    public void finishActivity(Class<?> cls) {
-        for (I_YHActivity activity : activityStack) {
-            if (activity.getClass().equals(cls)) {
-                finishActivity((Activity) activity);
+    public void finishActivity(Class<?> cls)
+    {
+        for (Activity activity : activityStack)
+        {
+            if (activity.getClass().equals(cls))
+            {
+                finishActivity(activity);
             }
         }
     }
@@ -120,10 +137,13 @@ final public class YHActivityStack
      *
      * @param cls
      */
-    public void finishOthersActivity(Class<?> cls) {
-        for (I_YHActivity activity : activityStack) {
-            if (!(activity.getClass().equals(cls))) {
-                finishActivity((Activity) activity);
+    public void finishOthersActivity(Class<?> cls)
+    {
+        for (Activity activity : activityStack)
+        {
+            if (!(activity.getClass().equals(cls)))
+            {
+                finishActivity(activity);
             }
         }
     }
@@ -131,28 +151,36 @@ final public class YHActivityStack
     /**
      * 结束所有Activity
      */
-    public void finishAllActivity() {
-        for (int i = 0, size = activityStack.size(); i < size; i++) {
-            if (null != activityStack.get(i)) {
-                ((Activity) activityStack.get(i)).finish();
+    public void finishAllActivity()
+    {
+        for (int i = 0, size = activityStack.size(); i < size; i++)
+        {
+            if (null != activityStack.get(i))
+            {
+                (activityStack.get(i)).finish();
             }
         }
         activityStack.clear();
     }
 
     @Deprecated
-    public void AppExit(Context cxt) {
+    public void AppExit(Context cxt)
+    {
         appExit(cxt);
     }
 
     /**
      * 应用程序退出
      */
-    public void appExit(Context context) {
-        try {
+    public void appExit(Context context)
+    {
+        try
+        {
             finishAllActivity();
             Runtime.getRuntime().exit(0);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             Runtime.getRuntime().exit(-1);
         }
     }

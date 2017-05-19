@@ -32,7 +32,6 @@ import org.yh.library.ui.AnnotateUtil;
 import org.yh.library.ui.I_BroadcastReg;
 import org.yh.library.ui.I_SkipActivity;
 import org.yh.library.ui.I_YHActivity;
-import org.yh.library.ui.YHActivityStack;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
 
@@ -191,7 +190,7 @@ public abstract class YHActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState)
     {
         aty = this;
-        YHActivityStack.create().addActivity(this);
+        //YHActivityStack.create().addActivity(this);
         LogUtils.e(TAG, "---------onCreat ");
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
@@ -263,7 +262,7 @@ public abstract class YHActivity extends AppCompatActivity implements
         activityState = DESTROY;
         LogUtils.e(TAG, "---------onDestroy ");
         super.onDestroy();
-        YHActivityStack.create().finishActivity(this);
+        //YHActivityStack.create().finishActivity(this);
         currentYHFragment = null;
         callback = null;
         threadHandle = null;

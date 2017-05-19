@@ -1,8 +1,10 @@
 package org.yh.yhframe.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Handler;
 
 import com.google.gson.Gson;
@@ -20,6 +22,7 @@ import org.yh.library.db.YhDBManager;
 import org.yh.library.okhttp.OkHttpUtils;
 import org.yh.library.okhttp.https.HttpsUtils;
 import org.yh.library.okhttp.utils.LoggerInterceptor;
+import org.yh.library.ui.YHActivityStack;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.CrashHandler;
 import org.yh.library.utils.DensityUtils;
@@ -56,6 +59,8 @@ public class MyApplication extends Application
     {
         super.onCreate();
         mInstance = this;
+        //注册监听Activiy的声明周期
+        registerActivityLifecycleCallbacks();
         width = DensityUtils.getScreenW(MyApplication.getInstance()
                 .getApplicationContext());
         height = DensityUtils.getScreenH(MyApplication.getInstance()
@@ -176,6 +181,57 @@ public class MyApplication extends Application
                 .build();
         ImageLoader.getInstance().init(config);
     }
+    //管理所有Activity声明周期
+    private void registerActivityLifecycleCallbacks()
+    {
+        this.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks()
+        {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle bundle)
+            {
+                YHActivityStack.create().addActivity(activity);
+                LogUtils.e("onActivityCreated",activity.getClass().toString());
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity)
+            {
+                LogUtils.e("onActivityStarted",activity.getClass().toString());
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity)
+            {
+                LogUtils.e("onActivityResumed",activity.getClass().toString());
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity)
+            {
+                LogUtils.e("onActivityPaused",activity.getClass().toString());
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity)
+            {
+                LogUtils.e("onActivityStopped",activity.getClass().toString());
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle bundle)
+            {
+                LogUtils.e("onActivitySaveInstanceState",activity.getClass().toString());
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity)
+            {
+                YHActivityStack.create().finishActivity(activity);
+                LogUtils.e("onActivityDestroyed",activity.getClass().toString());
+            }
+        });
+    }
+
 
     /**
      * 发送邮件线程
@@ -192,6 +248,7 @@ public class MyApplication extends Application
             //SystemUtils.sendLogEmail();
         }
     }
+
 
     // 杀进程
     @Override
