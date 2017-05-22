@@ -51,7 +51,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
         //家里
         //url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
         //公司
-        url = "http://192.168.0.197:8080/Ci/api/menu/menulist?page=" + page;
+        url = "http://192.168.0.121:8080/Ci/api/menu/menulist?page=" + page;
         YHOkHttp.get(url, "", new HttpCallBack()
         {
             @Override
