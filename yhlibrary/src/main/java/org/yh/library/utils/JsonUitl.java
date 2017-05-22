@@ -50,7 +50,7 @@ public class JsonUitl
      * @param <T>
      * @return
      */
-    public static <T> T stringToT(Gson mGson,String json, Class<T> cls)
+    public static <T> T stringToTObject(Gson mGson,String json, Class<T> cls)
     {
         return mGson.fromJson(json,cls);
     }

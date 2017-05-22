@@ -16,9 +16,9 @@ import org.yh.library.utils.StringUtils;
 import org.yh.library.view.YHRecyclerView;
 import org.yh.library.view.yhrecyclerview.ProgressStyle;
 import org.yh.yhframe.app.MyApplication;
+import org.yh.yhframe.base.BaseActiciy;
 import org.yh.yhframe.bean.JsonMenuModel;
 import org.yh.yhframe.bean.MenuModel;
-import org.yh.yhframe.base.BaseActiciy;
 
 import java.util.ArrayList;
 
@@ -58,7 +58,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
             public void onSuccess(String t)
             {
                 super.onSuccess(t);
-                JsonMenuModel jsonMenuModel = JsonUitl.stringToT(MyApplication.getInstance().yhGson, t, JsonMenuModel.class);
+                JsonMenuModel jsonMenuModel = JsonUitl.stringToTObject(MyApplication.getInstance().yhGson, t, JsonMenuModel.class);
                 String resultCode = jsonMenuModel.getResultCode();
                 if ("0".equals(resultCode))
                 {
@@ -147,6 +147,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
         //mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
 
         mAdapter = new MyAdapter();
+
         mAdapter.setOnItemClickListener(this);
 
         mRecyclerView.setLoadingListener(new YHRecyclerView.LoadingListener()
