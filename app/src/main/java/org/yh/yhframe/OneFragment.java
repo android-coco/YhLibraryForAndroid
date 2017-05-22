@@ -29,7 +29,7 @@ public class OneFragment extends BaseFragment
         switch (v.getId())
         {
             case R.id.one_text:
-                outsideAty.showActivity(outsideAty, YHRecyclerviewActivity.class);
+                outsideAty.showActivity(outsideAty, ListRecycleActivity.class);
                 break;
         }
     }

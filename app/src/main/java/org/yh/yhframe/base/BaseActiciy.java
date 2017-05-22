@@ -26,7 +26,7 @@ public abstract class BaseActiciy extends YHActivity
         super.initWidget();
         try
         {
-            //toolbar = (YhToolbar) findViewById(R.id.simple_toolbar);
+            toolbar = (YhToolbar) findViewById(R.id.simple_toolbar);
             toolbar = bindView(R.id.simple_toolbar);
             toolbar.setRightTitleClickListener(this);
             toolbar.setLeftTitleClickListener(this);

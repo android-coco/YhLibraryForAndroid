@@ -1,4 +1,4 @@
-package org.yh.yhframe;
+package org.yh.yhframe.adapter.rv;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +9,8 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.yh.library.adapter.YHAdapter;
-import org.yh.library.adapter.YHHolder;
 import org.yh.library.ui.BindView;
+import org.yh.yhframe.R;
 import org.yh.yhframe.bean.MenuModel;
 
 /**

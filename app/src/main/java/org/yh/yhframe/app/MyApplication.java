@@ -24,7 +24,6 @@ import org.yh.library.okhttp.https.HttpsUtils;
 import org.yh.library.okhttp.utils.LoggerInterceptor;
 import org.yh.library.ui.YHActivityStack;
 import org.yh.library.utils.Constants;
-import org.yh.library.utils.CrashHandler;
 import org.yh.library.utils.DensityUtils;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
@@ -110,9 +109,9 @@ public class MyApplication extends Application
             Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance,"yh.db",true);
         }
         // 发布BUG用邮件形式发送
-        CrashHandler.create(getApplicationContext());
-        sendEmail = new SendEmailThread();
-        sendEmail.start();
+//        CrashHandler.create(getApplicationContext());
+//        sendEmail = new SendEmailThread();
+//        sendEmail.start();
 
     }
 

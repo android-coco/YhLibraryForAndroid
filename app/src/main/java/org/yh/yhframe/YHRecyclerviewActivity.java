@@ -15,12 +15,14 @@ import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
 import org.yh.library.view.YHRecyclerView;
 import org.yh.library.view.yhrecyclerview.ProgressStyle;
+import org.yh.yhframe.adapter.rv.MyRecyclerAdatpter;
 import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.base.BaseActiciy;
 import org.yh.yhframe.bean.JsonMenuModel;
 import org.yh.yhframe.bean.MenuModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClickListener<MenuModel>
 {
@@ -28,11 +30,11 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     private YHRecyclerView mRecyclerView;
     @BindView(id = R.id.empty_layout)
     private LinearLayout empty_layout;
-    private MyAdapter mAdapter;
+    private MyRecyclerAdatpter mAdapter;
     private int page = 0;
     private String url = "";
     private boolean isRefresh = true;//是否上拉刷新
-
+    private List<MenuModel> list = new ArrayList<>();
 
     @Override
     public void setRootView()
@@ -49,9 +51,9 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     private void getDataByLine()
     {
         //家里
-        //url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
+        url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
         //公司
-        url = "http://192.168.0.121:8080/Ci/api/menu/menulist?page=" + page;
+        //url = "http://192.168.0.121:8080/Ci/api/menu/menulist?page=" + page;
         YHOkHttp.get(url, "", new HttpCallBack()
         {
             @Override
@@ -146,7 +148,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
         mRecyclerView.setFootViewText(getString(R.string.listview_loading), "没有更多");
         //mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
 
-        mAdapter = new MyAdapter();
+        mAdapter = new MyRecyclerAdatpter();
 
         mAdapter.setOnItemClickListener(this);
 
@@ -182,9 +184,10 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     }
 
     @Override
-    public void onItemLongClick(View view, MenuModel data)
+    public boolean onItemLongClick(View view, MenuModel data)
     {
         YHViewInject.create().showTips("长按：" + data.getMenuname());
+        return true;
     }
 
     @Override
