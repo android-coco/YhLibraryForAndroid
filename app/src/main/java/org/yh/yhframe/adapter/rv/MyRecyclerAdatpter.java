@@ -9,13 +9,9 @@ import org.yh.yhframe.bean.MenuModel;
 
 public class MyRecyclerAdatpter extends YhRecyclerAdapter<MenuModel>
 {
-
-
     public MyRecyclerAdatpter()
     {
         addItemViewDelegate(new RvMsgComingItemDelagate());
         addItemViewDelegate(new RVMsgSendItemDelagate());
     }
-
-
 }

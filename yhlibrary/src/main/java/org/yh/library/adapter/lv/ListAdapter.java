@@ -1,9 +1,5 @@
 package org.yh.library.adapter.lv;
 
-import android.content.Context;
-
-import java.util.List;
-
 /**
  * 普通Adapter一个布局
  *
@@ -11,12 +7,9 @@ import java.util.List;
  */
 public abstract class ListAdapter<D> extends YHListAdapter<D>
 {
-    protected List<D> datas;
 
-    public ListAdapter(Context context, final int layoutId, List<D> datas)
+    public ListAdapter(final int layoutId)
     {
-        super(context, datas);
-        this.datas = datas;
         addItemViewDelegate(new I_ItemViewDelegate<D>()
         {
             @Override
@@ -39,6 +32,6 @@ public abstract class ListAdapter<D> extends YHListAdapter<D>
         });
     }
 
-    protected abstract void convert(YHListViewHolder YHListViewHolder, D item, int position);
+    protected abstract void convert(YHListViewHolder<D> yhListViewHolder, D item, int position);
 
 }

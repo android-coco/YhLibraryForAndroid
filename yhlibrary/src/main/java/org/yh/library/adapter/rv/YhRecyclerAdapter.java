@@ -46,7 +46,6 @@ public class YhRecyclerAdapter<D> extends RecyclerView.Adapter<YHRecyclerViewHol
         YHRecyclerViewHolder holder = YHRecyclerViewHolder.createViewHolder(parent.getContext(), parent,
                 layoutId);
         onViewHolderCreated(holder, holder.getConvertView());
-        setListener(parent, holder, viewType);
         return holder;
     }
 
@@ -67,13 +66,8 @@ public class YhRecyclerAdapter<D> extends RecyclerView.Adapter<YHRecyclerViewHol
     }
 
 
-    protected void setListener(final ViewGroup parent, final YHRecyclerViewHolder viewHolder, int
-            viewType)
+    protected void setListener(final YHRecyclerViewHolder viewHolder,final int postion)
     {
-        if (!isEnabled(viewType))
-        {
-            return;
-        }
         viewHolder.getConvertView().setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -81,7 +75,7 @@ public class YhRecyclerAdapter<D> extends RecyclerView.Adapter<YHRecyclerViewHol
             {
                 if (mOnItemClickListener != null)
                 {
-                    mOnItemClickListener.onItemClick(v, (D) v.getTag());
+                    mOnItemClickListener.onItemClick(v, (D) v.getTag(), postion);
                 }
             }
         });
@@ -93,7 +87,7 @@ public class YhRecyclerAdapter<D> extends RecyclerView.Adapter<YHRecyclerViewHol
             {
                 if (mOnItemClickListener != null)
                 {
-                    return mOnItemClickListener.onItemLongClick(v,(D) v.getTag());
+                    return mOnItemClickListener.onItemLongClick(v, (D) v.getTag(), postion);
                 }
                 return false;
             }
@@ -103,6 +97,7 @@ public class YhRecyclerAdapter<D> extends RecyclerView.Adapter<YHRecyclerViewHol
     @Override
     public void onBindViewHolder(YHRecyclerViewHolder holder, int position)
     {
+        setListener(holder, position);
         convert(holder, mDatas.get(position));
     }
 
@@ -112,13 +107,11 @@ public class YhRecyclerAdapter<D> extends RecyclerView.Adapter<YHRecyclerViewHol
         if (mDatas == null || mDatas.size() == 0)
         {
             return 0;
-        }
-        else
+        } else
         {
             return mDatas.size();
         }
     }
-
 
 
     public YhRecyclerAdapter addItemViewDelegate(I_ItemViewDelegate<D> itemViewDelegate)

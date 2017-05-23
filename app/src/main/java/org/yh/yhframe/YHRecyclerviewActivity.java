@@ -51,9 +51,9 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     private void getDataByLine()
     {
         //家里
-        url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
+        //url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
         //公司
-        //url = "http://192.168.0.121:8080/Ci/api/menu/menulist?page=" + page;
+        url = "http://192.168.0.121:8080/Ci/api/menu/menulist?page=" + page;
         YHOkHttp.get(url, "", new HttpCallBack()
         {
             @Override
@@ -145,7 +145,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
 
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-        mRecyclerView.setFootViewText(getString(R.string.listview_loading), "没有更多");
+        mRecyclerView.setFootViewText(getString(R.string.listview_loading), "加载完毕");
         //mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
 
         mAdapter = new MyRecyclerAdatpter();
@@ -184,15 +184,15 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     }
 
     @Override
-    public boolean onItemLongClick(View view, MenuModel data)
+    public boolean onItemLongClick(View view, MenuModel data,int postion)
     {
-        YHViewInject.create().showTips("长按：" + data.getMenuname());
+        YHViewInject.create().showTips("长按：" + data.getMenuname() +  " " + postion);
         return true;
     }
 
     @Override
-    public void onItemClick(View view, MenuModel data)
+    public void onItemClick(View view, MenuModel data,int postion)
     {
-        YHViewInject.create().showTips("点击了：" + data.getMenuname());
+        YHViewInject.create().showTips("点击了：" + data.getMenuname()+ " " + postion);
     }
 }

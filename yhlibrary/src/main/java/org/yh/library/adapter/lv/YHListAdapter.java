@@ -1,25 +1,24 @@
 package org.yh.library.adapter.lv;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import org.yh.library.adapter.I_YHItemClickListener;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class YHListAdapter<D> extends BaseAdapter
 {
-    protected Context mContext;
-    protected List<D> mDatas;
+    protected List<D> mDatas = new ArrayList<>();
 
     private ItemViewDelegateManager mItemViewDelegateManager;
+    protected I_YHItemClickListener<D> mOnItemClickListener;
 
-
-    public YHListAdapter(Context context, List<D> datas)
+    public YHListAdapter()
     {
-        this.mContext = context;
-        this.mDatas = datas;
         mItemViewDelegateManager = new ItemViewDelegateManager();
     }
 
@@ -61,32 +60,63 @@ public class YHListAdapter<D> extends BaseAdapter
         I_ItemViewDelegate itemViewDelegate = mItemViewDelegateManager.getItemViewDelegate(mDatas
                 .get(position), position);
         int layoutId = itemViewDelegate.getItemViewLayoutId();
-        YHListViewHolder viewHolder;
+        YHListViewHolder<D> viewHolder;
         if (convertView == null)
         {
-            View itemView = LayoutInflater.from(mContext).inflate(layoutId, parent,
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent,
                     false);
-            viewHolder = new YHListViewHolder(mContext, itemView, parent, position);
+            viewHolder = new YHListViewHolder(parent.getContext(), itemView, parent, position);
             viewHolder.mLayoutId = layoutId;
             onViewHolderCreated(viewHolder, viewHolder.getConvertView());
-        }
-        else
+        } else
         {
-            viewHolder = (YHListViewHolder) convertView.getTag();
+            viewHolder = (YHListViewHolder<D>) convertView.getTag();
             viewHolder.mPosition = position;
         }
-
-
+        setListener(viewHolder, position);
         convert(viewHolder, getItem(position), position);
         return viewHolder.getConvertView();
     }
 
-    protected void convert(YHListViewHolder YHListViewHolder, D item, int position)
+    protected void setListener(final YHListViewHolder<D> viewHolder, final int position)
     {
-        mItemViewDelegateManager.convert(YHListViewHolder, item, position);
+        viewHolder.getConvertView().setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (mOnItemClickListener != null)
+                {
+                    mOnItemClickListener.onItemClick(v, mDatas.get(position), position);
+                }
+            }
+        });
+
+        viewHolder.getConvertView().setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                if (mOnItemClickListener != null)
+                {
+                    return mOnItemClickListener.onItemLongClick(v, mDatas.get(position), position);
+                }
+                return false;
+            }
+        });
     }
 
-    public void onViewHolderCreated(YHListViewHolder holder, View itemView)
+    public void setOnItemClickListener(I_YHItemClickListener<D> onItemClickListener)
+    {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+
+    protected void convert(YHListViewHolder<D> yhListViewHolder, D item, int position)
+    {
+        mItemViewDelegateManager.convert(yhListViewHolder, item, position);
+    }
+
+    public void onViewHolderCreated(YHListViewHolder<D> holder, View itemView)
     {
     }
 

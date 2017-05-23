@@ -15,12 +15,12 @@ public interface I_YHItemClickListener<D>
      * @param view     点击的View
      * @param data     点击的对象数据
      */
-    boolean onItemLongClick(View view,D data);
+    boolean onItemLongClick(View view,D data,int position);
     /**
      * Recyclerview点击事件
      *
      * @param view     点击的View
      * @param data     点击的对象数据
      */
-    void onItemClick(View view, D data);
+    void onItemClick(View view, D data,int position);
 }

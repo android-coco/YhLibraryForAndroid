@@ -19,14 +19,17 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class YHListViewHolder
+public class YHListViewHolder<D>
 {
     private SparseArray<View> mViews;
     protected int mPosition;
     private View mConvertView;
     private Context mContext;
     protected int mLayoutId;
-
+    /**
+     * Bean对象
+     */
+    protected D data;
     public YHListViewHolder(Context context, View itemView, ViewGroup parent, int position)
     {
         mContext = context;
@@ -55,7 +58,6 @@ public class YHListViewHolder
             return holder;
         }
     }
-
 
     /**
      * 通过viewId获取控件
