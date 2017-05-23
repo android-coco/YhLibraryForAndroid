@@ -22,7 +22,6 @@ import org.yh.yhframe.bean.JsonMenuModel;
 import org.yh.yhframe.bean.MenuModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClickListener<MenuModel>
 {
@@ -34,7 +33,6 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     private int page = 0;
     private String url = "";
     private boolean isRefresh = true;//是否上拉刷新
-    private List<MenuModel> list = new ArrayList<>();
 
     @Override
     public void setRootView()
@@ -85,7 +83,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
                                 //没有更多
                                 mRecyclerView.setNoMore(true);
                                 mAdapter.notifyDataSetChanged();
-                            }else
+                            } else
                             {
                                 mAdapter.addDatas(list);
                                 //加载完毕
@@ -137,9 +135,20 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
         toolbar.setMainTitleDrawable(R.mipmap.logo_white_210);
         toolbar.setRightTitleDrawable(R.mipmap.icon_home_menu_more);
 
+        //lineartlayout
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.addItemDecoration(mRecyclerView.new YHItemDecoration());//分割线
+        //CardView
+        // 两列
+        //       int spanCount = 2;
+        //GridLayoutManager layoutManager = new GridLayoutManager(this,spanCount);
+
+//        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(spanCount,
+//                StaggeredGridLayoutManager.VERTICAL);
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        //分割线为LinearLayoutManager
+        //mRecyclerView.addItemDecoration(mRecyclerView.new YHItemDecoration());//分割线
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setEmptyView(empty_layout);//没有数据的空布局
 
@@ -184,15 +193,15 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     }
 
     @Override
-    public boolean onItemLongClick(View view, MenuModel data,int postion)
+    public boolean onItemLongClick(View view, MenuModel data, int postion)
     {
-        YHViewInject.create().showTips("长按：" + data.getMenuname() +  " " + postion);
+        YHViewInject.create().showTips("长按：" + data.getMenuname() + " " + postion);
         return true;
     }
 
     @Override
-    public void onItemClick(View view, MenuModel data,int postion)
+    public void onItemClick(View view, MenuModel data, int postion)
     {
-        YHViewInject.create().showTips("点击了：" + data.getMenuname()+ " " + postion);
+        YHViewInject.create().showTips("点击了：" + data.getMenuname() + " " + postion);
     }
 }
