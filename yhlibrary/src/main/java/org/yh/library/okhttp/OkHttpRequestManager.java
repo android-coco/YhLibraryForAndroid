@@ -47,9 +47,15 @@ public class OkHttpRequestManager implements I_RequestManager
 
     public static OkHttpRequestManager getInstance()
     {
-        if (StringUtils.isEmpty(oKHTTPRequestManager))
+        if (oKHTTPRequestManager == null)
         {
-            oKHTTPRequestManager = new OkHttpRequestManager();
+            synchronized (OkHttpRequestManager.class)
+            {
+                if (oKHTTPRequestManager == null)
+                {
+                    oKHTTPRequestManager = new OkHttpRequestManager();
+                }
+            }
         }
         return oKHTTPRequestManager;
     }

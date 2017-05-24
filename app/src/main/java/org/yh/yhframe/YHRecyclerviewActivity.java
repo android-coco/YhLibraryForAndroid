@@ -3,6 +3,7 @@ package org.yh.yhframe;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.yh.library.adapter.I_YHItemClickListener;
 import org.yh.library.okhttp.YHRequestFactory;
@@ -58,6 +59,8 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     private YHRecyclerView mRecyclerView;
     @BindView(id = R.id.empty_layout)
     private LinearLayout empty_layout;
+    @BindView(id = R.id.id_empty_text)
+    private TextView id_empty_text;
     private MyRecyclerAdatpter mAdapter;
     private int page = 0;
     private String url = "";
@@ -100,6 +103,9 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
                             mAdapter.setDatas(list);
                             //刷新完毕
                             mRecyclerView.refreshComplete();
+                        }else
+                        {
+                            id_empty_text.setText("没有数据");
                         }
                     } else
                     {
@@ -139,6 +145,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
             {
                 super.onFailure(errorNo, strMsg);
                 LogUtils.e(TAG, strMsg);
+                id_empty_text.setText("加载失败");
                 mAdapter.getDatas().clear();//必须在数据更新前清空，不能太早
                 //刷新完毕
                 mRecyclerView.refreshComplete();
@@ -164,6 +171,8 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
         toolbar.setMainTitleDrawable(R.mipmap.logo_white_210);
         toolbar.setRightTitleDrawable(R.mipmap.icon_home_menu_more);
 
+
+        id_empty_text.setText("加载中。。。");
         //lineartlayout
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

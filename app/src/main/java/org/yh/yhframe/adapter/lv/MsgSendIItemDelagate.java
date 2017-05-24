@@ -1,9 +1,13 @@
 package org.yh.yhframe.adapter.lv;
 
 
+import android.widget.ImageView;
+
+import org.yh.library.YHGlide;
 import org.yh.library.adapter.lv.I_ItemViewDelegate;
 import org.yh.library.adapter.lv.YHListViewHolder;
 import org.yh.yhframe.R;
+import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.bean.ChatMessage;
 
 /**
@@ -29,6 +33,7 @@ public class MsgSendIItemDelagate implements I_ItemViewDelegate<ChatMessage>
     {
         holder.setText(R.id.chat_send_content, chatMessage.getContent());
         holder.setText(R.id.chat_send_name, chatMessage.getName());
-        holder.setImageResource(R.id.chat_send_icon, chatMessage.getIcon());
+        //holder.setImageResource(R.id.chat_send_icon, chatMessage.getIcon());
+        YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForDrawable(chatMessage.getIcon(), (ImageView) holder.getView(R.id.chat_send_icon));
     }
 }

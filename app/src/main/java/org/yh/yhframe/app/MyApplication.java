@@ -3,20 +3,10 @@ package org.yh.yhframe.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.google.gson.Gson;
-import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
-import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
 import org.yh.library.db.YhDBManager;
 import org.yh.library.okhttp.OkHttpUtils;
@@ -28,7 +18,6 @@ import org.yh.library.utils.CrashHandler;
 import org.yh.library.utils.DensityUtils;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
-import org.yh.yhframe.R;
 
 import java.util.concurrent.TimeUnit;
 
@@ -103,7 +92,7 @@ public class MyApplication extends Application
             //Gson解析
             yhGson = new Gson();
             // 图片缓存框架初始化
-            initImageLoader(mInstance);
+            //initImageLoader(mInstance);
             // 网络框架初始化
             initHttp();
             //根据不同的用户生成不同的数据库
@@ -142,44 +131,44 @@ public class MyApplication extends Application
     public static void initImageLoader(Context context)
     {
 
-        DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.ic_launcher)//加载中图片
-                .showImageForEmptyUri(R.mipmap.ic_launcher)//加载空URL图片
-                .showImageOnFail(R.mipmap.ic_launcher)//加载错误图片
-                .cacheInMemory(true).cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .resetViewBeforeLoading(true).considerExifParams(false)
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
-                .memoryCacheExtraOptions(width, height)
-                // default = device screen dimensions
-                .diskCacheExtraOptions(width, height, null)
-                .threadPoolSize(5)
-                // default Thread.NORM_PRIORITY - 1
-                .threadPriority(Thread.NORM_PRIORITY)
-                // default FIFO
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                // default
-                .denyCacheImageMultipleSizesInMemory()
-                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-                .memoryCacheSize(2 * 1024 * 1024)
-                .memoryCacheSizePercentage(13)
-                // default// 文件路径
-//                .diskCache(
-//                        new UnlimitedDiskCache(StorageUtils
-//                                .getOwnCacheDirectory(context,
-//                                        AppConfig.imgCachePath)))
-                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
-                // default// connectTimeout (20 s), readTimeout (60 s)超时时间
-                .imageDownloader(new BaseImageDownloader(context, 20 * 1000, 60 * 1000))
-                // default
-                .imageDecoder(new BaseImageDecoder(false))
-                // default
-                .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
-                // default
-                .defaultDisplayImageOptions(imageOptions) // Log日志
-                .build();
-        ImageLoader.getInstance().init(config);
+//        DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
+//                .showImageOnLoading(R.mipmap.ic_launcher)//加载中图片
+//                .showImageForEmptyUri(R.mipmap.ic_launcher)//加载空URL图片
+//                .showImageOnFail(R.mipmap.ic_launcher)//加载错误图片
+//                .cacheInMemory(true).cacheOnDisk(true)
+//                .imageScaleType(ImageScaleType.EXACTLY)
+//                .resetViewBeforeLoading(true).considerExifParams(false)
+//                .bitmapConfig(Bitmap.Config.RGB_565).build();
+//        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+//                .memoryCacheExtraOptions(width, height)
+//                // default = device screen dimensions
+//                .diskCacheExtraOptions(width, height, null)
+//                .threadPoolSize(5)
+//                // default Thread.NORM_PRIORITY - 1
+//                .threadPriority(Thread.NORM_PRIORITY)
+//                // default FIFO
+//                .tasksProcessingOrder(QueueProcessingType.LIFO)
+//                // default
+//                .denyCacheImageMultipleSizesInMemory()
+//                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+//                .memoryCacheSize(2 * 1024 * 1024)
+//                .memoryCacheSizePercentage(13)
+//                // default// 文件路径
+////                .diskCache(
+////                        new UnlimitedDiskCache(StorageUtils
+////                                .getOwnCacheDirectory(context,
+////                                        AppConfig.imgCachePath)))
+//                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
+//                // default// connectTimeout (20 s), readTimeout (60 s)超时时间
+//                .imageDownloader(new BaseImageDownloader(context, 20 * 1000, 60 * 1000))
+//                // default
+//                .imageDecoder(new BaseImageDecoder(false))
+//                // default
+//                .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+//                // default
+//                .defaultDisplayImageOptions(imageOptions) // Log日志
+//                .build();
+//        ImageLoader.getInstance().init(config);
     }
     //管理所有Activity声明周期
     private void registerActivityLifecycleCallbacks()

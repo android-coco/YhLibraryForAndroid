@@ -14,6 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BaseAppTheme">
+        <!--
+        自定义 GlideModule 的好处：
+              1、可以全局的改变 glide 的加载策略
+              2、可以自定义磁盘缓存目录
+              3、可以设置图片加载的质量
+        -->
+        <meta-data
+            android:name="org.yh.library.img.YHGlideModule"
+            android:value="GlideModule"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

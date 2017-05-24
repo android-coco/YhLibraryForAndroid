@@ -3,11 +3,11 @@ package org.yh.yhframe.adapter.rv;
 
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-
+import org.yh.library.YHGlide;
 import org.yh.library.adapter.rv.I_ItemViewDelegate;
 import org.yh.library.adapter.rv.YHRecyclerViewHolder;
 import org.yh.yhframe.R;
+import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.bean.MenuModel;
 
 /**
@@ -32,7 +32,7 @@ public class RVMsgSendItemDelagate implements I_ItemViewDelegate<MenuModel>
     public void convert(YHRecyclerViewHolder holder, MenuModel item, int position)
     {
         holder.setText(R.id.menu_name, item.getMenuname());
-        holder.setText(R.id.menu_price, item.getPrice()+ " 元");
-        ImageLoader.getInstance().displayImage(item.getPic(), (ImageView) holder.getView(R.id.menu_pic));
+        holder.setText(R.id.menu_price, item.getPrice() + " 元");
+        YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl(item.getPic(), (ImageView) holder.getView(R.id.menu_pic));
     }
 }

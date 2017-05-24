@@ -52,6 +52,12 @@ public class YHRecyclerViewHolder<D> extends RecyclerView.ViewHolder
         YHRecyclerViewHolder holder = new YHRecyclerViewHolder(context, itemView);
         return holder;
     }
+
+    public Context getContext()
+    {
+        return mContext;
+    }
+
     public void setData(D data)
     {
         this.data = data;
