@@ -46,11 +46,6 @@ import java.util.ArrayList;
 /**
   * YHRecyclerviewActivity
   * @author 38314
-  * @time 2017/5/24 10:48
-  */
-/**
-  * YHRecyclerviewActivity
-  * @author 38314
   * @time 2017/5/24 10:36
   */
 public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClickListener<MenuModel>
