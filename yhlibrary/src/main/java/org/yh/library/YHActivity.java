@@ -27,7 +27,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.yh.library.bean.EventBusBean;
-import org.yh.library.okhttp.YHOkHttp;
+import org.yh.library.okhttp.OkHttpRequestManager;
 import org.yh.library.ui.AnnotateUtil;
 import org.yh.library.ui.I_BroadcastReg;
 import org.yh.library.ui.I_SkipActivity;
@@ -267,7 +267,7 @@ public abstract class YHActivity extends AppCompatActivity implements
         callback = null;
         threadHandle = null;
         aty = null;
-        YHOkHttp.cancel(TAG);//取消网络请求
+        OkHttpRequestManager.cancel(TAG);//取消网络请求
         YHViewInject.create().disMisTip();
         EventBus.getDefault().unregister(this);
     }

@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.yh.library.adapter.I_YHItemClickListener;
-import org.yh.library.okhttp.YHOkHttp;
+import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
 import org.yh.library.ui.YHViewInject;
@@ -52,7 +52,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
         //url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
         //公司
         url = "http://192.168.0.121:8080/Ci/api/menu/menulist?page=" + page;
-        YHOkHttp.get(url, "", new HttpCallBack()
+        YHRequestFactory.getRequestManger().get(url, "", new HttpCallBack()
         {
             @Override
             public void onSuccess(String t)

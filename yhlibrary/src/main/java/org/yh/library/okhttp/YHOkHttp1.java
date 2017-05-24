@@ -23,7 +23,7 @@ import static org.yh.library.utils.StringUtils.isEmpty;
 
 /**
  * 
- * @ClassName: YHOkHttp
+ * @ClassName: OkHttpRequestManager
  * @Description: (对okhttp封装)
  * @author yh   耦合性太高  需要重新编写
  * @date 2016-7-18 下午4:49:41
@@ -127,7 +127,7 @@ public class YHOkHttp1
 					@Override
 					public void onError(Call call, Exception e, int id)
 					{
-						LogUtils.e("YHOkHttp", "GET请求URL：" + url1 + " 请求错误："
+						LogUtils.e("OkHttpRequestManager", "GET请求URL：" + url1 + " 请求错误："
 								+ e.getMessage() + "  " + id);
 						String error = e.getMessage();
 						if (!isEmpty(error))
@@ -284,7 +284,7 @@ public class YHOkHttp1
 					public void onError(Call call, Exception e, int id)
 					{
 						// failed to connect to
-						LogUtils.e("YHOkHttp", "POST请求URL：" + url1 + " 请求错误："
+						LogUtils.e("OkHttpRequestManager", "POST请求URL：" + url1 + " 请求错误："
 								+ e.getMessage() + "  " + id);
 						String error = e.getMessage();
 						if (!isEmpty(error))
@@ -465,7 +465,7 @@ public class YHOkHttp1
 					@Override
 					public void onError(Call call, Exception e, int id)
 					{
-						LogUtils.e("YHOkHttp", "postForm请求URL：" + url1
+						LogUtils.e("OkHttpRequestManager", "postForm请求URL：" + url1
 								+ " 请求错误：" + e.getMessage() + "  " + id);
 						dealError(e, callback);
 					}

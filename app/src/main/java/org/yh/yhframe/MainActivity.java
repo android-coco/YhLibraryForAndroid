@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import org.yh.library.okhttp.YHOkHttp;
+import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
@@ -44,7 +44,7 @@ public class MainActivity extends BaseActiciy
         params.put("user", "123456");
         params.put("pass", "123456");
         //网络请求简单操作
-        YHOkHttp.post("http://192.168.0.3/Ci/api/Login/login", "", params, new HttpCallBack()
+        YHRequestFactory.getRequestManger().post("http://192.168.0.121:8080/Ci/api/Login/login", "", params, new HttpCallBack()
         {
             @Override
             public void onSuccess(String t)
