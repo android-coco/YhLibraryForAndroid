@@ -112,8 +112,8 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
  ```
  #网络操作
  ```
- 1.YHOkHttp.java
-  YHOkHttp.get(url, "", new HttpCallBack()
+ 1.YHRequestFactory.java
+  YHRequestFactory.getRequestManger().get(url, "", new HttpCallBack()
          {
              @Override
              public void onSuccess(String t)
