@@ -137,8 +137,9 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
  ```
  # 图片操作
  ```
- 1.ImageLoader
- ImageLoader.getInstance().displayImage(data.getPic(), menu_pic);
+ 1.YHGlide-->Glide
+ //ImageLoader.getInstance().displayImage(data.getPic(), menu_pic);
+ YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl(item.getPic(), (ImageView) holder.getView(R.id.menu_pic));
  ```
  
  
