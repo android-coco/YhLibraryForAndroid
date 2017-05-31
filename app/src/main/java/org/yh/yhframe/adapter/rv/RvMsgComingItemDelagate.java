@@ -33,6 +33,7 @@ public class RvMsgComingItemDelagate implements I_ItemViewDelegate<MenuModel>
         holder.setText(R.id.menu_name, item.getMenuname());
         holder.setText(R.id.menu_price, item.getPrice() + " 元");
         YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl(item.getPic(), (ImageView) holder.getView(R.id.menu_pic));
+        //YHGlide.getInstanse(MyApplication.getInstance()).loadImgeGif("http://data.fitcome.net/static/img/yh.gif",(ImageView) holder.getView(R.id.menu_pic));
     }
 
 }
