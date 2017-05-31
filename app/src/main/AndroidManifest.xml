@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BaseAppTheme">
+
         <!--
         自定义 GlideModule 的好处：
               1、可以全局的改变 glide 的加载策略
@@ -40,6 +41,17 @@
         <activity android:name=".ListActivity">
         </activity>
         <activity android:name=".ListRecycleActivity">
+        </activity>
+        <!-- 视频播放 -->
+        <activity
+            android:name=".VideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".VidoRecyclerViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

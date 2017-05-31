@@ -15,10 +15,16 @@
  */
 package org.yh.library.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Resources;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.WindowManager;
 
 /**
  * 系统屏幕的一些操作<br>
@@ -27,12 +33,87 @@ import android.util.TypedValue;
  * @author yh (https://github.com/android-coco)
  * @version 1.1
  */
-public final class DensityUtils {
+public final class DensityUtils
+{
+
+    /**
+     * Get activity from context object
+     *
+     * @param context something
+     * @return object of Activity or null if it is not Activity
+     */
+    public static Activity scanForActivity(Context context)
+    {
+        if (context == null)
+        {
+            return null;
+        }
+        if (context instanceof Activity)
+        {
+            return (Activity) context;
+        }
+        else if (context instanceof ContextWrapper)
+        {
+            return scanForActivity(((ContextWrapper) context).getBaseContext());
+        }
+        return null;
+    }
+
+    /**
+     * Get AppCompatActivity from context
+     *
+     * @param context
+     * @return AppCompatActivity if it's not null
+     */
+    public static AppCompatActivity getAppCompActivity(Context context)
+    {
+        if (context == null)
+        {
+            return null;
+        }
+        if (context instanceof AppCompatActivity)
+        {
+            return (AppCompatActivity) context;
+        }
+        else if (context instanceof ContextThemeWrapper)
+        {
+            return getAppCompActivity(((ContextThemeWrapper) context).getBaseContext());
+        }
+        return null;
+    }
+
+    public static void showActionBar(Context context)
+    {
+        ActionBar ab = getAppCompActivity(context).getSupportActionBar();
+        if (ab != null)
+        {
+            ab.setShowHideAnimationEnabled(false);
+            ab.show();
+        }
+        scanForActivity(context)
+                .getWindow()
+                .clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    public static void hideActionBar(Context context)
+    {
+        ActionBar ab = getAppCompActivity(context).getSupportActionBar();
+        if (ab != null)
+        {
+            ab.setShowHideAnimationEnabled(false);
+            ab.hide();
+        }
+        scanForActivity(context)
+                .getWindow()
+                .setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
-    public static int dip2px(Context context, float dpValue) {
+    public static int dip2px(Context context, float dpValue)
+    {
         Resources r = context.getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dpValue, r.getDisplayMetrics());
@@ -42,7 +123,8 @@ public final class DensityUtils {
     /**
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      */
-    public static int px2dip(Context context, float pxValue) {
+    public static int px2dip(Context context, float pxValue)
+    {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
@@ -50,7 +132,8 @@ public final class DensityUtils {
     /**
      * 根据手机的分辨率从 px(像素) 的单位 转成为 sp
      */
-    public static int px2sp(Context context, float pxValue) {
+    public static int px2sp(Context context, float pxValue)
+    {
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
@@ -58,7 +141,8 @@ public final class DensityUtils {
     /**
      * 根据手机的分辨率从 sp 的单位 转成为 px
      */
-    public static int sp2px(Context context, float spValue) {
+    public static int sp2px(Context context, float spValue)
+    {
         float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
@@ -66,7 +150,8 @@ public final class DensityUtils {
     /**
      * 获取dialog宽度
      */
-    public static int getDialogW(Context aty) {
+    public static int getDialogW(Context aty)
+    {
         DisplayMetrics dm = new DisplayMetrics();
         dm = aty.getResources().getDisplayMetrics();
         int w = dm.widthPixels - 100;
@@ -77,7 +162,8 @@ public final class DensityUtils {
     /**
      * 获取屏幕宽度
      */
-    public static int getScreenW(Context aty) {
+    public static int getScreenW(Context aty)
+    {
         DisplayMetrics dm = aty.getResources().getDisplayMetrics();
         return dm.widthPixels;
     }
@@ -85,7 +171,8 @@ public final class DensityUtils {
     /**
      * 获取屏幕高度
      */
-    public static int getScreenH(Context aty) {
+    public static int getScreenH(Context aty)
+    {
         DisplayMetrics dm = aty.getResources().getDisplayMetrics();
         return dm.heightPixels;
     }

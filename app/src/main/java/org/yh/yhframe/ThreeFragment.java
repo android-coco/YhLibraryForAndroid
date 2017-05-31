@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import org.yh.library.ui.BindView;
 import org.yh.library.utils.LogUtils;
 import org.yh.yhframe.base.BaseFragment;
 
 public class ThreeFragment extends BaseFragment
 {
-
+    @BindView(id = R.id.three_txt, click = true)
+    TextView three_txt;
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle)
     {
@@ -31,4 +34,17 @@ public class ThreeFragment extends BaseFragment
         super.onChange();
         LogUtils.e(TAG,"ThreeFragment onChange()");
     }
+
+    @Override
+    protected void widgetClick(View v)
+    {
+        super.widgetClick(v);
+        switch (v.getId())
+        {
+            case R.id.three_txt:
+                outsideAty.showActivity(outsideAty,VideoActivity.class);
+                break;
+        }
+    }
+
 }

@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -293,23 +294,23 @@ public class StringUtils
 
     private final static ThreadLocal<SimpleDateFormat> dateFormater = new
             ThreadLocal<SimpleDateFormat>()
-    {
-        @Override
-        protected SimpleDateFormat initialValue()
-        {
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        }
-    };
+            {
+                @Override
+                protected SimpleDateFormat initialValue()
+                {
+                    return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                }
+            };
 
     private final static ThreadLocal<SimpleDateFormat> dateFormater2 = new
             ThreadLocal<SimpleDateFormat>()
-    {
-        @Override
-        protected SimpleDateFormat initialValue()
-        {
-            return new SimpleDateFormat("yyyy-MM-dd");
-        }
-    };
+            {
+                @Override
+                protected SimpleDateFormat initialValue()
+                {
+                    return new SimpleDateFormat("yyyy-MM-dd");
+                }
+            };
 
     /**
      * 以友好的方式显示时间
@@ -403,6 +404,34 @@ public class StringUtils
             ftime = dateFormater2.get().format(time);
         }
         return ftime;
+    }
+
+    /**
+     * 将毫秒数格式化为"##:##"的时间
+     *
+     * @param milliseconds 毫秒数
+     * @return ##:##
+     */
+    public static String formatTime(int milliseconds)
+    {
+        if (milliseconds <= 0 || milliseconds >= 24 * 60 * 60 * 1000)
+        {
+            return "00:00";
+        }
+        int totalSeconds = milliseconds / 1000;
+        int seconds = totalSeconds % 60;
+        int minutes = (totalSeconds / 60) % 60;
+        int hours = totalSeconds / 3600;
+        StringBuilder stringBuilder = new StringBuilder();
+        Formatter mFormatter = new Formatter(stringBuilder, Locale.getDefault());
+        if (hours > 0)
+        {
+            return mFormatter.format("%d:%02d:%02d", hours, minutes, seconds).toString();
+        }
+        else
+        {
+            return mFormatter.format("%02d:%02d", minutes, seconds).toString();
+        }
     }
 
     /**
