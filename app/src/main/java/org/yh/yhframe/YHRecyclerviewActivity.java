@@ -15,6 +15,7 @@ import org.yh.library.utils.JsonUitl;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
 import org.yh.library.view.YHRecyclerView;
+import org.yh.library.view.loading.bar.YHLoadingBar;
 import org.yh.library.view.yhrecyclerview.ProgressStyle;
 import org.yh.yhframe.adapter.rv.MyRecyclerAdatpter;
 import org.yh.yhframe.app.MyApplication;
@@ -75,10 +76,19 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
 
     private void getDataByLine()
     {
+        YHLoadingBar.make(empty_layout).show();
+//        new Handler().postDelayed(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//
+//            }
+//        },20000);
         //家里
-        //url = "http://192.168.0.3/CI/api/menu/menulist?page=" + page;
+        url = "http://192.168.0.4/CI/api/menu/menulist?page=" + page;
         //公司
-        url = "http://192.168.0.121:8080/Ci/api/menu/menulist?page=" + page;
+        //url = "http://192.168.0.121:8080/Ci/api/menu/menulist?page=" + page;
         YHRequestFactory.getRequestManger().get(url, "", new HttpCallBack()
         {
             @Override
@@ -108,7 +118,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
                         {
                             //每页数据16条,如果少于16条代表没有更多数据
                             //让用户少刷新一次
-                            if (list.size() < 16)
+                            if (list.size() < 32)
                             {
                                 //没有更多
                                 mRecyclerView.setNoMore(true);
@@ -151,6 +161,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
             public void onFinish()
             {
                 super.onFinish();
+                YHLoadingBar.cancel(empty_layout);
                 Constants.Config.yhDBManager.insertAll(mAdapter.getDatas());
             }
         }, TAG);
