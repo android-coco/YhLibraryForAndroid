@@ -1,8 +1,12 @@
 package org.yh.yhframe;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -11,6 +15,8 @@ import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
 import org.yh.yhframe.base.BaseActiciy;
+import org.yh.yhframe.service.MyIntentService;
+import org.yh.yhframe.service.MyService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +25,9 @@ public class MainActivity extends BaseActiciy
 {
 
     private static final int REQUECT_CODE_SDCARD = 1;
+    Intent serviceIntent;
+    private MyService.DownloadBinder downloadBinder;
+    Intent myIntentService;
     @Override
     public void setRootView()
     {
@@ -34,17 +43,41 @@ public class MainActivity extends BaseActiciy
         toolbar.setMainTitle("主页");
         toolbar.setMainTitleDrawable(R.mipmap.logo_white_210);
         toolbar.setRightTitleDrawable(R.mipmap.icon_home_menu_more);
+        //startService(serviceIntent);
+        //bindService(serviceIntent,connection,BIND_AUTO_CREATE);
+        LogUtils.e(TAG, Thread.currentThread().getId());
+        startService(myIntentService);
     }
+
+    private ServiceConnection connection = new ServiceConnection()
+    {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder)
+        {
+            downloadBinder = (MyService.DownloadBinder)iBinder;
+            downloadBinder.startDownload();
+            downloadBinder.getProgress();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName)
+        {
+
+        }
+    };
 
     @Override
     public void initData()
     {
         super.initData();
+        serviceIntent = new Intent(aty, MyService.class);
+        myIntentService = new Intent(aty,MyIntentService.class);
         Map<String, String> params = new HashMap<>();
         params.put("user", "123456");
         params.put("pass", "123456");
         //网络请求简单操作
-        YHRequestFactory.getRequestManger().post("http://192.168.0.121:8080/Ci/api/Login/login", "", params, new HttpCallBack()
+        YHRequestFactory.getRequestManger().post("http://192.168.0.121:8080/Ci/api/Login/login",
+                "", params, new HttpCallBack()
         {
             @Override
             public void onSuccess(String t)
@@ -80,6 +113,9 @@ public class MainActivity extends BaseActiciy
     protected void onBackClick()
     {
         super.onBackClick();
+        //stopService(serviceIntent);
+        //unbindService(connection);
+        stopService(myIntentService);
         showActivity(aty, DemoActivity.class);
     }
 
@@ -96,7 +132,6 @@ public class MainActivity extends BaseActiciy
             }
         });
     }
-
 
 
     @Override
@@ -116,7 +151,8 @@ public class MainActivity extends BaseActiciy
             {
                 YHViewInject.create().showTips("授权成功");
                 showActivity(aty, DemoActivity.class);
-            } else
+            }
+            else
             {
                 YHViewInject.create().showTips("您没有授权该权限，请在设置中打开授权");
             }
