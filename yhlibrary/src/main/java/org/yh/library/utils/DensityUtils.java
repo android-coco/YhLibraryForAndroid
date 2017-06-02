@@ -35,6 +35,9 @@ import android.view.WindowManager;
  */
 public final class DensityUtils
 {
+    private static int screenW;
+    private static int screenH;
+    private static float screenDensity;
 
     /**
      * Get activity from context object
@@ -162,18 +165,41 @@ public final class DensityUtils
     /**
      * 获取屏幕宽度
      */
-    public static int getScreenW(Context aty)
+    public static int getScreenW(Context context)
     {
-        DisplayMetrics dm = aty.getResources().getDisplayMetrics();
-        return dm.widthPixels;
+        if (screenW == 0)
+        {
+            initScreen(context);
+        }
+        return screenW;
     }
 
     /**
      * 获取屏幕高度
      */
-    public static int getScreenH(Context aty)
+    public static int getScreenH(Context context)
     {
-        DisplayMetrics dm = aty.getResources().getDisplayMetrics();
-        return dm.heightPixels;
+        if (screenH == 0)
+        {
+            initScreen(context);
+        }
+        return screenH;
+    }
+
+    public static float getScreenDensity(Context context)
+    {
+        if (screenDensity == 0)
+        {
+            initScreen(context);
+        }
+        return screenDensity;
+    }
+
+    private static void initScreen(Context context)
+    {
+        DisplayMetrics metric = context.getResources().getDisplayMetrics();
+        screenW = metric.widthPixels;
+        screenH = metric.heightPixels;
+        screenDensity = metric.density;
     }
 }

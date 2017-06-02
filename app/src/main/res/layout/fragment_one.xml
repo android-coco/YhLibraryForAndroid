@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:myline="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
@@ -10,9 +11,21 @@
         android:id="@+id/one_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:layout_gravity="center"
-        android:textSize="30sp"
-        android:text="@string/one_fragment"/>
+        android:gravity="center"
+        android:text="@string/one_fragment"
+        android:textSize="30sp"/>
 
+    <org.yh.yhframe.view.LineChartView
+        android:id="@+id/lcv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        myline:lineColor="#FF0000"
+        myline:textColor="#ABABAB"
+        myline:axesWidth="2dp"
+        myline:textSize="12sp"/>
 </FrameLayout>

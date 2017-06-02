@@ -46,7 +46,7 @@ public class MainActivity extends BaseActiciy
         //startService(serviceIntent);
         //bindService(serviceIntent,connection,BIND_AUTO_CREATE);
         LogUtils.e(TAG, Thread.currentThread().getId());
-        startService(myIntentService);
+        //startService(myIntentService);
     }
 
     private ServiceConnection connection = new ServiceConnection()
@@ -115,7 +115,7 @@ public class MainActivity extends BaseActiciy
         super.onBackClick();
         //stopService(serviceIntent);
         //unbindService(connection);
-        stopService(myIntentService);
+        //stopService(myIntentService);
         showActivity(aty, DemoActivity.class);
     }
 
