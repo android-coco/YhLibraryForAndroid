@@ -44,9 +44,9 @@ import java.util.List;
 
 /**
  * 系统信息工具包<br>
- * 
+ * <p>
  * <b>创建时间</b> 2014-8-14
- * 
+ *
  * @author yh (https://github.com/android-coco)
  * @version 1.1
  */
@@ -56,36 +56,44 @@ public final class SystemUtils
     /**
      * 指定格式返回当前系统时间
      */
-    public static String getDataTime(String format) {
+    public static String getDataTime(String format)
+    {
         SimpleDateFormat df = new SimpleDateFormat(format);
         return df.format(new Date());
     }
 
     //判断是否拥有该权限的使用权限
-    public static boolean isGranted(Context context,String permission) {
-        return !isMarshmallow() || isGranted_(context,permission);
+    public static boolean isGranted(Context context, String permission)
+    {
+        return !isMarshmallow() || isGranted_(context, permission);
     }
+
     //判断是否是Android 6.0以上
-    public static boolean isMarshmallow() {
+    public static boolean isMarshmallow()
+    {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     //是否申请了该使用权限
-    public static boolean isGranted_(Context context,String permission) {
+    public static boolean isGranted_(Context context, String permission)
+    {
         int checkSelfPermission = ActivityCompat.checkSelfPermission(context, permission);
         return checkSelfPermission == PackageManager.PERMISSION_GRANTED;
     }
+
     /**
      * 返回当前系统时间(格式以HH:mm形式)
      */
-    public static String getDataTime() {
+    public static String getDataTime()
+    {
         return getDataTime("HH:mm");
     }
 
     /**
      * 获取手机IMEI码
      */
-    public static String getPhoneIMEI(Context cxt) {
+    public static String getPhoneIMEI(Context cxt)
+    {
         TelephonyManager tm = (TelephonyManager) cxt
                 .getSystemService(Context.TELEPHONY_SERVICE);
         return tm.getDeviceId();
@@ -93,26 +101,29 @@ public final class SystemUtils
 
     /**
      * 获取手机系统SDK版本
-     * 
+     *
      * @return 如API 17 则返回 17
      */
-    public static int getSDKVersion() {
+    public static int getSDKVersion()
+    {
         return android.os.Build.VERSION.SDK_INT;
     }
 
     /**
      * 获取系统版本
-     * 
+     *
      * @return 形如2.3.3
      */
-    public static String getSystemVersion() {
+    public static String getSystemVersion()
+    {
         return android.os.Build.VERSION.RELEASE;
     }
 
     /**
      * 调用系统发送短信
      */
-    public static void sendSMS(Context cxt, String smsBody) {
+    public static void sendSMS(Context cxt, String smsBody)
+    {
         Uri smsToUri = Uri.parse("smsto:");
         Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
         intent.putExtra("sms_body", smsBody);
@@ -122,7 +133,8 @@ public final class SystemUtils
     /**
      * 判断网络是否连接
      */
-    public static boolean checkNet(Context context) {
+    public static boolean checkNet(Context context)
+    {
         ConnectivityManager cm = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cm.getActiveNetworkInfo();
@@ -132,11 +144,14 @@ public final class SystemUtils
     /**
      * 仅wifi联网功能是否开启
      */
-    public static boolean checkOnlyWifi(Context context) {
+    public static boolean checkOnlyWifi(Context context)
+    {
         if (PreferenceUtils.readBoolean(context, Constants.SETTING_FILE,
-                Constants.ONLY_WIFI)) {
+                Constants.ONLY_WIFI))
+        {
             return isWiFi(context);
-        } else {
+        } else
+        {
             return true;
         }
     }
@@ -144,7 +159,8 @@ public final class SystemUtils
     /**
      * 判断是否为wifi联网
      */
-    public static boolean isWiFi(Context cxt) {
+    public static boolean isWiFi(Context cxt)
+    {
         ConnectivityManager cm = (ConnectivityManager) cxt
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         // wifi的状态：ConnectivityManager.TYPE_WIFI
@@ -156,11 +172,12 @@ public final class SystemUtils
 
     /**
      * 隐藏系统键盘
-     * 
+     * <p>
      * <br>
      * <b>警告</b> 必须是确定键盘显示时才能调用
      */
-    public static void hideKeyBoard(Activity aty) {
+    public static void hideKeyBoard(Activity aty)
+    {
         ((InputMethodManager) aty
                 .getSystemService(Context.INPUT_METHOD_SERVICE))
                 .hideSoftInputFromWindow(
@@ -171,17 +188,22 @@ public final class SystemUtils
     /**
      * 判断当前应用程序是否后台运行
      */
-    public static boolean isBackground(Context context) {
+    public static boolean isBackground(Context context)
+    {
         ActivityManager activityManager = (ActivityManager) context
                 .getSystemService(Context.ACTIVITY_SERVICE);
         List<RunningAppProcessInfo> appProcesses = activityManager
                 .getRunningAppProcesses();
-        for (RunningAppProcessInfo appProcess : appProcesses) {
-            if (appProcess.processName.equals(context.getPackageName())) {
-                if (appProcess.importance == RunningAppProcessInfo.IMPORTANCE_BACKGROUND) {
+        for (RunningAppProcessInfo appProcess : appProcesses)
+        {
+            if (appProcess.processName.equals(context.getPackageName()))
+            {
+                if (appProcess.importance == RunningAppProcessInfo.IMPORTANCE_BACKGROUND)
+                {
                     // 后台运行
                     return true;
-                } else {
+                } else
+                {
                     // 前台运行
                     return false;
                 }
@@ -193,7 +215,8 @@ public final class SystemUtils
     /**
      * 判断手机是否处理睡眠
      */
-    public static boolean isSleeping(Context context) {
+    public static boolean isSleeping(Context context)
+    {
         KeyguardManager kgMgr = (KeyguardManager) context
                 .getSystemService(Context.KEYGUARD_SERVICE);
         boolean isSleeping = kgMgr.inKeyguardRestrictedInputMode();
@@ -202,11 +225,12 @@ public final class SystemUtils
 
     /**
      * 安装apk
-     * 
+     *
      * @param context
      * @param file
      */
-    public static void installApk(Context context, File file) {
+    public static void installApk(Context context, File file)
+    {
         Intent intent = new Intent();
         intent.setAction("android.intent.action.VIEW");
         intent.addCategory("android.intent.category.DEFAULT");
@@ -221,12 +245,16 @@ public final class SystemUtils
     /**
      * 获取当前应用程序的版本号
      */
-    public static String getAppVersionName(Context context) {
+    public static String getAppVersionName(Context context)
+    {
         String version = "0";
-        try {
+        try
+        {
             version = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), 0).versionName;
-        } catch (NameNotFoundException e) {
+        }
+        catch (NameNotFoundException e)
+        {
             throw new RuntimeException(SystemUtils.class.getName()
                     + "the application not found");
         }
@@ -236,12 +264,16 @@ public final class SystemUtils
     /**
      * 获取当前应用程序的版本号
      */
-    public static int getAppVersionCode(Context context) {
+    public static int getAppVersionCode(Context context)
+    {
         int version = 0;
-        try {
+        try
+        {
             version = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), 0).versionCode;
-        } catch (NameNotFoundException e) {
+        }
+        catch (NameNotFoundException e)
+        {
             throw new RuntimeException(SystemUtils.class.getName()
                     + "the application not found");
         }
@@ -251,7 +283,8 @@ public final class SystemUtils
     /**
      * 回到home，后台运行
      */
-    public static void goHome(Context context) {
+    public static void goHome(Context context)
+    {
         Intent mHomeIntent = new Intent(Intent.ACTION_MAIN);
         mHomeIntent.addCategory(Intent.CATEGORY_HOME);
         mHomeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
@@ -261,16 +294,20 @@ public final class SystemUtils
 
     /**
      * 获取应用签名
-     * 
+     *
      * @param context
      * @param pkgName
      */
-    public static String getSign(Context context, String pkgName) {
-        try {
+    public static String getSign(Context context, String pkgName)
+    {
+        try
+        {
             PackageInfo pis = context.getPackageManager().getPackageInfo(
                     pkgName, PackageManager.GET_SIGNATURES);
             return hexdigest(pis.signatures[0].toByteArray());
-        } catch (NameNotFoundException e) {
+        }
+        catch (NameNotFoundException e)
+        {
             throw new RuntimeException(SystemUtils.class.getName() + "the "
                     + pkgName + "'s application not found");
         }
@@ -279,35 +316,41 @@ public final class SystemUtils
     /**
      * 将签名字符串转换成需要的32位签名
      */
-    private static String hexdigest(byte[] paramArrayOfByte) {
-        final char[] hexDigits = { 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97,
-                98, 99, 100, 101, 102 };
-        try {
+    private static String hexdigest(byte[] paramArrayOfByte)
+    {
+        final char[] hexDigits = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97,
+                98, 99, 100, 101, 102};
+        try
+        {
             MessageDigest localMessageDigest = MessageDigest.getInstance("MD5");
             localMessageDigest.update(paramArrayOfByte);
             byte[] arrayOfByte = localMessageDigest.digest();
             char[] arrayOfChar = new char[32];
-            for (int i = 0, j = 0;; i++, j++) {
-                if (i >= 16) {
+            for (int i = 0, j = 0; ; i++, j++)
+            {
+                if (i >= 16)
+                {
                     return new String(arrayOfChar);
                 }
                 int k = arrayOfByte[i];
                 arrayOfChar[j] = hexDigits[(0xF & k >>> 4)];
                 arrayOfChar[++j] = hexDigits[(k & 0xF)];
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
         }
         return "";
     }
 
     /**
      * 获取设备的可用内存大小
-     * 
-     * @param cxt
-     *            应用上下文对象context
+     *
+     * @param cxt 应用上下文对象context
      * @return 当前内存大小
      */
-    public static int getDeviceUsableMemory(Context cxt) {
+    public static int getDeviceUsableMemory(Context cxt)
+    {
         ActivityManager am = (ActivityManager) cxt
                 .getSystemService(Context.ACTIVITY_SERVICE);
         MemoryInfo mi = new MemoryInfo();
@@ -318,12 +361,12 @@ public final class SystemUtils
 
     /**
      * 清理后台进程与服务
-     * 
-     * @param cxt
-     *            应用上下文对象context
+     *
+     * @param cxt 应用上下文对象context
      * @return 被清理的数量
      */
-    public static int gc(Context cxt) {
+    public static int gc(Context cxt)
+    {
         long i = getDeviceUsableMemory(cxt);
         int count = 0; // 清理掉的进程数
         ActivityManager am = (ActivityManager) cxt
@@ -331,39 +374,55 @@ public final class SystemUtils
         // 获取正在运行的service列表
         List<RunningServiceInfo> serviceList = am.getRunningServices(100);
         if (serviceList != null)
-            for (RunningServiceInfo service : serviceList) {
+        {
+            for (RunningServiceInfo service : serviceList)
+            {
                 if (service.pid == android.os.Process.myPid())
+                {
                     continue;
-                try {
+                }
+                try
+                {
                     android.os.Process.killProcess(service.pid);
                     count++;
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     e.getStackTrace();
                     continue;
                 }
             }
+        }
 
         // 获取正在运行的进程列表
         List<RunningAppProcessInfo> processList = am.getRunningAppProcesses();
         if (processList != null)
-            for (RunningAppProcessInfo process : processList) {
+        {
+            for (RunningAppProcessInfo process : processList)
+            {
                 // 一般数值大于RunningAppProcessInfo.IMPORTANCE_SERVICE的进程都长时间没用或者空进程了
                 // 一般数值大于RunningAppProcessInfo.IMPORTANCE_VISIBLE的进程都是非可见进程，也就是在后台运行着
-                if (process.importance > RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
+                if (process.importance > RunningAppProcessInfo.IMPORTANCE_VISIBLE)
+                {
                     // pkgList 得到该进程下运行的包名
                     String[] pkgList = process.pkgList;
-                    for (String pkgName : pkgList) {
+                    for (String pkgName : pkgList)
+                    {
                         LogUtils.e("======正在杀死包名：" + pkgName);
-                        try {
+                        try
+                        {
                             am.killBackgroundProcesses(pkgName);
                             count++;
-                        } catch (Exception e) { // 防止意外发生
+                        }
+                        catch (Exception e)
+                        { // 防止意外发生
                             e.getStackTrace();
                             continue;
                         }
                     }
                 }
             }
+        }
         LogUtils.e("清理了" + (getDeviceUsableMemory(cxt) - i) + "M内存");
         return count;
     }
