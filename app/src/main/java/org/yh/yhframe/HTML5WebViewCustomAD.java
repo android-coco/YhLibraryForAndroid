@@ -1,19 +1,20 @@
 package org.yh.yhframe;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.net.Uri;
-import android.os.Bundle;
+import android.graphics.Bitmap;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.webkit.DownloadListener;
-import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 
-import org.yh.library.ui.YHViewInject;
-import org.yh.library.utils.StringUtils;
+import org.yh.library.ui.BindView;
+import org.yh.library.utils.LogUtils;
+import org.yh.library.view.webview.ChromeClientCallbackManager;
+import org.yh.library.view.webview.YHWebView;
 import org.yh.yhframe.base.BaseActiciy;
-import org.yh.yhframe.view.YHWebView;
 
 /**
  * Created by yhlyl on 2017/5/15.
@@ -21,175 +22,157 @@ import org.yh.yhframe.view.YHWebView;
 
 public class HTML5WebViewCustomAD extends BaseActiciy
 {
-    private YHWebView mWebView;
-    //http://www.zttmall.com/Wapshop/Topic.aspx?TopicId=18
     private String ad_url = "http://www.baidu.com";
-    private String title = "百度一下你就知道";
+    private YHWebView mYHWebView;
+    private AlertDialog mAlertDialog;
+    @BindView(id = R.id.container)
+    private LinearLayout mLinearLayout;
 
     @Override
     public void setRootView()
     {
+        setContentView(R.layout.activity_html5);
     }
 
     @Override
     public void initWidget()
     {
         super.initWidget();
-        toolbar.setLeftTitleText("返回");
+        toolbar.setLeftTitleText("");
         toolbar.setMainTitle("");
+        toolbar.setLeftTitleDrawable(R.mipmap.icon_back_colose_32px);
+        long p = System.currentTimeMillis();
+        mYHWebView = YHWebView.with(this)
+                .setAgentWebParent(mLinearLayout, new LinearLayout.LayoutParams(-1, -1))
+                .useDefaultIndicator()//
+                .defaultProgressBarColor()
+                .setReceivedTitleCallback(mCallback)
+                .setWebChromeClient(mWebChromeClient)
+                .setWebViewClient(mWebViewClient)
+                .setSecutityType(YHWebView.SecurityType.strict)
+                .createAgentWeb()//
+                .ready()
+                .go(ad_url);
+        mYHWebView.getLoader().loadUrl(ad_url);
+        long n = System.currentTimeMillis();
+        LogUtils.e("Info", "init used time:" + (n - p));
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-
-        mWebView = new YHWebView(this, HTML5WebViewCustomAD.this);
-        mWebView.setDownloadListener(new DownloadListener()
-        {
-            @Override
-            public void onDownloadStart(String url, String userAgent,
-                                        String contentDisposition, String mimetype,
-                                        long contentLength)
-            {
-                Uri uri = Uri.parse(url);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
-        //准备javascript注入
-        mWebView.addJavascriptInterface(
-                new Js2JavaInterface(), "Js2JavaInterface");
-        if (savedInstanceState != null)
-        {
-            mWebView.restoreState(savedInstanceState);
-        }
-        else
-        {
-            if (ad_url != null)
-            {
-                mWebView.loadUrl(ad_url);
-            }
-        }
-        setContentView(mWebView.getLayout());
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-        if (mWebView != null)
-        {
-            mWebView.saveState(outState);
-        }
-    }
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        if (mWebView != null)
-        {
-            mWebView.onResume();
-        }
-    }
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-        if (mWebView != null)
-        {
-            mWebView.stopLoading();
-        }
-    }
-
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-        if (mWebView != null)
-        {
-            mWebView.onPause();
-        }
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        if (mWebView != null)
-        {
-            mWebView.doDestroy();
-        }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
-        super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        return super.onTouchEvent(event);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        if (mWebView != null)
-        {
-            if (mWebView.canGoBack())
-            {
-                mWebView.goBack();
-            }
-            else
-            {
-                mWebView.releaseCustomview();
-            }
-        }
-        super.onBackPressed();
-    }
 
     @Override
     protected void onBackClick()
     {
         super.onBackClick();
-        if (!StringUtils.isEmpty(mWebView))
-        {
-            mWebView.closeAdWebPage();
-        }
+        showDialog();
     }
 
-    /**
-     * JavaScript注入回调
-     */
-    public class Js2JavaInterface
+    private void showDialog()
     {
-        private Context context;
-        private String TAG = "Js2JavaInterface";
 
-        @JavascriptInterface
-        public void showProduct(String productId)
+        if (mAlertDialog == null)
         {
-            if (productId != null)
+            mAlertDialog = new AlertDialog.Builder(this)
+                    .setMessage("您确定要关闭该页面吗?")
+                    .setNegativeButton("再逛逛", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            if (mAlertDialog != null)
+                            {
+                                mAlertDialog.dismiss();
+                            }
+                        }
+                    })//
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            if (mAlertDialog != null)
+                            {
+                                mAlertDialog.dismiss();
+                            }
+                            HTML5WebViewCustomAD.this.finish();
+                        }
+                    }).create();
+        }
+        mAlertDialog.show();
+
+    }
+
+    private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback()
+    {
+        @Override
+        public void onReceivedTitle(WebView view, String title)
+        {
+            if (toolbar != null)
             {
-                //进行跳转商品详情
-                YHViewInject.create().showTips("点击的商品的ID为:" + productId);
-            }
-            else
-            {
-                YHViewInject.create().showTips("商品ID为空!");
+                toolbar.setMainTitle(title);
             }
         }
+    };
+    private WebViewClient mWebViewClient = new WebViewClient()
+    {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon)
+        {
+            //do you  work
+            LogUtils.e("Info", "HTML5WebViewCustomAD onPageStarted");
+        }
+    };
+    private WebChromeClient mWebChromeClient = new WebChromeClient()
+    {
+        @Override
+        public void onProgressChanged(WebView view, int newProgress)
+        {
+            //do you work
+            LogUtils.e("Info", "progress:" + newProgress);
+        }
+    };
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+
+        if (mYHWebView.handleKeyEvent(keyCode, event))
+        {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        mYHWebView.getWebLifeCycle().onPause();
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onResume()
+    {
+        mYHWebView.getWebLifeCycle().onResume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+
+        LogUtils.e("Info", "result:" + requestCode + " result:" + resultCode);
+        mYHWebView.uploadFileResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        //mAgentWeb.destroy();
+        mYHWebView.getWebLifeCycle().onDestroy();
     }
 }

@@ -1,5 +1,7 @@
 package org.yh.library.utils;
 
+import android.util.Log;
+
 /**
  * 
 *    
@@ -23,6 +25,11 @@ public final class LogUtils {
     private static String defaultTag = "Log";
 
     private LogUtils() {
+    }
+
+    public static boolean isDebug()
+    {
+        return  isDebug;
     }
 
     public static void setTag(String tag) {
@@ -141,5 +148,13 @@ public final class LogUtils {
     public static int e(Object tag, String msg) {
         return isDebug ? android.util.Log.e(tag.getClass().getSimpleName(), msg) : -1;
     }
-    
+
+
+    public static void safeCheckCrash(String tag, String msg, Throwable tr) {
+        if (isDebug) {
+            throw new RuntimeException(tag + " " + msg, tr);
+        } else {
+            Log.e(tag, msg, tr);
+        }
+    }
 }
