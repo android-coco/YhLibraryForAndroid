@@ -11,6 +11,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import org.yh.library.ui.BindView;
+import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.view.webview.ChromeClientCallbackManager;
 import org.yh.library.view.webview.YHWebView;
@@ -63,42 +64,15 @@ public class HTML5WebViewCustomAD extends BaseActiciy
     protected void onBackClick()
     {
         super.onBackClick();
-        showDialog();
-    }
-
-    private void showDialog()
-    {
-
-        if (mAlertDialog == null)
+        YHViewInject.create().getExitDialog(aty, "您确定要关闭该页面吗?", "确定", "再逛逛", new DialogInterface.OnClickListener()
         {
-            mAlertDialog = new AlertDialog.Builder(this)
-                    .setMessage("您确定要关闭该页面吗?")
-                    .setNegativeButton("再逛逛", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            if (mAlertDialog != null)
-                            {
-                                mAlertDialog.dismiss();
-                            }
-                        }
-                    })//
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            if (mAlertDialog != null)
-                            {
-                                mAlertDialog.dismiss();
-                            }
-                            HTML5WebViewCustomAD.this.finish();
-                        }
-                    }).create();
-        }
-        mAlertDialog.show();
-
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                YHViewInject.create().showTips("退出");
+                HTML5WebViewCustomAD.this.finish();
+            }
+        });
     }
 
     private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = new ChromeClientCallbackManager.ReceivedTitleCallback()

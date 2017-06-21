@@ -39,11 +39,14 @@ import org.yh.library.utils.StringUtils;
 public class YHViewInject
 {
 
-    public  Toast tipsToast = null;
-    private YHViewInject() {
+    public Toast tipsToast = null;
+
+    private YHViewInject()
+    {
     }
 
-    private static class ClassHolder {
+    private static class ClassHolder
+    {
         private static final YHViewInject instance = new YHViewInject();
     }
 
@@ -52,7 +55,8 @@ public class YHViewInject
      *
      * @return 本类的对象
      */
-    public static YHViewInject create() {
+    public static YHViewInject create()
+    {
         return ClassHolder.instance;
     }
 
@@ -75,7 +79,7 @@ public class YHViewInject
      * @Title: showTips
      * @Description: 字符串提示
      */
-    public  void showTips(String tips)
+    public void showTips(String tips)
     {
         showTips(0, tips);
     }
@@ -88,7 +92,7 @@ public class YHViewInject
      * @Title: showTips
      * @Description:
      */
-    public  void showTips(int iconResId, String tips)
+    public void showTips(int iconResId, String tips)
     {
         if (StringUtils.isEmpty(tipsToast))
         {
@@ -101,7 +105,7 @@ public class YHViewInject
         tipsToast.show();
     }
 
-    public  void disMisTip()
+    public void disMisTip()
     {
         if (!StringUtils.isEmpty(tipsToast))
         {
@@ -113,18 +117,29 @@ public class YHViewInject
     /**
      * 返回一个退出确认对话框
      */
-    public void getExitDialog(final Context context, String title,
-                              OnClickListener l) {
+    public void getExitDialog(final Context context, String title, String ok, String cancel,
+                              OnClickListener l)
+    {
+        if (StringUtils.isEmpty(ok))
+        {
+            ok = "确定";
+        }
+        if (StringUtils.isEmpty(cancel))
+        {
+            cancel = "取消";
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(title);
         builder.setCancelable(false);
-        builder.setNegativeButton("取消", new OnClickListener() {
+        builder.setNegativeButton(cancel, new OnClickListener()
+        {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which)
+            {
                 dialog.dismiss();
             }
         });
-        builder.setPositiveButton("确定", l);
+        builder.setPositiveButton(ok, l);
         builder.create();
         builder.show();
     }
@@ -132,7 +147,8 @@ public class YHViewInject
     /**
      * 返回一个自定义View对话框
      */
-    public AlertDialog getDialogView(Context cxt, String title, View view) {
+    public AlertDialog getDialogView(Context cxt, String title, View view)
+    {
         AlertDialog dialog = new AlertDialog.Builder(cxt).create();
         dialog.setMessage(title);
         dialog.setView(view);
@@ -154,16 +170,19 @@ public class YHViewInject
     /**
      * 返回一个日期对话框
      */
-    public void getDateDialog(String title, final TextView textView) {
+    public void getDateDialog(String title, final TextView textView)
+    {
         final String[] time = StringUtils.getDataTime("yyyy-MM-dd").split("-");
         final int year = StringUtils.toInt(time[0], 0);
         final int month = StringUtils.toInt(time[1], 1);
         final int day = StringUtils.toInt(time[2], 0);
         DatePickerDialog dialog = new DatePickerDialog(textView.getContext(),
-                new OnDateSetListener() {
+                new OnDateSetListener()
+                {
                     @Override
                     public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
+                                          int monthOfYear, int dayOfMonth)
+                    {
                         textView.setText(year + "-" + (monthOfYear + 1) + "-"
                                 + dayOfMonth);
                     }
@@ -180,7 +199,8 @@ public class YHViewInject
      * @param cancel dialog是否可以被取消
      */
     public static ProgressDialog getprogress(Activity aty, String msg,
-                                             boolean cancel) {
+                                             boolean cancel)
+    {
         // 实例化一个ProgressBarDialog
         ProgressDialog progressDialog = new ProgressDialog(aty);
         progressDialog.setMessage(msg);

@@ -123,7 +123,7 @@ public class MainActivity extends BaseActiciy
     protected void onMenuClick()
     {
         super.onMenuClick();
-        YHViewInject.create().getExitDialog(aty, "确定删除", new DialogInterface.OnClickListener()
+        YHViewInject.create().getExitDialog(aty, "确定删除",null,null,new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialogInterface, int i)
