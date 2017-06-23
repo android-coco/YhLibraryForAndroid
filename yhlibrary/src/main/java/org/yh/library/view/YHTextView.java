@@ -21,6 +21,7 @@ import org.yh.library.R;
  * 作者：yh on 2017/6/12 16:57
  * 邮箱：yh_android@163.com
  */
+@SuppressWarnings("all")
 public class YHTextView extends RelativeLayout
 {
     private Context mContext;
@@ -136,7 +137,8 @@ public class YHTextView extends RelativeLayout
     private boolean useRipple;
 
     private int lineType;
-    private LayoutParams centerBaseLineParams, topLineParams, bottomLineParams, leftImgParams, leftTextParams, centerTextParams, leftTopTextParams, leftBottomParams,
+    private LayoutParams centerBaseLineParams, topLineParams, bottomLineParams, leftImgParams,
+            leftTextParams, centerTextParams, leftTopTextParams, leftBottomParams,
             leftBottomParams2, rightTextParams, rightImgParams, rightCheckBoxParams;
 
     private OnSuperTextViewClickListener onSuperTextViewClickListener;
@@ -149,11 +151,13 @@ public class YHTextView extends RelativeLayout
 
     private Drawable mBackground_drawable;
 
-    public YHTextView(Context context) {
+    public YHTextView(Context context)
+    {
         super(context);
     }
 
-    public YHTextView(Context context, AttributeSet attrs) {
+    public YHTextView(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
         mContext = context;
 //        defaultLinePadding = dip2px(context, 16);
@@ -171,7 +175,8 @@ public class YHTextView extends RelativeLayout
      *
      * @param attrs
      */
-    private void getAttr(AttributeSet attrs) {
+    private void getAttr(AttributeSet attrs)
+    {
         TypedArray typedArray = mContext.obtainStyledAttributes(attrs, R.styleable.YHTextView);
 
         ////////设置文字或者图片资源////////
@@ -183,8 +188,10 @@ public class YHTextView extends RelativeLayout
         centerTextString = typedArray.getString(R.styleable.YHTextView_sCenterTextString);
         rightTextString = typedArray.getString(R.styleable.YHTextView_sRightTextString);
 
-        rightTextStringRightIconRes = typedArray.getDrawable(R.styleable.YHTextView_sRightTextStringRightIconRes);
-        rightTextStringRightIconPadding = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sRightTextStringRightIconResPadding, dip2px(mContext, 5));
+        rightTextStringRightIconRes = typedArray.getDrawable(R.styleable
+                .YHTextView_sRightTextStringRightIconRes);
+        rightTextStringRightIconPadding = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sRightTextStringRightIconResPadding, dip2px(mContext, 5));
 
         leftTopTextString = typedArray.getString(R.styleable.YHTextView_sLeftTopTextString);
         leftBottomTextString = typedArray.getString(R.styleable.YHTextView_sLeftBottomTextString);
@@ -197,50 +204,81 @@ public class YHTextView extends RelativeLayout
         lineType = typedArray.getInt(R.styleable.YHTextView_sLineShow, DEFAULT);
 
         /////////设置view的边距////////
-        centerSpaceHeight = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sCenterSpaceHeight, centerSpaceHeight);
+        centerSpaceHeight = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sCenterSpaceHeight, centerSpaceHeight);
 
-        bothLineWidth = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sBothLineWidth, dip2px(mContext, 0.5f));
-        topLineWidth = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sTopLineWidth, dip2px(mContext, 0.5f));
-        bottomLineWidth = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sBottomLineWidth, dip2px(mContext, 0.5f));
+        bothLineWidth = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sBothLineWidth,
+                dip2px(mContext, 0.5f));
+        topLineWidth = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sTopLineWidth,
+                dip2px(mContext, 0.5f));
+        bottomLineWidth = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sBottomLineWidth, dip2px(mContext, 0.5f));
 
         lineColor = typedArray.getColor(R.styleable.YHTextView_sLineColor, lineColor);
 
-        topLineMargin = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sTopLineMargin, defaultLinePadding);
-        topLineMarginLeft = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sTopLineMarginLeft, defaultLinePadding);
-        topLineMarginRight = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sTopLineMarginRight, defaultLinePadding);
+        topLineMargin = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sTopLineMargin,
+                defaultLinePadding);
+        topLineMarginLeft = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sTopLineMarginLeft, defaultLinePadding);
+        topLineMarginRight = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sTopLineMarginRight, defaultLinePadding);
 
-        bottomLineMargin = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sBottomLineMargin, defaultLinePadding);
-        bottomLineMarginLeft = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sBottomLineMarginLeft, defaultLinePadding);
-        bottomLineMarginRight = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sBottomLineMarginRight, defaultLinePadding);
+        bottomLineMargin = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sBottomLineMargin, defaultLinePadding);
+        bottomLineMarginLeft = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sBottomLineMarginLeft, defaultLinePadding);
+        bottomLineMarginRight = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sBottomLineMarginRight, defaultLinePadding);
 
-        bothLineMargin = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sBothLineMargin, defaultLinePadding);
-        bothLineMarginLeft = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sBothLineMarginLeft, defaultLinePadding);
-        bothLineMarginRight = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sBothLineMarginRight, defaultLinePadding);
+        bothLineMargin = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sBothLineMargin,
+                defaultLinePadding);
+        bothLineMarginLeft = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sBothLineMarginLeft, defaultLinePadding);
+        bothLineMarginRight = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sBothLineMarginRight, defaultLinePadding);
 
-        leftIconMarginLeft = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftIconMarginLeft, defaultPadding);
-        leftTVMarginLeft = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftTextMarginLeft, defaultPadding);
+        leftIconMarginLeft = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sLeftIconMarginLeft, defaultPadding);
+        leftTVMarginLeft = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sLeftTextMarginLeft, defaultPadding);
 
-        leftTopMarginLeft = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftTopTextMarginLeft, defaultPadding);
-        leftBottomMarginLeft = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftBottomTextMarginLeft, defaultPadding);
-        leftBottomMarginLeft2 = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftBottomTextMarginLeft2, defaultPadding);
-        rightTVMarginRight = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sRightTextMarginRight, defaultPadding);
-        rightIconMarginRight = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sRightIconMarginRight, defaultPadding);
-        rightCheckBoxMarginRight = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sRightCheckBoxMarginRight, defaultPadding);
+        leftTopMarginLeft = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sLeftTopTextMarginLeft, defaultPadding);
+        leftBottomMarginLeft = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sLeftBottomTextMarginLeft, defaultPadding);
+        leftBottomMarginLeft2 = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sLeftBottomTextMarginLeft2, defaultPadding);
+        rightTVMarginRight = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sRightTextMarginRight, defaultPadding);
+        rightIconMarginRight = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sRightIconMarginRight, defaultPadding);
+        rightCheckBoxMarginRight = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sRightCheckBoxMarginRight, defaultPadding);
         //////设置字体颜色////////
-        backgroundColor = typedArray.getColor(R.styleable.YHTextView_sBackgroundColor, defaultBgColor);
+        backgroundColor = typedArray.getColor(R.styleable.YHTextView_sBackgroundColor,
+                defaultBgColor);
         leftTVColor = typedArray.getColor(R.styleable.YHTextView_sLeftTextColor, defaultColor);
-        leftTopTVColor = typedArray.getColor(R.styleable.YHTextView_sLeftTopTextColor, defaultColor);
-        leftBottomTVColor = typedArray.getColor(R.styleable.YHTextView_sLeftBottomTextColor, defaultColor);
-        leftBottomTVColor2 = typedArray.getColor(R.styleable.YHTextView_sLeftBottomTextColor2, defaultColor);
+        leftTopTVColor = typedArray.getColor(R.styleable.YHTextView_sLeftTopTextColor,
+                defaultColor);
+        leftBottomTVColor = typedArray.getColor(R.styleable.YHTextView_sLeftBottomTextColor,
+                defaultColor);
+        leftBottomTVColor2 = typedArray.getColor(R.styleable.YHTextView_sLeftBottomTextColor2,
+                defaultColor);
         rightTVColor = typedArray.getColor(R.styleable.YHTextView_sRightTextColor, defaultColor);
         centerTVColor = typedArray.getColor(R.styleable.YHTextView_sCenterTextColor, defaultColor);
         //////设置字体大小////////
-        leftTVSize = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftTextSize, defaultSize);
-        leftTopTVSize = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftTopTextSize, defaultSize);
-        leftBottomTVSize = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftBottomTextSize, defaultSize);
-        leftBottomTVSize2 = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftBottomTextSize2, defaultSize);
-        rightTVSize = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sRightTextSize, defaultSize);
-        centerTVSize = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sCenterTextSize, defaultSize);
+        leftTVSize = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftTextSize,
+                defaultSize);
+        leftTopTVSize = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftTopTextSize,
+                defaultSize);
+        leftBottomTVSize = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sLeftBottomTextSize, defaultSize);
+        leftBottomTVSize2 = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sLeftBottomTextSize2, defaultSize);
+        rightTVSize = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sRightTextSize,
+                defaultSize);
+        centerTVSize = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sCenterTextSize,
+                defaultSize);
 
         ///////设置textView的属性///////////SuperTextViewxEms
         isSingLines = typedArray.getBoolean(R.styleable.YHTextView_sIsSingLines, isSingLines);
@@ -248,16 +286,23 @@ public class YHTextView extends RelativeLayout
         maxEms = typedArray.getInt(R.styleable.YHTextView_sMaxEms, maxEms);
 
         leftIconWidth = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftIconWidth, 0);
-        leftIconHeight = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftIconHeight, 0);
+        leftIconHeight = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sLeftIconHeight,
+                0);
 
-        rightIconWidth = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sRightIconWidth, 0);
-        rightIconHeight = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sRightIconHeight, 0);
+        rightIconWidth = typedArray.getDimensionPixelSize(R.styleable.YHTextView_sRightIconWidth,
+                0);
+        rightIconHeight = typedArray.getDimensionPixelSize(R.styleable
+                .YHTextView_sRightIconHeight, 0);
 
-        mLeftTopViewIsClickable = typedArray.getBoolean(R.styleable.YHTextView_sLeftTopViewIsClickable, false);
-        mLeftBottomViewIsClickable = typedArray.getBoolean(R.styleable.YHTextView_sLeftBottomViewIsClickable, false);
-        mLeftBottomView2IsClickable = typedArray.getBoolean(R.styleable.YHTextView_sLeftBottomView2IsClickable, false);
+        mLeftTopViewIsClickable = typedArray.getBoolean(R.styleable
+                .YHTextView_sLeftTopViewIsClickable, false);
+        mLeftBottomViewIsClickable = typedArray.getBoolean(R.styleable
+                .YHTextView_sLeftBottomViewIsClickable, false);
+        mLeftBottomView2IsClickable = typedArray.getBoolean(R.styleable
+                .YHTextView_sLeftBottomView2IsClickable, false);
 
-        mBackground_drawable = typedArray.getDrawable(R.styleable.YHTextView_sBackgroundDrawableRes);
+        mBackground_drawable = typedArray.getDrawable(R.styleable
+                .YHTextView_sBackgroundDrawableRes);
 
         typedArray.recycle();
     }
@@ -265,40 +310,51 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化布局
      */
-    private void initLayout() {
+    private void initLayout()
+    {
 
         initSuperTextView();
         initCenterBaseLine();
 
-        if (leftIconRes != null) {
+        if (leftIconRes != null)
+        {
             initLeftIcon();
         }
-        if (leftTopTextString != null) {
+        if (leftTopTextString != null)
+        {
             initLeftTopText();
         }
-        if (leftBottomTextString != null) {
+        if (leftBottomTextString != null)
+        {
             initLeftBottomText();
         }
-        if (leftBottomTextString2 != null) {
+        if (leftBottomTextString2 != null)
+        {
             initLeftBottomText2();
         }
-        if (leftTextString != null) {
+        if (leftTextString != null)
+        {
             initLeftText();
         }
-        if (centerTextString != null) {
+        if (centerTextString != null)
+        {
             initCenterText();
         }
-        if (rightIconRes != null) {
+        if (rightIconRes != null)
+        {
             initRightIcon();
         }
-        if (rightTextString != null || rightTextStringRightIconRes != null) {
+        if (rightTextString != null || rightTextStringRightIconRes != null)
+        {
             initRightText();
         }
-        if (showCheckBox) {
+        if (showCheckBox)
+        {
             initRightCheckBox();
         }
 
-        switch (lineType) {
+        switch (lineType)
+        {
             case NONE:
                 break;
             case TOP:
@@ -318,12 +374,18 @@ public class YHTextView extends RelativeLayout
     /**
      * 设置顶部分割线的左右边距
      */
-    private void setTopLineMargin() {
-        if (topLineMargin != 0) {
+    private void setTopLineMargin()
+    {
+        if (topLineMargin != 0)
+        {
             initTopLine(topLineMargin, topLineMargin, topLineWidth);
-        } else if (bothLineMarginLeft != 0 | bothLineMarginRight != 0) {
+        }
+        else if (bothLineMarginLeft != 0 | bothLineMarginRight != 0)
+        {
             initTopLine(bothLineMarginLeft, bothLineMarginRight, topLineWidth);
-        } else {
+        }
+        else
+        {
             initTopLine(topLineMarginLeft, topLineMarginRight, topLineWidth);
         }
     }
@@ -331,12 +393,18 @@ public class YHTextView extends RelativeLayout
     /**
      * 设置底部分割线的左右边距
      */
-    private void setBottomLineMargin() {
-        if (bottomLineMargin != 0) {
+    private void setBottomLineMargin()
+    {
+        if (bottomLineMargin != 0)
+        {
             initBottomLine(bottomLineMargin, bottomLineMargin, bottomLineWidth);
-        } else if (bothLineMarginLeft != 0 | bothLineMarginRight != 0) {
+        }
+        else if (bothLineMarginLeft != 0 | bothLineMarginRight != 0)
+        {
             initBottomLine(bothLineMarginLeft, bothLineMarginRight, topLineWidth);
-        } else {
+        }
+        else
+        {
             initBottomLine(bottomLineMarginLeft, bottomLineMarginRight, topLineWidth);
         }
     }
@@ -344,7 +412,8 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化上边的线
      */
-    private void initTopLine(int lineMarginLeft, int lineMarginRight, int lineWidth) {
+    private void initTopLine(int lineMarginLeft, int lineMarginRight, int lineWidth)
+    {
         View topLine = new View(mContext);
         topLineParams = new LayoutParams(LayoutParams.MATCH_PARENT, lineWidth);
         topLineParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, TRUE);
@@ -357,7 +426,8 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化下边的线
      */
-    private void initBottomLine(int lineMarginLeft, int lineMarginRight, int lineWidth) {
+    private void initBottomLine(int lineMarginLeft, int lineMarginRight, int lineWidth)
+    {
         View bottomLine = new View(mContext);
         bottomLineParams = new LayoutParams(LayoutParams.MATCH_PARENT, lineWidth);
         bottomLineParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, TRUE);
@@ -370,22 +440,28 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化SuperTextView
      */
-    private void initSuperTextView() {
+    private void initSuperTextView()
+    {
 
         this.setBackgroundColor(backgroundColor);
-        this.setOnClickListener(new OnClickListener() {
+        this.setOnClickListener(new OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-                if (onSuperTextViewClickListener != null) {
+            public void onClick(View view)
+            {
+                if (onSuperTextViewClickListener != null)
+                {
                     onSuperTextViewClickListener.onSuperTextViewClick();
                 }
             }
         });
 
-        if (useRipple) {
+        if (useRipple)
+        {
             this.setBackgroundResource(R.drawable.touchable_background_white);
         }
-        if (mBackground_drawable != null) {
+        if (mBackground_drawable != null)
+        {
             this.setBackgroundDrawable(mBackground_drawable);
         }
     }
@@ -394,7 +470,8 @@ public class YHTextView extends RelativeLayout
     /**
      * 为了设置上下两排文字居中对齐显示而需要设置的基准线
      */
-    private void initCenterBaseLine() {
+    private void initCenterBaseLine()
+    {
         View view = new View(mContext);
         centerBaseLineParams = new LayoutParams(LayoutParams.MATCH_PARENT, centerSpaceHeight);
         centerBaseLineParams.addRule(RelativeLayout.CENTER_VERTICAL, TRUE);
@@ -407,12 +484,14 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化左边图标
      */
-    private void initLeftIcon() {
+    private void initLeftIcon()
+    {
         leftIconIV = new ImageView(mContext);
         leftImgParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         leftImgParams.addRule(ALIGN_PARENT_LEFT, TRUE);
         leftImgParams.addRule(RelativeLayout.CENTER_VERTICAL, TRUE);
-        if (leftIconHeight != 0 && leftIconWidth != 0) {
+        if (leftIconHeight != 0 && leftIconWidth != 0)
+        {
             leftImgParams.width = leftIconWidth;
             leftImgParams.height = leftIconHeight;
         }
@@ -420,7 +499,8 @@ public class YHTextView extends RelativeLayout
         leftIconIV.setScaleType(ImageView.ScaleType.FIT_CENTER);
         leftIconIV.setId(R.id.sLeftIconId);
         leftIconIV.setLayoutParams(leftImgParams);
-        if (leftIconRes != null) {
+        if (leftIconRes != null)
+        {
             leftIconIV.setImageDrawable(leftIconRes);
         }
         addView(leftIconIV);
@@ -429,7 +509,8 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化左边文字
      */
-    private void initLeftText() {
+    private void initLeftText()
+    {
         leftTV = new TextView(mContext);
         leftTextParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         leftTextParams.addRule(RelativeLayout.CENTER_VERTICAL, TRUE);
@@ -454,7 +535,8 @@ public class YHTextView extends RelativeLayout
      * @param maxLines    显示最大行
      * @param maxEms      最多显示多少个字
      */
-    private void setTextViewParams(TextView textView, boolean isSingLines, int maxLines, int maxEms) {
+    private void setTextViewParams(TextView textView, boolean isSingLines, int maxLines, int maxEms)
+    {
         textView.setSingleLine(isSingLines);
         textView.setMaxLines(maxLines);
         textView.setMaxEms(maxEms);
@@ -464,7 +546,8 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化左上文字
      */
-    private void initLeftTopText() {
+    private void initLeftTopText()
+    {
         leftTopTV = new TextView(mContext);
         leftTopTextParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         leftTopTextParams.addRule(RelativeLayout.ABOVE, R.id.sCenterBaseLineId);
@@ -475,11 +558,15 @@ public class YHTextView extends RelativeLayout
         leftTopTV.setText(leftTopTextString);
         setTextColor(leftTopTV, leftTopTVColor);
         setTextSize(leftTopTV, leftTopTVSize);
-        if (mLeftTopViewIsClickable) {
-            leftTopTV.setOnClickListener(new OnClickListener() {
+        if (mLeftTopViewIsClickable)
+        {
+            leftTopTV.setOnClickListener(new OnClickListener()
+            {
                 @Override
-                public void onClick(View view) {
-                    if (onSuperTextViewClickListener != null) {
+                public void onClick(View view)
+                {
+                    if (onSuperTextViewClickListener != null)
+                    {
                         onSuperTextViewClickListener.onLeftTopClick();
                     }
                 }
@@ -492,7 +579,8 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化左下文字
      */
-    private void initLeftBottomText() {
+    private void initLeftBottomText()
+    {
         leftBottomTV = new TextView(mContext);
         leftBottomParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         leftBottomParams.addRule(RelativeLayout.BELOW, R.id.sCenterBaseLineId);
@@ -503,11 +591,15 @@ public class YHTextView extends RelativeLayout
         leftBottomTV.setText(leftBottomTextString);
         setTextColor(leftBottomTV, leftBottomTVColor);
         setTextSize(leftBottomTV, leftBottomTVSize);
-        if (mLeftBottomViewIsClickable) {
-            leftBottomTV.setOnClickListener(new OnClickListener() {
+        if (mLeftBottomViewIsClickable)
+        {
+            leftBottomTV.setOnClickListener(new OnClickListener()
+            {
                 @Override
-                public void onClick(View view) {
-                    if (onSuperTextViewClickListener != null) {
+                public void onClick(View view)
+                {
+                    if (onSuperTextViewClickListener != null)
+                    {
                         onSuperTextViewClickListener.onLeftBottomClick();
                     }
                 }
@@ -520,7 +612,8 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化左下第二个文字
      */
-    private void initLeftBottomText2() {
+    private void initLeftBottomText2()
+    {
         leftBottomTV2 = new TextView(mContext);
         leftBottomParams2 = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         leftBottomParams2.addRule(RelativeLayout.BELOW, R.id.sCenterBaseLineId);
@@ -531,11 +624,15 @@ public class YHTextView extends RelativeLayout
         leftBottomTV2.setText(leftBottomTextString2);
         setTextColor(leftBottomTV2, leftBottomTVColor2);
         setTextSize(leftBottomTV2, leftBottomTVSize2);
-        if (mLeftBottomView2IsClickable) {
-            leftBottomTV2.setOnClickListener(new OnClickListener() {
+        if (mLeftBottomView2IsClickable)
+        {
+            leftBottomTV2.setOnClickListener(new OnClickListener()
+            {
                 @Override
-                public void onClick(View view) {
-                    if (onSuperTextViewClickListener != null) {
+                public void onClick(View view)
+                {
+                    if (onSuperTextViewClickListener != null)
+                    {
                         onSuperTextViewClickListener.onLeftBottomClick2();
                     }
                 }
@@ -548,7 +645,8 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化中间文字
      */
-    private void initCenterText() {
+    private void initCenterText()
+    {
         centerTV = new TextView(mContext);
         centerTextParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         centerTextParams.addRule(RelativeLayout.CENTER_IN_PARENT, TRUE);
@@ -564,7 +662,8 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化右边文字
      */
-    private void initRightText() {
+    private void initRightText()
+    {
         rightTV = new TextView(mContext);
         rightTextParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         rightTextParams.addRule(RelativeLayout.CENTER_VERTICAL, TRUE);
@@ -577,7 +676,8 @@ public class YHTextView extends RelativeLayout
         rightTV.setText(rightTextString);
         setTextColor(rightTV, rightTVColor);
         setTextSize(rightTV, rightTVSize);
-        setTextViewRightDrawble(rightTV, rightTextStringRightIconRes, rightTextStringRightIconPadding);
+        setTextViewRightDrawble(rightTV, rightTextStringRightIconRes,
+                rightTextStringRightIconPadding);
         rightTV.setGravity(Gravity.RIGHT);
         setTextViewParams(rightTV, isSingLines, maxLines, maxEms);
         addView(rightTV);
@@ -586,12 +686,14 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化右边图标
      */
-    private void initRightIcon() {
+    private void initRightIcon()
+    {
         rightIconIV = new ImageView(mContext);
         rightImgParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         rightImgParams.addRule(ALIGN_PARENT_RIGHT, TRUE);
         rightImgParams.addRule(RelativeLayout.CENTER_VERTICAL, TRUE);
-        if (rightIconHeight != 0 && rightIconWidth != 0) {
+        if (rightIconHeight != 0 && rightIconWidth != 0)
+        {
             rightImgParams.width = rightIconWidth;
             rightImgParams.height = rightIconHeight;
         }
@@ -599,7 +701,8 @@ public class YHTextView extends RelativeLayout
         rightIconIV.setScaleType(ImageView.ScaleType.FIT_CENTER);
         rightIconIV.setId(R.id.sRightIconId);
         rightIconIV.setLayoutParams(rightImgParams);
-        if (rightIconRes != null) {
+        if (rightIconRes != null)
+        {
             rightIconIV.setImageDrawable(rightIconRes);
         }
         addView(rightIconIV);
@@ -608,16 +711,19 @@ public class YHTextView extends RelativeLayout
     /**
      * 初始化右边选择框
      */
-    private void initRightCheckBox() {
+    private void initRightCheckBox()
+    {
         rightCheckBox = new CheckBox(mContext);
 
-        rightCheckBoxParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        rightCheckBoxParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams
+                .WRAP_CONTENT);
 
         rightCheckBoxParams.addRule(ALIGN_PARENT_RIGHT, TRUE);
         rightCheckBoxParams.addRule(RelativeLayout.CENTER_VERTICAL, TRUE);
         setMargin(rightCheckBoxParams, 0, 0, rightCheckBoxMarginRight, 0);
         rightCheckBox.setLayoutParams(rightCheckBoxParams);
-        if (rightCheckBoxBg != null) {
+        if (rightCheckBoxBg != null)
+        {
             rightCheckBox.setGravity(CENTER_IN_PARENT);
             rightCheckBox.setButtonDrawable(rightCheckBoxBg);
         }
@@ -625,7 +731,8 @@ public class YHTextView extends RelativeLayout
         addView(rightCheckBox);
     }
 
-    private void setMargin(LayoutParams params, int left, int top, int right, int bottom) {
+    private void setMargin(LayoutParams params, int left, int top, int right, int bottom)
+    {
         params.setMargins(left, top, right, bottom);
     }
 
@@ -638,7 +745,8 @@ public class YHTextView extends RelativeLayout
      * @param right  右边边距
      * @param bottom 下边边距
      */
-    private void setPadding(View view, int left, int top, int right, int bottom) {
+    private void setPadding(View view, int left, int top, int right, int bottom)
+    {
         view.setPadding(left, top, right, bottom);
     }
 
@@ -648,7 +756,8 @@ public class YHTextView extends RelativeLayout
      * @param textView textView对象
      * @param size     文字大小
      */
-    private void setTextSize(TextView textView, int size) {
+    private void setTextSize(TextView textView, int size)
+    {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
     }
 
@@ -658,7 +767,8 @@ public class YHTextView extends RelativeLayout
      * @param textView textView对象
      * @param color    文字颜色
      */
-    private void setTextColor(TextView textView, int color) {
+    private void setTextColor(TextView textView, int color)
+    {
         textView.setTextColor(color);
     }
 
@@ -670,11 +780,15 @@ public class YHTextView extends RelativeLayout
      * @param leftIcon 左边图标
      * @return 返回对象
      */
-    public YHTextView setLeftIcon(Drawable leftIcon) {
+    public YHTextView setLeftIcon(Drawable leftIcon)
+    {
         leftIconRes = leftIcon;
-        if (leftIconIV == null) {
+        if (leftIconIV == null)
+        {
             initLeftIcon();
-        } else {
+        }
+        else
+        {
             leftIconIV.setImageDrawable(leftIcon);
         }
         return this;
@@ -686,11 +800,15 @@ public class YHTextView extends RelativeLayout
      * @param rightIcon 右边图标
      * @return 返回对象
      */
-    public YHTextView setRightIcon(Drawable rightIcon) {
+    public YHTextView setRightIcon(Drawable rightIcon)
+    {
         rightIconRes = rightIcon;
-        if (rightIconIV == null) {
+        if (rightIconIV == null)
+        {
             initRightIcon();
-        } else {
+        }
+        else
+        {
             rightIconIV.setImageDrawable(rightIcon);
         }
         return this;
@@ -702,11 +820,15 @@ public class YHTextView extends RelativeLayout
      * @param leftString 左边文字
      * @return 返回对象
      */
-    public YHTextView setLeftString(String leftString) {
+    public YHTextView setLeftString(String leftString)
+    {
         leftTextString = leftString;
-        if (leftTV == null) {
+        if (leftTV == null)
+        {
             initLeftText();
-        } else {
+        }
+        else
+        {
             leftTV.setText(leftString);
         }
         return this;
@@ -718,11 +840,15 @@ public class YHTextView extends RelativeLayout
      * @param leftTopString 左上文字
      * @return 返回对象
      */
-    public YHTextView setLeftTopString(String leftTopString) {
+    public YHTextView setLeftTopString(String leftTopString)
+    {
         leftTopTextString = leftTopString;
-        if (leftTopTV == null) {
+        if (leftTopTV == null)
+        {
             initLeftTopText();
-        } else {
+        }
+        else
+        {
             leftTopTV.setText(leftTopString);
         }
         return this;
@@ -734,11 +860,15 @@ public class YHTextView extends RelativeLayout
      * @param leftBottomString 左下第一个文字
      * @return 返回对象
      */
-    public YHTextView setLeftBottomString(String leftBottomString) {
+    public YHTextView setLeftBottomString(String leftBottomString)
+    {
         leftBottomTextString = leftBottomString;
-        if (leftBottomTV == null) {
+        if (leftBottomTV == null)
+        {
             initLeftBottomText();
-        } else {
+        }
+        else
+        {
             leftBottomTV.setText(leftBottomString);
         }
         return this;
@@ -750,11 +880,15 @@ public class YHTextView extends RelativeLayout
      * @param leftBottomString2 左下第二个文字
      * @return 返回对象
      */
-    public YHTextView setLeftBottomString2(String leftBottomString2) {
+    public YHTextView setLeftBottomString2(String leftBottomString2)
+    {
         leftBottomTextString2 = leftBottomString2;
-        if (leftBottomTV2 == null) {
+        if (leftBottomTV2 == null)
+        {
             initLeftBottomText2();
-        } else {
+        }
+        else
+        {
             leftBottomTV2.setText(leftBottomString2);
         }
         return this;
@@ -766,11 +900,15 @@ public class YHTextView extends RelativeLayout
      * @param rightString 右边文字
      * @return 返回对象
      */
-    public YHTextView setRightString(String rightString) {
+    public YHTextView setRightString(String rightString)
+    {
         rightTextString = rightString;
-        if (rightTV == null) {
+        if (rightTV == null)
+        {
             initRightText();
-        } else {
+        }
+        else
+        {
             rightTV.setText(rightString);
         }
         return this;
@@ -784,13 +922,17 @@ public class YHTextView extends RelativeLayout
      * @param drawablePadding drawablePadding
      * @return
      */
-    public YHTextView setRightString(String rightString, Drawable drawable, int drawablePadding) {
+    public YHTextView setRightString(String rightString, Drawable drawable, int drawablePadding)
+    {
         rightTextString = rightString;
         rightTextStringRightIconRes = drawable;
         rightTextStringRightIconPadding = drawablePadding;
-        if (rightTV == null) {
+        if (rightTV == null)
+        {
             initRightText();
-        } else {
+        }
+        else
+        {
             rightTV.setText(rightString);
         }
         return this;
@@ -803,11 +945,15 @@ public class YHTextView extends RelativeLayout
      * @param centerString 中间文字
      * @return 返回对象
      */
-    public YHTextView setCenterString(String centerString) {
+    public YHTextView setCenterString(String centerString)
+    {
         centerTextString = centerString;
-        if (centerTV == null) {
+        if (centerTV == null)
+        {
             initCenterText();
-        } else {
+        }
+        else
+        {
             centerTV.setText(centerString);
         }
         return this;
@@ -817,11 +963,15 @@ public class YHTextView extends RelativeLayout
      * @param checked 是否选中
      * @return 返回值
      */
-    public YHTextView setCbChecked(boolean checked) {
+    public YHTextView setCbChecked(boolean checked)
+    {
         isChecked = checked;
-        if (rightCheckBox == null) {
+        if (rightCheckBox == null)
+        {
             initRightCheckBox();
-        } else {
+        }
+        else
+        {
             rightCheckBox.setChecked(checked);
         }
         return this;
@@ -833,11 +983,15 @@ public class YHTextView extends RelativeLayout
      * @param drawable drawable对象
      * @return 返回对象
      */
-    public YHTextView setCbBackground(Drawable drawable) {
+    public YHTextView setCbBackground(Drawable drawable)
+    {
         rightCheckBoxBg = drawable;
-        if (rightCheckBox == null) {
+        if (rightCheckBox == null)
+        {
             initRightCheckBox();
-        } else {
+        }
+        else
+        {
             rightCheckBox.setBackgroundDrawable(drawable);
         }
         return this;
@@ -848,9 +1002,11 @@ public class YHTextView extends RelativeLayout
      *
      * @return 返回选择框当前选中状态
      */
-    public boolean getCbisChecked() {
+    public boolean getCbisChecked()
+    {
         boolean isChecked = false;
-        if (rightCheckBox != null) {
+        if (rightCheckBox != null)
+        {
             isChecked = rightCheckBox.isChecked();
         }
         return isChecked;
@@ -862,11 +1018,15 @@ public class YHTextView extends RelativeLayout
      * @param textColor 文字颜色值
      * @return 返回对象
      */
-    public YHTextView setLeftTVColor(int textColor) {
+    public YHTextView setLeftTVColor(int textColor)
+    {
         leftTVColor = textColor;
-        if (leftTV == null) {
+        if (leftTV == null)
+        {
             initLeftText();
-        } else {
+        }
+        else
+        {
             leftTV.setTextColor(textColor);
         }
         return this;
@@ -878,11 +1038,15 @@ public class YHTextView extends RelativeLayout
      * @param textColor 文字颜色值
      * @return 返回对象
      */
-    public YHTextView setRightTVColor(int textColor) {
+    public YHTextView setRightTVColor(int textColor)
+    {
         rightTVColor = textColor;
-        if (rightTV == null) {
+        if (rightTV == null)
+        {
             initRightText();
-        } else {
+        }
+        else
+        {
             rightTV.setTextColor(textColor);
         }
         return this;
@@ -894,11 +1058,15 @@ public class YHTextView extends RelativeLayout
      * @param textColor 文字颜色值
      * @return 返回对象
      */
-    public YHTextView setLeftTopTVColor(int textColor) {
+    public YHTextView setLeftTopTVColor(int textColor)
+    {
         leftTopTVColor = textColor;
-        if (leftTopTV == null) {
+        if (leftTopTV == null)
+        {
             initLeftTopText();
-        } else {
+        }
+        else
+        {
             leftTopTV.setTextColor(textColor);
         }
         return this;
@@ -910,11 +1078,15 @@ public class YHTextView extends RelativeLayout
      * @param textColor 文字颜色值
      * @return 返回对象
      */
-    public YHTextView setLeftBottomTVColor(int textColor) {
+    public YHTextView setLeftBottomTVColor(int textColor)
+    {
         leftBottomTVColor = textColor;
-        if (leftBottomTV == null) {
+        if (leftBottomTV == null)
+        {
             initLeftBottomText();
-        } else {
+        }
+        else
+        {
             leftBottomTV.setTextColor(textColor);
         }
         return this;
@@ -926,11 +1098,15 @@ public class YHTextView extends RelativeLayout
      * @param textColor 文字颜色值
      * @return 返回对象
      */
-    public YHTextView setLeftBottomTVColor2(int textColor) {
+    public YHTextView setLeftBottomTVColor2(int textColor)
+    {
         leftBottomTVColor2 = textColor;
-        if (leftBottomTV2 == null) {
+        if (leftBottomTV2 == null)
+        {
             initLeftBottomText2();
-        } else {
+        }
+        else
+        {
             leftBottomTV2.setTextColor(textColor);
         }
         return this;
@@ -944,7 +1120,8 @@ public class YHTextView extends RelativeLayout
      * @param listener listener对象
      * @return 返回对象
      */
-    public YHTextView setOnSuperTextViewClickListener(OnSuperTextViewClickListener listener) {
+    public YHTextView setOnSuperTextViewClickListener(OnSuperTextViewClickListener listener)
+    {
         onSuperTextViewClickListener = listener;
         return this;
     }
@@ -952,17 +1129,22 @@ public class YHTextView extends RelativeLayout
     /**
      * 点击事件接口
      */
-    public static class OnSuperTextViewClickListener {
-        public void onSuperTextViewClick() {
+    public static class OnSuperTextViewClickListener
+    {
+        public void onSuperTextViewClick()
+        {
         }
 
-        public void onLeftTopClick() {
+        public void onLeftTopClick()
+        {
         }
 
-        public void onLeftBottomClick() {
+        public void onLeftBottomClick()
+        {
         }
 
-        public void onLeftBottomClick2() {
+        public void onLeftBottomClick2()
+        {
         }
 
     }
@@ -973,53 +1155,63 @@ public class YHTextView extends RelativeLayout
      * @param viewName 需要的textViewName
      * @return 返回ID
      */
-    public int getViewId(int viewName) {
+    public int getViewId(int viewName)
+    {
         int viewId = 0;
-        switch (viewName) {
+        switch (viewName)
+        {
             case leftTextViewId:
-                if (leftTV == null) {
+                if (leftTV == null)
+                {
                     initLeftText();
                 }
                 viewId = R.id.sLeftTextId;
                 break;
             case leftTopTextViewId:
-                if (leftTopTV == null) {
+                if (leftTopTV == null)
+                {
                     initLeftTopText();
                 }
                 viewId = R.id.sLeftTopTextId;
                 break;
             case leftBottomTextViewId:
-                if (leftBottomTV == null) {
+                if (leftBottomTV == null)
+                {
                     initLeftBottomText();
                 }
                 viewId = R.id.sLeftBottomTextId;
                 break;
             case leftBottomTextViewId2:
-                if (leftBottomTV2 == null) {
+                if (leftBottomTV2 == null)
+                {
                     initLeftBottomText2();
                 }
                 viewId = R.id.sLeftBottomTextId2;
                 break;
             case centerTextViewId:
-                if (centerTV == null) {
+                if (centerTV == null)
+                {
                     initCenterText();
                 }
                 viewId = R.id.sCenterTextId;
                 break;
             case rightTextViewId:
-                if (rightTV == null) {
+                if (rightTV == null)
+                {
                     initRightText();
                 }
                 viewId = R.id.sRightTextId;
                 break;
             case leftImageViewId:
-                if (leftIconIV == null) {
+                if (leftIconIV == null)
+                {
                     initLeftIcon();
                 }
                 viewId = R.id.sLeftIconId;
                 break;
             case rightImageViewId:
-                if (rightIconIV == null) {
+                if (rightIconIV == null)
+                {
                     initRightIcon();
                 }
                 viewId = R.id.sRightIconId;
@@ -1034,18 +1226,22 @@ public class YHTextView extends RelativeLayout
      * @param viewName 传入viewName
      * @return 返回view
      */
-    public View getView(int viewName) {
+    public View getView(int viewName)
+    {
         View view = null;
-        switch (viewName) {
+        switch (viewName)
+        {
 
             case leftImageViewId:
-                if (leftIconIV == null) {
+                if (leftIconIV == null)
+                {
                     initLeftIcon();
                 }
                 view = leftIconIV;
                 break;
             case rightImageViewId:
-                if (rightIconIV == null) {
+                if (rightIconIV == null)
+                {
                     initRightIcon();
                 }
                 view = rightIconIV;
@@ -1055,23 +1251,29 @@ public class YHTextView extends RelativeLayout
     }
 
 
-    public int dip2px(Context context, float dipValue) {
+    public int dip2px(Context context, float dipValue)
+    {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
 
-    public int px2dip(Context context, float pxValue) {
+    public int px2dip(Context context, float pxValue)
+    {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
-    public int sp2px(Context context, float spValue) {
+    public int sp2px(Context context, float spValue)
+    {
         final float scale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * scale + 0.5f);
     }
 
-    public static void setTextViewRightDrawble(TextView textView, Drawable drawable, int drawablePadding) {
-        if (drawable != null && textView != null) {
+    public static void setTextViewRightDrawble(TextView textView, Drawable drawable, int
+            drawablePadding)
+    {
+        if (drawable != null && textView != null)
+        {
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             textView.setCompoundDrawables(null, null, drawable, null);
             textView.setCompoundDrawablePadding(drawablePadding);
@@ -1084,13 +1286,19 @@ public class YHTextView extends RelativeLayout
      * @param isClickable boolean类型
      * @return 返回
      */
-    public YHTextView setLeftTopViewIsClickable(boolean isClickable) {
-        if (isClickable) {
-            if (leftTopTV != null) {
-                leftTopTV.setOnClickListener(new OnClickListener() {
+    public YHTextView setLeftTopViewIsClickable(boolean isClickable)
+    {
+        if (isClickable)
+        {
+            if (leftTopTV != null)
+            {
+                leftTopTV.setOnClickListener(new OnClickListener()
+                {
                     @Override
-                    public void onClick(View view) {
-                        if (onSuperTextViewClickListener != null) {
+                    public void onClick(View view)
+                    {
+                        if (onSuperTextViewClickListener != null)
+                        {
                             onSuperTextViewClickListener.onLeftTopClick();
                         }
                     }
@@ -1107,13 +1315,19 @@ public class YHTextView extends RelativeLayout
      * @param isClickable boolean类型
      * @return 返回
      */
-    public YHTextView setLeftBottomViewIsClickable(boolean isClickable) {
-        if (isClickable) {
-            if (leftBottomTV != null) {
-                leftBottomTV.setOnClickListener(new OnClickListener() {
+    public YHTextView setLeftBottomViewIsClickable(boolean isClickable)
+    {
+        if (isClickable)
+        {
+            if (leftBottomTV != null)
+            {
+                leftBottomTV.setOnClickListener(new OnClickListener()
+                {
                     @Override
-                    public void onClick(View view) {
-                        if (onSuperTextViewClickListener != null) {
+                    public void onClick(View view)
+                    {
+                        if (onSuperTextViewClickListener != null)
+                        {
                             onSuperTextViewClickListener.onLeftBottomClick();
                         }
                     }
@@ -1129,13 +1343,19 @@ public class YHTextView extends RelativeLayout
      * @param isClickable boolean类型
      * @return 返回
      */
-    public YHTextView setLeftBottomView2IsClickable(boolean isClickable) {
-        if (isClickable) {
-            if (leftBottomTV2 != null) {
-                leftBottomTV2.setOnClickListener(new OnClickListener() {
+    public YHTextView setLeftBottomView2IsClickable(boolean isClickable)
+    {
+        if (isClickable)
+        {
+            if (leftBottomTV2 != null)
+            {
+                leftBottomTV2.setOnClickListener(new OnClickListener()
+                {
                     @Override
-                    public void onClick(View view) {
-                        if (onSuperTextViewClickListener != null) {
+                    public void onClick(View view)
+                    {
+                        if (onSuperTextViewClickListener != null)
+                        {
                             onSuperTextViewClickListener.onLeftBottomClick2();
                         }
                     }
