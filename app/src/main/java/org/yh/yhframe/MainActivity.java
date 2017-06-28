@@ -28,6 +28,7 @@ public class MainActivity extends BaseActiciy
     Intent serviceIntent;
     private MyService.DownloadBinder downloadBinder;
     Intent myIntentService;
+
     @Override
     public void setRootView()
     {
@@ -54,7 +55,7 @@ public class MainActivity extends BaseActiciy
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder)
         {
-            downloadBinder = (MyService.DownloadBinder)iBinder;
+            downloadBinder = (MyService.DownloadBinder) iBinder;
             downloadBinder.startDownload();
             downloadBinder.getProgress();
         }
@@ -71,30 +72,30 @@ public class MainActivity extends BaseActiciy
     {
         super.initData();
         serviceIntent = new Intent(aty, MyService.class);
-        myIntentService = new Intent(aty,MyIntentService.class);
+        myIntentService = new Intent(aty, MyIntentService.class);
         Map<String, String> params = new HashMap<>();
         params.put("user", "123456");
         params.put("pass", "123456");
         //网络请求简单操作
         YHRequestFactory.getRequestManger().post("http://192.168.0.121:8080/Ci/api/Login/login",
                 "", params, new HttpCallBack()
-        {
-            @Override
-            public void onSuccess(String t)
-            {
-                super.onSuccess(t);
-                LogUtils.e(TAG, t);
-                //User user = (User)JsonUitl.stringToObject(t,User.class);
-                //LogUtils.e(TAG, user.getResult());
-            }
+                {
+                    @Override
+                    public void onSuccess(String t)
+                    {
+                        super.onSuccess(t);
+                        LogUtils.e(TAG, t);
+                        //User user = (User)JsonUitl.stringToObject(t,User.class);
+                        //LogUtils.e(TAG, user.getResult());
+                    }
 
-            @Override
-            public void onFailure(int errorNo, String strMsg)
-            {
-                super.onFailure(errorNo, strMsg);
-                LogUtils.e(TAG, strMsg);
-            }
-        }, TAG);
+                    @Override
+                    public void onFailure(int errorNo, String strMsg)
+                    {
+                        super.onFailure(errorNo, strMsg);
+                        LogUtils.e(TAG, strMsg);
+                    }
+                }, TAG);
     }
 
     @Override
@@ -120,10 +121,18 @@ public class MainActivity extends BaseActiciy
     }
 
     @Override
+    public void requestPermissionSuccess()
+    {
+        //直接执行相应操作了
+        showActivity(aty, DemoActivity.class);
+    }
+
+
+    @Override
     protected void onMenuClick()
     {
         super.onMenuClick();
-        YHViewInject.create().getExitDialog(aty, "确定删除",null,null,new DialogInterface.OnClickListener()
+        YHViewInject.create().getExitDialog(aty, "确定删除", null, null, new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialogInterface, int i)
@@ -131,14 +140,6 @@ public class MainActivity extends BaseActiciy
                 YHViewInject.create().showTips("更多被点击");
             }
         });
-    }
-
-
-    @Override
-    public void requestPermissionSuccess()
-    {
-        //直接执行相应操作了
-        showActivity(aty, DemoActivity.class);
     }
 
     @Override
@@ -151,8 +152,7 @@ public class MainActivity extends BaseActiciy
             {
                 YHViewInject.create().showTips("授权成功");
                 showActivity(aty, DemoActivity.class);
-            }
-            else
+            } else
             {
                 YHViewInject.create().showTips("您没有授权该权限，请在设置中打开授权");
             }
