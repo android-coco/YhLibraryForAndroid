@@ -77,7 +77,7 @@ public class MainActivity extends BaseActiciy
         params.put("user", "123456");
         params.put("pass", "123456");
         //网络请求简单操作
-        YHRequestFactory.getRequestManger().post("http://192.168.0.121:8080/Ci/api/Login/login",
+        YHRequestFactory.getRequestManger().post("http://121.201.35.230:8806/suitactivity/bindActivityBySuitCode",
                 "", params, new HttpCallBack()
                 {
                     @Override
