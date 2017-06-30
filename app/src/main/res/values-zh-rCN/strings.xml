@@ -1,6 +1,4 @@
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources>
     <string name="app_name">YhLibraryForAndroid</string>
     <string name="title_activity_demo">DemoActivity</string>
 
