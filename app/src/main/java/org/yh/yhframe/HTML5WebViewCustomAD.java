@@ -44,7 +44,7 @@ public class HTML5WebViewCustomAD extends BaseActiciy
         toolbar.setLeftTitleDrawable(R.mipmap.icon_back_colose_32px);
         long p = System.currentTimeMillis();
         mYHWebView = YHWebView.with(this)
-                .setAgentWebParent(mLinearLayout, new LinearLayout.LayoutParams(-1, -1))
+                .setAgentWebParent(mLinearLayout, new LinearLayout.LayoutParams(-1, -1))//主布局
                 .useDefaultIndicator()//
                 .defaultProgressBarColor()
                 .setReceivedTitleCallback(mCallback)
