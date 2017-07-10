@@ -96,6 +96,30 @@ public class MainActivity extends BaseActiciy
                         LogUtils.e(TAG, strMsg);
                     }
                 }, TAG);
+
+        YHRequestFactory.getRequestManger().get("http://211.149.215.12:8081/articleInterface/article/getRegCode?userName=15626590280", "", new HttpCallBack()
+        {
+            @Override
+            public void onSuccess(Map<String, String> headers, byte[] t)
+            {
+                super.onSuccess(headers, t);
+                LogUtils.e(TAG, headers + new String(t));
+            }
+
+            @Override
+            public void onSuccess(String t)
+            {
+                super.onSuccess(t);
+                LogUtils.e(TAG, t);
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg)
+            {
+                super.onFailure(errorNo, strMsg);
+                LogUtils.e(TAG, strMsg);
+            }
+        },TAG);
     }
 
     @Override

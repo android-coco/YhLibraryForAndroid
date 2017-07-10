@@ -19,11 +19,17 @@ import org.yh.library.utils.DensityUtils;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 /**
@@ -120,6 +126,32 @@ public class MyApplication extends Application
                     public boolean verify(String hostname, SSLSession session)
                     {
                         return true;
+                    }
+                })
+                .cookieJar(new CookieJar()
+                {
+                    private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+                    @Override
+                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies)
+                    {
+                        cookieStore.put(url.host(), cookies);
+                        if (!StringUtils.isEmpty(cookieStore.get(url)))
+                        {
+                            LogUtils.e("cookieStore.get(url)", "" + cookieStore.get(url).size());
+                        }
+
+                    }
+
+                    @Override
+                    public List<Cookie> loadForRequest(HttpUrl url)
+                    {
+                        if (!StringUtils.isEmpty(cookieStore.get(url.host())))
+                        {
+                            LogUtils.e("cookieStore.get(url)", "" + cookieStore.get(url.host()).size());
+                        }
+                        List<Cookie> cookies = cookieStore.get(url.host());
+                        return cookies != null ? cookies : new ArrayList<Cookie>();
+
                     }
                 })
                 .sslSocketFactory(sslParams.sSLSocketFactory,
