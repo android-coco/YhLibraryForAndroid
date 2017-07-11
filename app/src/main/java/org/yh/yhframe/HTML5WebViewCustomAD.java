@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -44,7 +45,9 @@ public class HTML5WebViewCustomAD extends BaseActiciy
         toolbar.setLeftTitleDrawable(R.mipmap.icon_back_colose_32px);
         long p = System.currentTimeMillis();
         mYHWebView = YHWebView.with(this)
-                .setAgentWebParent(mLinearLayout, new LinearLayout.LayoutParams(-1, -1))//主布局
+                .setAgentWebParent(mLinearLayout, new LinearLayout.LayoutParams(ViewGroup
+                        .LayoutParams.MATCH_PARENT, ViewGroup
+                        .LayoutParams.MATCH_PARENT))//主布局
                 .useDefaultIndicator()//
                 .defaultProgressBarColor()
                 .setReceivedTitleCallback(mCallback)
