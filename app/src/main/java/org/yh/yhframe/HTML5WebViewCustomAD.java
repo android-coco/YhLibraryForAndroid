@@ -24,7 +24,7 @@ import org.yh.yhframe.base.BaseActiciy;
 
 public class HTML5WebViewCustomAD extends BaseActiciy
 {
-    private String ad_url = "http://www.baidu.com";
+    private String ad_url = "http://211.149.215.12:8081/articleInterface/article/getItem?item_id=4926&os=2";
     private YHWebView mYHWebView;
     private AlertDialog mAlertDialog;
     @BindView(id = R.id.container)
