@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -58,10 +60,37 @@ public class HTML5WebViewCustomAD extends BaseActiciy
                 .ready()
                 .go(ad_url);
         mYHWebView.getLoader().loadUrl(ad_url);
+
         long n = System.currentTimeMillis();
         LogUtils.e("Info", "init used time:" + (n - p));
+        mYHWebView.getJsInterfaceHolder().addJavaObject("android",new JsObj());
+        mYHWebView.getJsEntraceAccess().quickCallJs("callByAndroidMoreParams", new ValueCallback<String>()
+        {
+            @Override
+            public void onReceiveValue(String value)
+            {
+
+            }
+        });//调用JS  第一个参数方法名 后面是返回值·
     }
 
+    class JsObj
+    {
+        @JavascriptInterface
+        public void callAndroid(final String msg)
+        {
+            runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    LogUtils.e("Info", "main Thread:" + Thread.currentThread());
+                    YHViewInject.create().showTips("" + msg);
+                }
+            });
+            //对外接口
+        }
+    }
 
     @Override
     protected void onBackClick()
