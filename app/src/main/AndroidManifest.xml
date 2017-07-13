@@ -63,6 +63,9 @@
             android:name=".service.MyIntentService"
             android:exported="false">
         </service>
+
+        <activity android:name=".ConstraintActivity">
+        </activity>
     </application>
 
 </manifest>
