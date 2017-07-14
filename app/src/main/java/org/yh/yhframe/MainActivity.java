@@ -73,11 +73,25 @@ public class MainActivity extends BaseActiciy
         super.initData();
         serviceIntent = new Intent(aty, MyService.class);
         myIntentService = new Intent(aty, MyIntentService.class);
-        Map<String, String> params = new HashMap<>();
-        params.put("user", "123456");
-        params.put("pass", "123456");
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", "7");
+        params.put("nurseid", "123456");
+        params.put("patientid", "123123");
+        params.put("date", "2017-07-14 16:42:10");
+//        params.put("v1", "1");
+//        params.put("v2", "2");
+//        params.put("v3", "3");
+//        params.put("v4", "4");
+//        params.put("v5", "5");
+//        params.put("v6", "6");
+//        params.put("v7", "7");
+//        params.put("v8", "8");
+//        params.put("v9", "9");
+//        params.put("v10", "10");
+//        params.put("v11", "11");
+
         //网络请求简单操作
-        YHRequestFactory.getRequestManger().post("http://121.201.35.230:8806/suitactivity/bindActivityBySuitCode",
+        YHRequestFactory.getRequestManger().postForm("http://mobilecare.fitcome.net/api/Measure/add",
                 "", params, new HttpCallBack()
                 {
                     @Override
