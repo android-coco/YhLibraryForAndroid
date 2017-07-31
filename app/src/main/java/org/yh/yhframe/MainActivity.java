@@ -91,8 +91,8 @@ public class MainActivity extends BaseActiciy
 //        params.put("v11", "11");
 
         //网络请求简单操作
-        YHRequestFactory.getRequestManger().postForm("http://mobilecare.fitcome.net/api/Measure/add",
-                "", params, new HttpCallBack()
+        YHRequestFactory.getRequestManger().postForm("",
+                "http://mobilecare.fitcome.net/api/Measure/add", params, new HttpCallBack()
                 {
                     @Override
                     public void onSuccess(String t)
@@ -111,7 +111,7 @@ public class MainActivity extends BaseActiciy
                     }
                 }, TAG);
 
-        YHRequestFactory.getRequestManger().get("http://211.149.215.12:8081/articleInterface/article/getRegCode?userName=15626590280", "", new HttpCallBack()
+        YHRequestFactory.getRequestManger().get("", "http://211.149.215.12:8081/articleInterface/article/getRegCode?userName=15626590280", new HttpCallBack()
         {
             @Override
             public void onSuccess(Map<String, String> headers, byte[] t)
@@ -133,7 +133,7 @@ public class MainActivity extends BaseActiciy
                 super.onFailure(errorNo, strMsg);
                 LogUtils.e(TAG, strMsg);
             }
-        },TAG);
+        }, TAG);
     }
 
     @Override
