@@ -1,11 +1,13 @@
 package org.yh.yhframe.base;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import org.yh.library.YHActivity;
 import org.yh.yhframe.R;
 import org.yh.yhframe.view.YhToolbar;
+import org.zackratos.ultimatebar.UltimateBar;
 
 /**
  * Created by yhlyl on 2017/4/25.
@@ -17,6 +19,8 @@ public abstract class BaseActiciy extends YHActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        UltimateBar ultimateBar = new UltimateBar(this);
+        ultimateBar.setColorBar(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         super.onCreate(savedInstanceState);
     }
 

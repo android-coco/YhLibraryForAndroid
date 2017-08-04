@@ -21,6 +21,7 @@ public class DemoActivity extends BaseActiciy
     YHFragment twoFragment = null;
     YHFragment threeFragment = null;
     YHFragment fourFragment = null;
+    DrawerLayout drawer = null;
     @Override
     public void setRootView()
     {
@@ -55,7 +56,7 @@ public class DemoActivity extends BaseActiciy
             }
         });
 
-        DrawerLayout drawer = bindView(R.id.drawer_layout);
+        drawer = bindView(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -72,7 +73,7 @@ public class DemoActivity extends BaseActiciy
     @Override
     public void onBackPressed()
     {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START))
         {
             drawer.closeDrawer(GravityCompat.START);
@@ -150,8 +151,6 @@ public class DemoActivity extends BaseActiciy
             Snackbar.make(view, "nav_send", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
