@@ -11,6 +11,7 @@ android {
     }
     lintOptions{
         abortOnError false
+        warning 'InvalidPackage'
     }
     buildTypes {
         release {
@@ -58,8 +59,8 @@ publish{
     userOrg = 'androidcoco'//bintray.com的用户名
     groupId = 'org.yh.yhframe'//jcenter上的路径
     artifactId = 'YhLibraryForAndroid'//项目名称
-    version = '1.0.0'//版本号
-    description = 'Android实用框架采用MVC设计模式,多个项目经验总结,持续完善中'//描述，不重要
+    publishVersion = '1.0.0'//版本号
+    desc = 'Android实用框架采用MVC设计模式,多个项目经验总结,持续完善中'//描述，不重要
     website = siteUrl//项目主页
 }
 tasks.withType(Javadoc) {//防止编码问题
