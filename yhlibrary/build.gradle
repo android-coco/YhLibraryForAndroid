@@ -50,18 +50,32 @@ dependencies {
 }
 
 /** 以下开始是将Android Library上传到jcenter的相关配置**/
-apply plugin: 'com.novoda.bintray-release'//添加
-apply plugin: 'maven'
+apply plugin: 'com.novoda.bintray-release'//添加这句话后要把publish 那部分配置写完再sync 要不会报错
 //项目主页
-def siteUrl = 'https://github.com/android-coco/YhLibraryForAndroid'
-publish{
-    repoName = 'YhMaven'//远程仓库名字,不指明，默认是上传到maven
-    userOrg = 'androidcoco'//bintray.com的用户名
-    groupId = 'org.yh.yhframe'//jcenter上的路径
-    artifactId = 'YhLibraryForAndroid'//项目名称
-    publishVersion = '1.0.0'//版本号
-    desc = 'Android实用框架采用MVC设计模式,多个项目经验总结,持续完善中'//描述，不重要
-    website = siteUrl//项目主页
+//def siteUrl = 'https://github.com/android-coco/YhLibraryForAndroid'
+//publish{
+//    //repoName = 'YhMaven'//远程仓库名字,不指明，默认是上传到maven
+//    userOrg = 'android-coco'//组织名称，不是用户名真不是用户名这个坑了我2个小时，默认是有一个用户名的ogr,在bintray.com控制面板可以添加多个Organizations
+//    groupId = 'org.yh.yhframe'//jcenter上的路径
+//    artifactId = 'YhLibraryForAndroid'//项目名称
+//    publishVersion = '1.0.0'//版本号
+//    desc = 'Android实用框架采用MVC设计模式,多个项目经验总结,持续完善中'//描述，不重要
+//    website = siteUrl//项目主页
+//}
+publish {//lucifer add
+    artifactId = 'YhLibraryForAndroid'
+    userOrg = rootProject.userOrg
+    groupId = rootProject.groupId
+    uploadName = rootProject.uploadName
+    publishVersion = rootProject.publishVersion
+    desc = rootProject.description
+    website = rootProject.website
+    licences = rootProject.licences
+}
+repositories {
+    maven {
+        url  "http://dl.bintray.com/androidcoco/YhMaven"
+    }
 }
 tasks.withType(Javadoc) {//防止编码问题
     options.addStringOption('Xdoclint:none', '-quiet')
