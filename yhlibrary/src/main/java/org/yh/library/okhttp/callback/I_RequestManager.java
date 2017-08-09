@@ -10,49 +10,49 @@ import java.util.Map;
 public interface I_RequestManager
 {
 
-    void get(final String host, String suffix,
+    void get(final String host, String suffix,Map<String, String> headers,
              final HttpCallBack callback, Object tag);
 
-    void get(final String host, String suffix,
+    void get(final String host, String suffix,Map<String, String> headers,
              final HttpCallBack callback, final long connTimeOut,
              final long readTimeOut, final long writeTimeOut, Object tag);
 
-    void get(final String host, final String suffix,
+    void get(final String host, final String suffix,Map<String, String> headers,
              final HttpCallBack callback, final Object tag,
              final long connTimeOut, final long readTimeOut,
              final long writeTimeOut);
 
-    void post(final String host, String suffix,
+    void post(final String host, String suffix,Map<String, String> headers,
               Map<String, String> params, final HttpCallBack callback,
               final long connTimeOut, final long readTimeOut,
               final long writeTimeOut, Object tag);
 
-    void post(final String host, String suffix,
+    void post(final String host, String suffix,Map<String, String> headers,
               Map<String, String> params, final HttpCallBack callback, Object tag);
 
-    void post(final String host, final String suffix,
+    void post(final String host, final String suffix,Map<String, String> headers,
               final Map<String, String> params, final HttpCallBack callback,
               final Object tag, final long connTimeOut, final long readTimeOut,
               final long writeTimeOut);
 
-    void postForm(final String host, final String suffix,
+    void postForm(final String host, final String suffix,Map<String, String> headers,
                   final Map<String, Object> params, final HttpCallBack callback,
                   final Object tag);
 
-    void postForm(final String host, final String suffix,
+    void postForm(final String host, final String suffix,Map<String, String> headers,
                   final Map<String, Object> params, final HttpCallBack callback,
                   final long connTimeOut, final long readTimeOut,
                   final long writeTimeOut, final Object tag);
 
-    void postForm(final String host, final String suffix,
+    void postForm(final String host, final String suffix,Map<String, String> headers,
                   final Map<String, Object> params, final HttpCallBack callback,
                   final Object tag, final long connTimeOut, final long readTimeOut,
                   final long writeTimeOut);
 
-    void download(String url, final String path, String fileName,
+    void download(String url, Map<String, String> headers,final String path, String fileName,
                   final HttpCallBack callback, final long connTimeOut,
                   final long readTimeOut, final long writeTimeOut, String tag);
 
-    void download(String url, final String path, String fileName,
+    void download(String url, Map<String, String> headers,final String path, String fileName,
                   final HttpCallBack callback, String tag);
 }

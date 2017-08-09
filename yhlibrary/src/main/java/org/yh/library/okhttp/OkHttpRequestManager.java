@@ -13,6 +13,7 @@ import org.yh.library.utils.StringUtils;
 
 import java.io.File;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -22,7 +23,7 @@ import okhttp3.Request;
 import static org.yh.library.utils.StringUtils.isEmpty;
 
 /**
- * @author yh   耦合性太高  需要重新编写
+ * @author yh
  * @ClassName: OkHttpRequestManager
  * @Description: (对okhttp封装)
  * @date 2016-7-18 下午4:49:41
@@ -37,9 +38,10 @@ public class OkHttpRequestManager implements I_RequestManager
     public static final String ERROE_3002 = "30002";
     public static final String ERROR_UNKNOWN = "unknown";
 
-    private final static long readTimeOut = 10 * 1000L;
-    private final static long writeTimeOut = 60 * 1000L;
-    private final static long connTimeOut = 10 * 1000L;
+    private final static long readTimeOut = 10 * 1000L;//读取超时时间
+    private final static long writeTimeOut = 60 * 1000L;//写超时时间
+    private final static long connTimeOut = 10 * 1000L;//连接超时时间
+
 
     private OkHttpRequestManager()
     {
@@ -59,23 +61,24 @@ public class OkHttpRequestManager implements I_RequestManager
         }
         return oKHTTPRequestManager;
     }
-
-    public void get(final String host, String suffix,
+    @Override
+    public void get(final String host, String suffix,Map<String, String> headers,
                     final HttpCallBack callback, Object tag)
     {
-        get(host, suffix, callback, tag, connTimeOut, readTimeOut,
+        get(host, suffix,headers, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
 
-    public void get(final String host, String suffix,
+    @Override
+    public void get(final String host, String suffix,Map<String, String> headers,
                     final HttpCallBack callback, final long connTimeOut,
                     final long readTimeOut, final long writeTimeOut, Object tag)
     {
-        get(host, suffix, callback, tag, connTimeOut, readTimeOut,
+        get(host, suffix, headers, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
-
-    public void get(final String host, final String suffix,
+    @Override
+    public void get(final String host, final String suffix,Map<String, String> headers,
                     final HttpCallBack callback, final Object tag,
                     final long connTimeOut, final long readTimeOut,
                     final long writeTimeOut)
@@ -93,7 +96,11 @@ public class OkHttpRequestManager implements I_RequestManager
             callback.onFinish();
             return;
         }
-        OkHttpUtils.get().url(url1).tag(tag).build().connTimeOut(connTimeOut)
+        if(StringUtils.isEmpty(headers))
+        {
+            headers = new LinkedHashMap<>();
+        }
+        OkHttpUtils.get().url(url1).headers(headers).tag(tag).build().connTimeOut(connTimeOut)
                 .readTimeOut(readTimeOut).writeTimeOut(writeTimeOut)
                 .execute(new StringCallback()
                 {
@@ -149,23 +156,24 @@ public class OkHttpRequestManager implements I_RequestManager
                 });
     }
 
-    public void post(final String host, String suffix,
+    @Override
+    public void post(final String host, String suffix,Map<String, String> headers,
                      Map<String, String> params, final HttpCallBack callback,
                      final long connTimeOut, final long readTimeOut,
                      final long writeTimeOut, Object tag)
     {
-        post(host, suffix, params, callback, tag, connTimeOut, readTimeOut,
+        post(host, suffix,headers,params, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
-
-    public void post(final String host, String suffix,
+    @Override
+    public void post(final String host, String suffix,Map<String, String> headers,
                      Map<String, String> params, final HttpCallBack callback, Object tag)
     {
-        post(host, suffix, params, callback, tag, connTimeOut, readTimeOut,
+        post(host, suffix,headers,params, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
-
-    public void post(final String host, final String suffix,
+    @Override
+    public void post(final String host, final String suffix,Map<String, String> headers,
                      final Map<String, String> params, final HttpCallBack callback,
                      final Object tag, final long connTimeOut, final long readTimeOut,
                      final long writeTimeOut)
@@ -183,7 +191,11 @@ public class OkHttpRequestManager implements I_RequestManager
             callback.onFinish();
             return;
         }
-        OkHttpUtils.post().url(url).tag(tag).params(params).build()
+        if(StringUtils.isEmpty(headers))
+        {
+            headers = new LinkedHashMap<>();
+        }
+        OkHttpUtils.post().url(url).headers(headers).tag(tag).params(params).build()
                 .connTimeOut(connTimeOut).readTimeOut(readTimeOut)
                 .writeTimeOut(writeTimeOut).execute(new StringCallback()
         {
@@ -240,24 +252,24 @@ public class OkHttpRequestManager implements I_RequestManager
         });
     }
 
-    public void postForm(final String host, final String suffix,
+    public void postForm(final String host, final String suffix,Map<String, String> headers,
                          final Map<String, Object> params, final HttpCallBack callback,
                          final Object tag)
     {
-        postForm(host, suffix, params, callback, tag, connTimeOut, readTimeOut,
+        postForm(host, suffix,headers, params, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
 
-    public void postForm(final String host, final String suffix,
+    public void postForm(final String host, final String suffix,Map<String, String> headers,
                          final Map<String, Object> params, final HttpCallBack callback,
                          final long connTimeOut, final long readTimeOut,
                          final long writeTimeOut, final Object tag)
     {
-        postForm(host, suffix, params, callback, tag, connTimeOut, readTimeOut,
+        postForm(host, suffix,headers, params, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
 
-    public void postForm(final String host, final String suffix,
+    public void postForm(final String host, final String suffix,Map<String, String> headers,
                          final Map<String, Object> params, final HttpCallBack callback,
                          final Object tag, final long connTimeOut, final long readTimeOut,
                          final long writeTimeOut)
@@ -276,9 +288,12 @@ public class OkHttpRequestManager implements I_RequestManager
             callback.onFinish();
             return;
         }
-
+        if(StringUtils.isEmpty(headers))
+        {
+            headers = new LinkedHashMap<>();
+        }
         PostFormBuilder formbuilder = OkHttpUtils.post();
-        formbuilder.url(url).tag(tag);
+        formbuilder.url(url).tag(tag).headers(headers);
         Iterator<Entry<String, Object>> paramsIterator = params.entrySet()
                 .iterator();
         while (paramsIterator.hasNext())
@@ -405,12 +420,17 @@ public class OkHttpRequestManager implements I_RequestManager
      * @Description: 下载文件
      * @author yh
      */
-    public void download(String url, final String path, String fileName,
+    @Override
+    public void download(String url, Map<String, String> headers,final String path, String fileName,
                          final HttpCallBack callback, final long connTimeOut,
                          final long readTimeOut, final long writeTimeOut, String tag)
     {
-        LogUtils.e("GET请求视屏：", url + "   ");
-        OkHttpUtils.get().tag(tag).url(url).build().connTimeOut(connTimeOut)
+        LogUtils.e("下载地址：", url + "   ");
+        if(StringUtils.isEmpty(headers))
+        {
+            headers = new LinkedHashMap<>();
+        }
+        OkHttpUtils.get().tag(tag).headers(headers).url(url).build().connTimeOut(connTimeOut)
                 .readTimeOut(readTimeOut).writeTimeOut(writeTimeOut)
                 .execute(new FileCallBack(path, fileName)
                 {
@@ -452,11 +472,16 @@ public class OkHttpRequestManager implements I_RequestManager
      * @Description: 下载
      * @author yh
      */
-    public void download(String url, final String path, String fileName,
+    @Override
+    public void download(String url,Map<String, String> headers, final String path, String fileName,
                          final HttpCallBack callback, String tag)
     {
         LogUtils.e("下载URL：", url + "   ");
-        OkHttpUtils.get().tag(tag).url(url).build().connTimeOut(connTimeOut)
+        if(StringUtils.isEmpty(headers))
+        {
+            headers = new LinkedHashMap<>();
+        }
+        OkHttpUtils.get().headers(headers).tag(tag).url(url).build().connTimeOut(connTimeOut)
                 .readTimeOut(readTimeOut).writeTimeOut(writeTimeOut)
                 .execute(new FileCallBack(path, fileName)
                 {
