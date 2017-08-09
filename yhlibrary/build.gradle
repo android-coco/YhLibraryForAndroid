@@ -70,12 +70,6 @@ publish {//lucifer add
     publishVersion = rootProject.publishVersion
     desc = rootProject.description
     website = rootProject.website
-    licences = rootProject.licences
-}
-repositories {
-    maven {
-        url  "http://dl.bintray.com/androidcoco/YhMaven"
-    }
 }
 tasks.withType(Javadoc) {//防止编码问题
     options.addStringOption('Xdoclint:none', '-quiet')

@@ -17,18 +17,25 @@ allprojects {
     repositories {
         jcenter()
     }
+    tasks.withType(Javadoc) {// lucifer add注释有中文
+        options {
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.Oracle.com/javase/7/docs/api"
+        }
+    }
 }
 //项目主页
 def siteUrl = 'https://github.com/android-coco/YhLibraryForAndroid'
 // lucifer add
 ext {
-    userOrg = 'androidcoco'//组织名称，不是用户名真不是用户名这个坑了我2个小时，默认是有一个用户名的ogr,在bintray.com控制面板可以添加多个Organizations
+    userOrg = 'yhlyl'//组织名称，不是用户名真不是用户名这个坑了我2个小时，默认是有一个用户名的ogr,在bintray.com控制面板可以添加多个Organizations
     groupId = 'org.yh.yhframe'//jcenter上的路径
-    uploadName = 'YhLibraryForAndroid'//就是项目名称 像我的项目LucferJcenterExample，app 和lucenterlibtest 叫做mudule
+    uploadName = 'YhLibraryForAndroid'
+//就是项目名称 像我的项目LucferJcenterExample，app 和lucenterlibtest 叫做mudule
     publishVersion = '1.0.0'
     desc = 'Android实用框架采用MVC设计模式,多个项目经验总结,持续完善中'//描述，不重要
     website = siteUrl//没有也没事 有最好能关联你的项目最好 此处我随便填一个
-    licences = ['Apache-2.0']
 }
 task clean(type: Delete) {
     delete rootProject.buildDir
