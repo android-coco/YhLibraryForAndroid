@@ -42,6 +42,7 @@ import static org.yh.library.utils.SystemUtils.isGranted;
 /**
  * @author yh (https://github.com/android-coco) on 11/19/15.
  */
+@SuppressWarnings("all")
 public abstract class YHActivity extends AppCompatActivity implements
         View.OnClickListener, I_BroadcastReg, I_YHActivity, I_SkipActivity
 {

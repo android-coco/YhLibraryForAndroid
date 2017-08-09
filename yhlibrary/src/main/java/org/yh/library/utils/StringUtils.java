@@ -78,12 +78,9 @@ public class StringUtils
     }
 
     /**
-     * @param @param  obj
-     * @param @return 参数说明
-     * @return boolean 返回类型
-     * @throws
-     * @Title: empty
-     * @Description: 判断所有对象是否为空
+     * 判断所有对象是否为空
+     * @param obj 对象
+     * @return boolean
      */
     public static boolean isEmpty(Object obj)
     {

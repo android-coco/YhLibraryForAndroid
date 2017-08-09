@@ -101,7 +101,7 @@ public class YHRecyclerViewHolder<D> extends RecyclerView.ViewHolder
      *
      * @param viewId
      * @param text
-     * @return
+     * @return YHRecyclerViewHolder
      */
     public YHRecyclerViewHolder setText(int viewId, String text)
     {

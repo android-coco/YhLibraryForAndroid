@@ -23,7 +23,7 @@ public class JsonUitl
      *
      * @param json
      * @param classOfT
-     * @return
+     * @return json
      */
     public static Object stringToObject(Gson mGson,String json, Class classOfT)
     {
@@ -35,7 +35,7 @@ public class JsonUitl
      *
      * @param object
      * @param <T>
-     * @return
+     * @return json
      */
     public static <T> String objectToString(Gson mGson,T object)
     {
@@ -48,7 +48,7 @@ public class JsonUitl
      * @param json
      * @param cls
      * @param <T>
-     * @return
+     * @return json
      */
     public static <T> T stringToTObject(Gson mGson,String json, Class<T> cls)
     {
@@ -61,7 +61,7 @@ public class JsonUitl
      * @param json
      * @param cls
      * @param <T>
-     * @return
+     * @return list
      */
     public static <T> List<T> stringToList(Gson mGson,String json, Class<T> cls)
     {
@@ -78,7 +78,7 @@ public class JsonUitl
      * 把json 字符串转化成list
      *
      * @param json
-     * @return
+     * @return map
      */
     public static Map<String, Object> stringToMap(Gson mGson,String json)
     {

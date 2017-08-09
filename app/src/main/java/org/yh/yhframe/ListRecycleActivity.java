@@ -93,10 +93,7 @@ public class ListRecycleActivity extends BaseActiciy
                         break;
 
                 }
-                if (intent != null)
-                {
-                    startActivity(intent);
-                }
+                startActivity(intent);
             }
         });
     }

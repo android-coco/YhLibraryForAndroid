@@ -4,11 +4,9 @@ package org.yh.library.utils;
 import org.yh.library.db.YhDBManager;
 
 /**
- * 
- * @ClassName: Constants
- * @Description: 框架全局设置
+ * 框架全局设置
  * @author yh (https://github.com/android-coco)
- * @date 2016-3-3 上午9:45:49
+ * 2016-3-3 上午9:45:49
  * 
  */
 public final class Constants

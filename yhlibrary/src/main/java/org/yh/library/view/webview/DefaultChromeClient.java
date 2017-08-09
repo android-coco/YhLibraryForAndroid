@@ -23,21 +23,10 @@ import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.widget.EditText;
 
-import org.yh.library.R;
 import org.yh.library.utils.LogUtils;
 
 import java.lang.ref.WeakReference;
 
-/**
- * <b>@项目名：</b> agentweb<br>
- * <b>@包名：</b>com.just.library<br>
- * <b>@创建者：</b> cxz --  just<br>
- * <b>@创建时间：</b> &{DATE}<br>
- * <b>@公司：</b> 宝诺科技<br>
- * <b>@邮箱：</b> cenxiaozhong.qqcom@qq.com<br>
- * <b>@描述</b><br>
- * source code  https://github.com/Justson/AgentWeb
- */
 
 public class DefaultChromeClient extends WebChromeClientProgressWrapper implements FileUploadPop<IFileUploadChooser> {
 

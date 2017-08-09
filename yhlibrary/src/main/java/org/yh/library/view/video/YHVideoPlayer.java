@@ -24,7 +24,7 @@ import java.util.Map;
  * Created by yhlyl on 2017/5/31.
  * 播放器
  */
-
+@SuppressWarnings("all")
 public class YHVideoPlayer extends FrameLayout implements I_YHVideoPlayerControl, TextureView
         .SurfaceTextureListener
 {

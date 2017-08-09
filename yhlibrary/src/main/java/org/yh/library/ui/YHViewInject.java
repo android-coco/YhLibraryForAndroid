@@ -60,12 +60,10 @@ public class YHViewInject
         return ClassHolder.instance;
     }
 
+
     /**
-     * @param @param tips 文件资源ID
-     * @return void 返回类型
-     * @throws
-     * @Title: showTips
-     * @Description: 文字资源 提示
+     *
+     * @param tips 文件资源ID
      */
     public void showTips(int tips)
     {
@@ -73,24 +71,19 @@ public class YHViewInject
     }
 
     /**
-     * @param @param tips 字符串文字
-     * @return void 返回类型
-     * @throws
-     * @Title: showTips
-     * @Description: 字符串提示
+     *
+     * @param tips 字符串文字
      */
     public void showTips(String tips)
     {
         showTips(0, tips);
     }
 
+
     /**
-     * @param @param iconResId 图片ID
-     * @param @param tips 文字ID
-     * @return void 返回类型
-     * @throws
-     * @Title: showTips
-     * @Description:
+     *
+     * @param iconResId  图片ID
+     * @param tips 文字ID
      */
     public void showTips(int iconResId, String tips)
     {

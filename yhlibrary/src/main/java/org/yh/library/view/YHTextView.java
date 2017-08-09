@@ -920,7 +920,7 @@ public class YHTextView extends RelativeLayout
      * @param rightString     右边文字
      * @param drawable        drawable
      * @param drawablePadding drawablePadding
-     * @return
+     * @return 返回对象
      */
     public YHTextView setRightString(String rightString, Drawable drawable, int drawablePadding)
     {

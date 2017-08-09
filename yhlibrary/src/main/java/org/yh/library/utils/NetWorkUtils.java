@@ -12,10 +12,7 @@ import android.net.NetworkInfo;
 public class NetWorkUtils
 {
     /**
-     * @author jiangqq
-     * 获取当前的网络状态  -1：没有网络  1：WIFI网络 2：wap网络3：net网络
-     * @param context
-     * @return
+     *  获取当前的网络状态  -1：没有网络  1：WIFI网络 2：wap网络3：net网络
      */
     public static final int CMNET = 3;
     public static final int CMWAP = 2;

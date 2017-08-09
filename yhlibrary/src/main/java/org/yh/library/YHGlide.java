@@ -17,6 +17,7 @@ import java.io.File;
  * 作者：38314 on 2017/5/24 11:37
  * 邮箱：yh_android@163.com
  */
+@SuppressWarnings("all")
 public class YHGlide
 {
     private static YHGlide instanse;

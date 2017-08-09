@@ -23,26 +23,15 @@ import java.math.BigDecimal;
 import java.nio.channels.FileChannel;
 
 /**
- * 
- * @ClassName: FileUtils
- * @Description: 文件与流处理工具类
- * @author yh (https://github.com/android-coco)
- * @date 2015-8-14 下午6:58:31
- * 
+ * 文件与流处理工具类
  */
 public class FileUtils
 {
-	
+
 	/**
-	 * 
-	 * @Title: createSDDir
-	 * @Description: TODO(创建sd卡的目录)
-	 * @param @param dirName
-	 * @param @return
-	 * @param @throws IOException
-	 * @author gk 作者
-	 * @return File 返回类型
-	 * @throws
+	 * 创建sd卡的目录
+	 * @param dirName
+	 * @return file
 	 */
 	public static File createSDDir(String dirName)
 	{
@@ -292,16 +281,13 @@ public class FileUtils
 			}
 		}
 	}
+
 	/**
-	 * 
-	 * @Title: saveBitmap
-	 * @Description: 保存图片
-	 * @param @param 图片
-	 * @param @param picName 图片名称
-	 * @param @param type 图片类型JPG PNG...
-	 * @author yh 作者
-	 * @return void 返回类型
-	 * @throws
+	 * 保存图片
+	 * @param bm
+	 * @param picName
+	 * @param type
+	 * @return 图片路径
 	 */
 	public static String saveBitmap(Bitmap bm, String picName, String type)
 	{
@@ -396,12 +382,11 @@ public class FileUtils
 		}
 		return isSuccess;
 	}
-	
+
 	/**
 	 * 从文件中读取文本
-	 * 
 	 * @param filePath
-	 * @return
+	 * @return String
 	 */
 	public static String readFile(String filePath)
 	{
@@ -422,7 +407,7 @@ public class FileUtils
 	 * 从assets中读取文本
 	 * 
 	 * @param name
-	 * @return
+	 * @return String
 	 */
 	public static String readFileFromAssets(Context context, String name)
 	{
@@ -476,7 +461,7 @@ public class FileUtils
 	 * 格式化单位
 	 * 
 	 * @param size
-	 * @return
+	 * @return string
 	 */
 	public static String getFormatSize(long size)
 	{
@@ -513,16 +498,11 @@ public class FileUtils
 		return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString()
 				+ "TB";
 	}
-	
+
 	/**
-	 * 
-	 * @Title: getFolderSize
-	 * @Description: 获取文件夹的大小
-	 * @param @param file
-	 * @param @return 获取文件夹的大小
-	 * @author wangchen
-	 * @return long 返回类型
-	 * @throws
+	 * 获取文件夹的大小
+	 * @param file
+	 * @return 大小
 	 */
 	public static long getFolderSize(File file)
 	{
@@ -554,16 +534,11 @@ public class FileUtils
 		return size;
 		
 	}
-	
+
 	/**
-	 * 
-	 * @Title: getFileSize
-	 * @Description: 获取文件的大小
-	 * @param @param file
-	 * @param @return
-	 * @author yh 作者
-	 * @return long 返回类型
-	 * @throws
+	 * 获取文件的大小
+	 * @param file
+	 * @return 大小
 	 */
 	public static long getFileSize(File file)
 	{

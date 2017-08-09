@@ -76,7 +76,7 @@ public class ImageUtils {
      * 获取一个随机图片文件名，含路径
      *
      * @param filePath
-     * @return
+     * @return 路径
      */
     public static String getRandomFileName(String filePath) {
         SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",

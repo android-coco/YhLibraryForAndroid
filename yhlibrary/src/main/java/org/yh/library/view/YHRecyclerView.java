@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Created by yhlyl on 2017/5/13.
  */
-
+@SuppressWarnings("all")
 public class YHRecyclerView extends RecyclerView
 {
     private boolean isLoadingData = false;

@@ -27,7 +27,7 @@ import static org.yh.library.R.id.error;
  * Created by yhlyl on 2017/5/31.
  * 播放器控制器.
  */
-
+@SuppressWarnings("all")
 public class YHVideoPlayerController extends FrameLayout
         implements View.OnClickListener,
         SeekBar.OnSeekBarChangeListener

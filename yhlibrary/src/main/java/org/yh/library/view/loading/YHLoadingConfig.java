@@ -9,7 +9,7 @@ import org.yh.library.view.loading.factory.MaterialFactory;
  * Created by yhlyl on 2017/5/31.
  * 配置文件
  */
-
+@SuppressWarnings("all")
 public class YHLoadingConfig
 {
     private final static I_LoadingFactory DEFAULT_LOADING_FACTORY = new MaterialFactory();

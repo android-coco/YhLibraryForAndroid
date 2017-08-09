@@ -4,7 +4,7 @@ package org.yh.library.view.video;
  * Created by yhlyl on 2017/5/31.
  * 视频播放器管理器.
  */
-
+@SuppressWarnings("all")
 public class YHVideoPlayerManager
 {
     private YHVideoPlayer mVideoPlayer;

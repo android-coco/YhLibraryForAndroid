@@ -2,13 +2,15 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
-
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions{
+        abortOnError false
     }
     buildTypes {
         release {
@@ -44,4 +46,24 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
     testCompile 'junit:junit:4.12'
 
+}
+
+/** 以下开始是将Android Library上传到jcenter的相关配置**/
+apply plugin: 'com.novoda.bintray-release'//添加
+apply plugin: 'maven'
+//项目主页
+def siteUrl = 'https://github.com/android-coco/YhLibraryForAndroid'
+publish{
+    repoName = 'YhMaven'//远程仓库名字,不指明，默认是上传到maven
+    userOrg = 'androidcoco'//bintray.com的用户名
+    groupId = 'org.yh.yhframe'//jcenter上的路径
+    artifactId = 'YhLibraryForAndroid'//项目名称
+    version = '1.0.0'//版本号
+    description = 'Android实用框架采用MVC设计模式,多个项目经验总结,持续完善中'//描述，不重要
+    website = siteUrl//项目主页
+}
+tasks.withType(Javadoc) {//防止编码问题
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
 }

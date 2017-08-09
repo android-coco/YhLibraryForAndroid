@@ -3,7 +3,7 @@ package org.yh.library.view.video;
 /**
  * Created by yhlyl on 2017/5/31.
  */
-
+@SuppressWarnings("all")
 public interface I_YHVideoPlayerControl
 {
     //开始播放
