@@ -9,6 +9,8 @@ import java.util.Map;
  */
 public interface I_RequestManager
 {
+    //请求头设置
+    void setHeaders(Map<String,String> headers);
 
     void get(final String host, String suffix,Map<String, String> headers,
              final HttpCallBack callback, Object tag);

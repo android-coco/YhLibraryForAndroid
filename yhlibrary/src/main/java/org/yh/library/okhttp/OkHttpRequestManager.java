@@ -42,6 +42,8 @@ public class OkHttpRequestManager implements I_RequestManager
     private final static long writeTimeOut = 60 * 1000L;//写超时时间
     private final static long connTimeOut = 10 * 1000L;//连接超时时间
 
+    private Map<String,String> headers = null;//请求头
+
 
     private OkHttpRequestManager()
     {
@@ -98,7 +100,7 @@ public class OkHttpRequestManager implements I_RequestManager
         }
         if(StringUtils.isEmpty(headers))
         {
-            headers = new LinkedHashMap<>();
+            headers = this.headers;
         }
         OkHttpUtils.get().url(url1).headers(headers).tag(tag).build().connTimeOut(connTimeOut)
                 .readTimeOut(readTimeOut).writeTimeOut(writeTimeOut)
@@ -193,7 +195,7 @@ public class OkHttpRequestManager implements I_RequestManager
         }
         if(StringUtils.isEmpty(headers))
         {
-            headers = new LinkedHashMap<>();
+            headers = this.headers;
         }
         OkHttpUtils.post().url(url).headers(headers).tag(tag).params(params).build()
                 .connTimeOut(connTimeOut).readTimeOut(readTimeOut)
@@ -290,7 +292,7 @@ public class OkHttpRequestManager implements I_RequestManager
         }
         if(StringUtils.isEmpty(headers))
         {
-            headers = new LinkedHashMap<>();
+            headers = this.headers;
         }
         PostFormBuilder formbuilder = OkHttpUtils.post();
         formbuilder.url(url).tag(tag).headers(headers);
@@ -407,6 +409,16 @@ public class OkHttpRequestManager implements I_RequestManager
         }
     }
 
+    @Override
+    public void setHeaders(Map<String,String> headers)
+    {
+        if(StringUtils.isEmpty(headers))
+        {
+            headers = new LinkedHashMap<>();
+        }
+        LogUtils.e("请求头：",headers);
+        this.headers = headers;
+    }
 
     /**
      * @param @param url 下载地址
@@ -428,7 +440,7 @@ public class OkHttpRequestManager implements I_RequestManager
         LogUtils.e("下载地址：", url + "   ");
         if(StringUtils.isEmpty(headers))
         {
-            headers = new LinkedHashMap<>();
+            headers = this.headers;
         }
         OkHttpUtils.get().tag(tag).headers(headers).url(url).build().connTimeOut(connTimeOut)
                 .readTimeOut(readTimeOut).writeTimeOut(writeTimeOut)
@@ -479,7 +491,7 @@ public class OkHttpRequestManager implements I_RequestManager
         LogUtils.e("下载URL：", url + "   ");
         if(StringUtils.isEmpty(headers))
         {
-            headers = new LinkedHashMap<>();
+            headers = this.headers;
         }
         OkHttpUtils.get().headers(headers).tag(tag).url(url).build().connTimeOut(connTimeOut)
                 .readTimeOut(readTimeOut).writeTimeOut(writeTimeOut)

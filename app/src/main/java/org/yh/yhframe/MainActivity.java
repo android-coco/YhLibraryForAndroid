@@ -92,49 +92,49 @@ public class MainActivity extends BaseActiciy
 //        params.put("v11", "11");
 
         //网络请求简单操作
-        YHRequestFactory.getRequestManger().postForm("",
-                "http://mobilecare.fitcome.net/api/Measure/add", null,params, new HttpCallBack()
-                {
-                    @Override
-                    public void onSuccess(String t)
-                    {
-                        super.onSuccess(t);
-                        LogUtils.e(TAG, t);
-                        //User user = (User)JsonUitl.stringToObject(t,User.class);
-                        //LogUtils.e(TAG, user.getResult());
-                    }
-
-                    @Override
-                    public void onFailure(int errorNo, String strMsg)
-                    {
-                        super.onFailure(errorNo, strMsg);
-                        LogUtils.e(TAG, strMsg);
-                    }
-                }, TAG);
-
-        YHRequestFactory.getRequestManger().get("", "http://211.149.215.12:8081/articleInterface/article/getRegCode?userName=15626590280",null, new HttpCallBack()
-        {
-            @Override
-            public void onSuccess(Map<String, String> headers, byte[] t)
-            {
-                super.onSuccess(headers, t);
-                LogUtils.e(TAG, headers + new String(t));
-            }
-
-            @Override
-            public void onSuccess(String t)
-            {
-                super.onSuccess(t);
-                LogUtils.e(TAG, t);
-            }
-
-            @Override
-            public void onFailure(int errorNo, String strMsg)
-            {
-                super.onFailure(errorNo, strMsg);
-                LogUtils.e(TAG, strMsg);
-            }
-        }, TAG);
+//        YHRequestFactory.getRequestManger().postForm("",
+//                "http://mobilecare.fitcome.net/api/Measure/add", null,params, new HttpCallBack()
+//                {
+//                    @Override
+//                    public void onSuccess(String t)
+//                    {
+//                        super.onSuccess(t);
+//                        LogUtils.e(TAG, t);
+//                        //User user = (User)JsonUitl.stringToObject(t,User.class);
+//                        //LogUtils.e(TAG, user.getResult());
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int errorNo, String strMsg)
+//                    {
+//                        super.onFailure(errorNo, strMsg);
+//                        LogUtils.e(TAG, strMsg);
+//                    }
+//                }, TAG);
+//
+//        YHRequestFactory.getRequestManger().get("", "http://211.149.215.12:8081/articleInterface/article/getRegCode?userName=15626590280",null, new HttpCallBack()
+//        {
+//            @Override
+//            public void onSuccess(Map<String, String> headers, byte[] t)
+//            {
+//                super.onSuccess(headers, t);
+//                LogUtils.e(TAG, headers + new String(t));
+//            }
+//
+//            @Override
+//            public void onSuccess(String t)
+//            {
+//                super.onSuccess(t);
+//                LogUtils.e(TAG, t);
+//            }
+//
+//            @Override
+//            public void onFailure(int errorNo, String strMsg)
+//            {
+//                super.onFailure(errorNo, strMsg);
+//                LogUtils.e(TAG, strMsg);
+//            }
+//        }, TAG);
         //请求头测试
         /**
          *  .addHeader("imei", "123123123")
@@ -144,17 +144,12 @@ public class MainActivity extends BaseActiciy
          */
         Map<String,String> headers = new LinkedHashMap<>();
         headers.put("imei", "123123123");
-        headers.put("version", "1.0");
+        headers.put("version", "1.1");
         headers.put("token", "");
         headers.put("regid", "123123123");
+//        YHRequestFactory.getRequestManger().setHeaders(headers);
         YHRequestFactory.getRequestManger().get("", "http://192.168.0.130:8081/api/login/login?user=123456&pass=123456",headers, new HttpCallBack()
         {
-            @Override
-            public void onSuccess(Map<String, String> headers, byte[] t)
-            {
-                super.onSuccess(headers, t);
-                LogUtils.e(TAG, headers + new String(t));
-            }
 
             @Override
             public void onSuccess(String t)
