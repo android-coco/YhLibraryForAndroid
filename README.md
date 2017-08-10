@@ -20,14 +20,14 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 ```
-##引入
+## 引入
 
-*Gradle
+* Gradle
 ```
 compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.1'
 ```
 
-*Maven
+* Maven
 ```
 <dependency>
   <groupId>org.yh.yhframe</groupId>
@@ -36,7 +36,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.1'
   <type>pom</type>
 </dependency>
  ```
-##base包说明：
+## base包说明：
 ```
 1.BaseActiciy    所有Acticiy的基类
 2.BaseFragment   所有Fragment的基类
@@ -59,7 +59,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.1'
  14.YHViewInject.java     侵入式View的调用工具类
  15.AnnotateUtil.java     注解工具类(View id绑定)
  ```
- ##view包说明：
+ ## view包说明：
  ```
  1.YhToolbar     标题栏
   <include layout="@layout/basetitle"/>
@@ -70,14 +70,14 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.1'
   }
  ```
  
- ##数据库操作
+ ## 数据库操作
  ```
  1.YhDBManager.java
  2.Constants.Config.yhDBManager
  Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance,"yh.db",true);
  Constants.Config.yhDBManager.insertAll(mAdapter.getDatas());
  ```
- ##RecyclerView和Adapter,Holder
+ ## RecyclerView和Adapter,Holder
  ```
  1.YHAdapter<D>     adatper
  2.YHHolder<D>      holder
@@ -130,7 +130,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.1'
    //加载完毕
    mRecyclerView.loadMoreComplete();
  ```
- ##网络操作
+ ## 网络操作
  ```
  1.YHRequestFactory.java
   //url 分为2部分  头和后缀
@@ -153,7 +153,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.1'
              }
          }, TAG);
  ```
- ##图片操作
+ ## 图片操作
  ```
  1.YHGlide-->Glide
  YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl(item.getPic(), (ImageView) holder.getView(R.id.menu_pic));
