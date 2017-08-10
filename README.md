@@ -1,4 +1,4 @@
-# YhLibraryForAndroid
+## YhLibraryForAndroid
 Android实用框架采用MVC设计模式,多个项目经验总结,持续完善中
 
 包括：<br>
@@ -6,8 +6,12 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
      2,Orm 数据库<br>
      3,Universal-Image-Loader<br>
      4,EventBus<br>
-     5,RecyclerView 下拉,上拉
+     5,YHRecyclerView 下拉,上拉
      6,BindView 控件绑定
+     7,YHGlide  图片框架
+     8,YHWebView 自定义View 
+     9,BindView 控件绑定
+     10,YHVideoPlayer 视频播放器
 
 注，需要在AndroidManifest.xml 中声明如下权限
 
@@ -16,12 +20,28 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 ```
-#base包说明：
+##引入
+
+*Gradle
+```
+compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.1'
+```
+
+*Maven
+```
+<dependency>
+  <groupId>org.yh.yhframe</groupId>
+  <artifactId>YhLibraryForAndroid</artifactId>
+  <version>1.0.1</version>
+  <type>pom</type>
+</dependency>
+ ```
+##base包说明：
 ```
 1.BaseActiciy    所有Acticiy的基类
 2.BaseFragment   所有Fragment的基类
 ```
-# 对Utils的说明：
+## 对Utils的说明：
 ```
  1.PreferenceUtils.java   对SharedPreferences的封装
  2.CipherUtils.java       对常用加密方法进行整理
@@ -39,7 +59,7 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
  14.YHViewInject.java     侵入式View的调用工具类
  15.AnnotateUtil.java     注解工具类(View id绑定)
  ```
- #view包说明：
+ ##view包说明：
  ```
  1.YhToolbar     标题栏
   <include layout="@layout/basetitle"/>
@@ -50,14 +70,14 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
   }
  ```
  
- #数据库操作
+ ##数据库操作
  ```
  1.YhDBManager.java
  2.Constants.Config.yhDBManager
  Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance,"yh.db",true);
  Constants.Config.yhDBManager.insertAll(mAdapter.getDatas());
  ```
- #RecyclerView和Adapter,Holder
+ ##RecyclerView和Adapter,Holder
  ```
  1.YHAdapter<D>     adatper
  2.YHHolder<D>      holder
@@ -110,36 +130,49 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
    //加载完毕
    mRecyclerView.loadMoreComplete();
  ```
- #网络操作
+ ##网络操作
  ```
  1.YHRequestFactory.java
-  YHRequestFactory.getRequestManger().get(url, "", new HttpCallBack()
+  //url 分为2部分  头和后缀
+  //headers  请求头  Map<String,String>
+  YHRequestFactory.getRequestManger().get("", "",headers, new HttpCallBack()
          {
+ 
              @Override
              public void onSuccess(String t)
              {
                  super.onSuccess(t);
+                 LogUtils.e(TAG, t);
              }
  
              @Override
              public void onFailure(int errorNo, String strMsg)
              {
                  super.onFailure(errorNo, strMsg);
-             }
- 
-             @Override
-             public void onFinish()
-             {
-                 super.onFinish();
+                 LogUtils.e(TAG, strMsg);
              }
          }, TAG);
-     }
  ```
- # 图片操作
+ ##图片操作
  ```
  1.YHGlide-->Glide
- //ImageLoader.getInstance().displayImage(data.getPic(), menu_pic);
  YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl(item.getPic(), (ImageView) holder.getView(R.id.menu_pic));
+ ```
+ ## License
+ ```
+ Copyright (C)  Justson(https://github.com/android-coco/YhLibraryForAndroid)
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
  ```
  
  
