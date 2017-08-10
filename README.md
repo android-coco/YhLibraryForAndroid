@@ -6,12 +6,12 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
      2,Orm 数据库<br>
      3,Universal-Image-Loader<br>
      4,EventBus<br>
-     5,YHRecyclerView 下拉,上拉
-     6,BindView 控件绑定
-     7,YHGlide  图片框架
-     8,YHWebView 自定义View 
-     9,BindView 控件绑定
-     10,YHVideoPlayer 视频播放器
+     5,YHRecyclerView 下拉,上拉<br>
+     6,BindView 控件绑定<br>
+     7,YHGlide  图片框架<br>
+     8,YHWebView 自定义View <br>
+     9,BindView 控件绑定<br>
+     10,YHVideoPlayer 视频播放器<br>
 
 注，需要在AndroidManifest.xml 中声明如下权限
 
