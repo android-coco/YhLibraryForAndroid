@@ -31,6 +31,8 @@ public final class Constants
 	public static final String saveFolder = "yh";
 	// 图片缓存文件夹
 	public static final String imgCachePath = saveFolder + "/imgs";
+	// 视频缓存目录
+	public static final String videoCachePath = saveFolder + "/imgs";
 	// 错误日志
 	public static final String logPath = saveFolder + "/log";
 	/**网络相关*/

@@ -16,4 +16,12 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:text="菜单Aciticty"/>
 
+    <Button
+        android:id="@+id/start_recording"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="播放视频"/>
+
+
 </android.support.design.widget.CoordinatorLayout>

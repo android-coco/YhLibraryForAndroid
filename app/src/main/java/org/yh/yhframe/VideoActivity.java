@@ -5,6 +5,7 @@ import android.widget.Button;
 
 import org.yh.library.ui.BindView;
 import org.yh.library.ui.YHViewInject;
+import org.yh.library.utils.StringUtils;
 import org.yh.library.view.video.YHVideoPlayer;
 import org.yh.library.view.video.YHVideoPlayerController;
 import org.yh.library.view.video.YHVideoPlayerManager;
@@ -15,12 +16,20 @@ import org.yh.yhframe.base.BaseActiciy;
  */
 public class VideoActivity extends BaseActiciy
 {
+    public static final String VIDEO_PATH = "videopath";
+    public static final String IMG_PATH = "imgpath";
+    private static final String viodeo_path = "https://data.fitcome" +
+            ".net/storage/regimen/video/201609/cd2f39c353fa867594d8f801d2adced5.mp4";
+    private static final String img_path = "http://data.fitcome.net/static/img/yh.gif";
     @BindView(id = R.id.nice_video_player)
     private YHVideoPlayer mYHVideoPlayer;
     @BindView(id = R.id.enterTinyWindow, click = true)
     private Button enterTinyWindow;
     @BindView(id = R.id.showVideoList, click = true)
     private Button showVideoList;
+
+    private String mPath;//视频播放路径 上个界面传来
+    private String imgPath;//视频截图路径 上个界面传来
 
     @Override
     public void setRootView()
@@ -32,11 +41,17 @@ public class VideoActivity extends BaseActiciy
     public void initData()
     {
         super.initData();
-        mYHVideoPlayer.setUp("https://data.fitcome" +
-                ".net/storage/regimen/video/201609/cd2f39c353fa867594d8f801d2adced5.mp4", null);
+        mPath = getIntent().getStringExtra(VIDEO_PATH);
+        imgPath = getIntent().getStringExtra(IMG_PATH);
+
+        mPath = StringUtils.isEmpty(mPath) ? viodeo_path : mPath;
+        imgPath = StringUtils.isEmpty(imgPath) ? img_path : imgPath;
+
+
         YHVideoPlayerController controller = new YHVideoPlayerController(this);
-        controller.setTitle("养生");
-        controller.setImage("http://data.fitcome.net/static/img/yh.gif");
+        mYHVideoPlayer.setUp(mPath, null);
+        controller.setTitle(StringUtils.isEmpty(mPath) ? "养生" : "小视频");
+        controller.setImage(imgPath);
         mYHVideoPlayer.setController(controller);
     }
 
