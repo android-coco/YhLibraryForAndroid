@@ -148,9 +148,9 @@ public class StringUtils
     /**
      * 字符串转整数
      *
-     * @param str
-     * @param defValue
-     * @return
+     * @param str  字符串
+     * @param defValue  默认值
+     * @return  数值
      */
     public static int toInt(String str, int defValue)
     {
@@ -167,7 +167,7 @@ public class StringUtils
     /**
      * 对象转整
      *
-     * @param obj
+     * @param obj  对象
      * @return 转换异常返回 0
      */
     public static int toInt(Object obj)
@@ -182,7 +182,7 @@ public class StringUtils
     /**
      * String转long
      *
-     * @param obj
+     * @param obj  对象
      * @return 转换异常返回 0
      */
     public static long toLong(String obj)
@@ -200,7 +200,7 @@ public class StringUtils
     /**
      * String转double
      *
-     * @param obj
+     * @param obj 对象
      * @return 转换异常返回 0
      */
     public static double toDouble(String obj)
@@ -218,7 +218,7 @@ public class StringUtils
     /**
      * 字符串转布尔
      *
-     * @param b
+     * @param b  字符串
      * @return 转换异常返回 false
      */
     public static boolean toBool(String b)
@@ -312,8 +312,8 @@ public class StringUtils
     /**
      * 以友好的方式显示时间
      *
-     * @param sdate
-     * @return
+     * @param sdate  时间字符串
+     * @return  字符串
      */
     public static String friendlyTime(String sdate)
     {
@@ -434,8 +434,8 @@ public class StringUtils
     /**
      * 将字符串转位日期类型
      *
-     * @param sdate
-     * @return
+     * @param sdate 时间字符串
+     * @return 日期
      */
     public static Date toDate(String sdate)
     {
@@ -457,7 +457,7 @@ public class StringUtils
     /**
      * 判断用户的设备时区是否为东八区（中国） 2014年7月31日
      *
-     * @return
+     * @return  YES/NO
      */
     public static boolean isInEasternEightZones()
     {

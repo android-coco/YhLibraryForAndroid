@@ -185,9 +185,6 @@ public class AgentWebView extends WebView  implements ChromeClientCallbackManage
 
     /**
      * 构建一个“不会重复注入”的js脚本；
-     * @param key
-     * @param js
-     * @return
      */
     public String buildNotRepeatInjectJS(String key, String js) {
         String obj = String.format("__injectFlag_%1$s__", key);
@@ -206,8 +203,6 @@ public class AgentWebView extends WebView  implements ChromeClientCallbackManage
 
     /**
      * 构建一个“带try catch”的js脚本；
-     * @param js
-     * @return
      */
     public String buildTryCatchInjectJS(String js) {
         StringBuilder sb = new StringBuilder();

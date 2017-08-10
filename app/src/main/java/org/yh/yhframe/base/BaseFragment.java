@@ -140,7 +140,6 @@ public abstract class BaseFragment extends YHFragment
      * 方便Fragment中设置ActionBar资源
      *
      * @param actionBarRes
-     * @return
      */
     protected void setActionBarRes(ActionBarRes actionBarRes)
     {

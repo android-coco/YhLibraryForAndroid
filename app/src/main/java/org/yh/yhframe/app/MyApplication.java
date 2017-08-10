@@ -38,9 +38,9 @@ import okhttp3.OkHttpClient;
 /**
  * @author hao
  * @version 1.0
- * @ClassName: MyApplication<br/>
- * @Description: MyApplication<br/>
- * @date: 2015-6-17 下午5:00:20 <br/>
+ * ClassName: MyApplication<br/>
+ * Description: MyApplication<br/>
+ * date: 2015-6-17 下午5:00:20 <br/>
  * @since JDK 1.7
  */
 public class MyApplication extends Application

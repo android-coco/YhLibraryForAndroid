@@ -15,11 +15,6 @@ public interface I_LoadingDialog extends I_Loading
 
     I_LoadingDialog setCancelable(boolean flag);
 
-    /**
-     * 设置Message
-     * @param message
-     * @return
-     */
     I_LoadingDialog setMessage(CharSequence message);
 
 

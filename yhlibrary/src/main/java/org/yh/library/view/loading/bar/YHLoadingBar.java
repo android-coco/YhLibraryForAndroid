@@ -186,8 +186,8 @@ public final class YHLoadingBar implements I_LoadingBar
     /**
      * 找到合适的父布局
      *
-     * @param parent
-     * @return
+     * @param parent  布局
+     * @return  父布局
      */
     private static ViewGroup findSuitableParent(View parent)
     {

@@ -73,7 +73,7 @@ public class YHRecyclerViewHolder<D> extends RecyclerView.ViewHolder
      * 通过viewId获取控件
      *
      * @param viewId
-     * @return
+     * @return view
      */
     public <T extends View> T getView(int viewId)
     {

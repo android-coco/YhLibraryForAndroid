@@ -17,8 +17,8 @@ public class ImageUtils
     /**
      * 根据InputStream获取图片实际的宽度和高度
      *
-     * @param imageStream
-     * @return
+     * @param imageStream  图片流
+     * @return 图片大小
      */
     public static ImageSize getImageSize(InputStream imageStream)
     {
@@ -76,8 +76,8 @@ public class ImageUtils
     /**
      * 根据ImageView获适当的压缩的宽和高
      *
-     * @param view
-     * @return
+     * @param view  ImageView
+     * @return 图片大小
      */
     public static ImageSize getImageViewSize(View view)
     {
@@ -93,8 +93,8 @@ public class ImageUtils
     /**
      * 根据view获得期望的高度
      *
-     * @param view
-     * @return
+     * @param view  布局
+     * @return  高度
      */
     private static int getExpectHeight(View view)
     {
@@ -132,8 +132,8 @@ public class ImageUtils
     /**
      * 根据view获得期望的宽度
      *
-     * @param view
-     * @return
+     * @param view  布局
+     * @return  宽度
      */
     private static int getExpectWidth(View view)
     {
@@ -171,9 +171,9 @@ public class ImageUtils
     /**
      * 通过反射获取imageview的某个属性值
      *
-     * @param object
-     * @param fieldName
-     * @return
+     * @param object  某个属性值的值
+     * @param fieldName  属性名称
+     * @return  属性值
      */
     private static int getImageViewFieldValue(Object object, String fieldName)
     {

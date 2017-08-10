@@ -63,7 +63,7 @@ public class YHListViewHolder<D>
      * 通过viewId获取控件
      *
      * @param viewId
-     * @return
+     * @return view
      */
     public <T extends View> T getView(int viewId)
     {
@@ -104,7 +104,7 @@ public class YHListViewHolder<D>
      *
      * @param viewId
      * @param text
-     * @return
+     * @return this
      */
     public YHListViewHolder setText(int viewId, String text)
     {

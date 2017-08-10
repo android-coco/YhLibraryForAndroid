@@ -18,7 +18,7 @@ public abstract class Callback<T>
     /**
      * UI Thread
      *
-     * @param
+     * @param id
      */
     public void onAfter(int id)
     {
@@ -37,8 +37,8 @@ public abstract class Callback<T>
     /**
      * if you parse reponse code in parseNetworkResponse, you should make this method return true.
      *
-     * @param response
-     * @return
+     * @param response 回复
+     * @return boolean
      */
     public boolean validateReponse(Response response, int id)
     {
@@ -48,7 +48,7 @@ public abstract class Callback<T>
     /**
      * Thread Pool Thread
      *
-     * @param response
+     * @param response 回复
      */
     public abstract T parseNetworkResponse(Response response, int id) throws Exception;
 
