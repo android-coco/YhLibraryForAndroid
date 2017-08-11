@@ -23,5 +23,12 @@
         android:layout_marginTop="100dp"
         android:text="播放视频"/>
 
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="160dp"
+        android:src="@drawable/ic_loading_rotate"/>
 
 </android.support.design.widget.CoordinatorLayout>

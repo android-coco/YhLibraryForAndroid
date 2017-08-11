@@ -9,9 +9,16 @@ import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.target.Target;
 
 import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.callback.HttpCallBack;
+import org.yh.library.ui.BindView;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.FileUtils;
 import org.yh.library.utils.LogUtils;
@@ -26,11 +33,12 @@ import java.util.Map;
 public class MainActivity extends BaseActiciy
 {
 
-    private static final int REQUECT_CODE_SDCARD = 1;
+    private static final int WRITE_EXTERNAL_STORAGE = 1;//权限标记
     Intent serviceIntent;
     private MyService.DownloadBinder downloadBinder;
     Intent myIntentService;
-
+    @BindView(id = R.id.img)
+    private ImageView img;
     @Override
     public void setRootView()
     {
@@ -51,6 +59,9 @@ public class MainActivity extends BaseActiciy
         //bindService(serviceIntent,connection,BIND_AUTO_CREATE);
         LogUtils.e(TAG, Thread.currentThread().getId());
         //startService(myIntentService);
+        //YHGlide.getInstanse(this).loadImgeForDrawable(R.mipmap.ic_launcher,img);
+        Target<GlideDrawable> x =  Glide.with(this).load(R.mipmap.ic_launcher).diskCacheStrategy(DiskCacheStrategy.ALL).into(img);
+        LogUtils.e(TAG, x);
     }
 
     private ServiceConnection connection = new ServiceConnection()
@@ -177,7 +188,7 @@ public class MainActivity extends BaseActiciy
         switch (v.getId())
         {
             case R.id.menu:
-                requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUECT_CODE_SDCARD);
+                requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE);
                 break;
             case R.id.start_recording:
                 Intent video = new Intent(this,VideoActivity.class);
@@ -224,7 +235,7 @@ public class MainActivity extends BaseActiciy
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults)
     {
-        if (requestCode == REQUECT_CODE_SDCARD)
+        if (requestCode == WRITE_EXTERNAL_STORAGE)
         {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
@@ -234,7 +245,9 @@ public class MainActivity extends BaseActiciy
             {
                 YHViewInject.create().showTips("您没有授权该权限，请在设置中打开授权");
             }
+            return;
         }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 }
