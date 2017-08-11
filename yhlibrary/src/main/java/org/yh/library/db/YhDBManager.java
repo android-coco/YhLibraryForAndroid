@@ -98,7 +98,7 @@ public class YhDBManager
      * @param cla
      * @param field
      * @param value
-     * @return
+     * @return list
      */
     public <T> List<T> getQueryByWhere(Class<T> cla, String field, Objects value)
     {
@@ -113,7 +113,7 @@ public class YhDBManager
      * @param value
      * @param start
      * @param length
-     * @return
+     * @return list
      */
     public <T> List<T> getQueryByWhereLength(Class<T> cla, String field, Objects value, int
             start, int length)

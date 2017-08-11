@@ -13,6 +13,7 @@ import android.view.View;
 import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.YHViewInject;
+import org.yh.library.utils.FileUtils;
 import org.yh.library.utils.LogUtils;
 import org.yh.yhframe.base.BaseActiciy;
 import org.yh.yhframe.service.MyIntentService;
@@ -34,13 +35,14 @@ public class MainActivity extends BaseActiciy
     public void setRootView()
     {
         setContentView(R.layout.activity_main);
+        bindView(R.id.menu, true);
+        bindView(R.id.start_recording, true);
     }
 
     @Override
     public void initWidget()
     {
         super.initWidget();
-        bindView(R.id.menu, true);
         toolbar.setLeftTitleText("返回");
         toolbar.setMainTitle("主页");
         toolbar.setMainTitleDrawable(R.mipmap.logo_white_210);
@@ -176,6 +178,12 @@ public class MainActivity extends BaseActiciy
         {
             case R.id.menu:
                 requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUECT_CODE_SDCARD);
+                break;
+            case R.id.start_recording:
+                Intent video = new Intent(this,VideoActivity.class);
+                video.putExtra(VideoActivity.VIDEO_PATH, FileUtils.getSDCardPath()+"/movie.mp4");
+                video.putExtra(VideoActivity.IMG_PATH,FileUtils.getSDCardPath()+"/Pictures/ScreenShots/SRC_20170711_223947.png");
+                startActivity(video);
                 break;
         }
     }

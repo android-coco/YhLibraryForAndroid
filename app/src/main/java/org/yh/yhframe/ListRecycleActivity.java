@@ -45,13 +45,13 @@ public class ListRecycleActivity extends BaseActiciy
         listAdapter = new ListAdapter<String>(R.layout.item_list)
         {
             @Override
-            public void convert(YHListViewHolder holder, String o, int pos)
+            public void convert(YHListViewHolder<String> holder, String o, int pos)
             {
                 holder.setText(R.id.id_item_list_title, o);
             }
 
             @Override
-            public void onViewHolderCreated(YHListViewHolder holder, View itemView)
+            public void onViewHolderCreated(YHListViewHolder<String> holder, View itemView)
             {
                 super.onViewHolderCreated(holder, itemView);
             }

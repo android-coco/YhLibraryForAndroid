@@ -24,7 +24,7 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
 
 * Gradle
 ```
-compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.1'
+compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.2'
 ```
 
 * Maven
@@ -32,7 +32,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.1'
 <dependency>
   <groupId>org.yh.yhframe</groupId>
   <artifactId>YhLibraryForAndroid</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <type>pom</type>
 </dependency>
  ```

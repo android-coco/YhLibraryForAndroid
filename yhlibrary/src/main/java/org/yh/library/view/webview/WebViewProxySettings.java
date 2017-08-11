@@ -28,9 +28,6 @@ public class WebViewProxySettings {
 
     /**
      * 重置代理
-     *
-     * @param webView
-     * @return
      */
     public static boolean resetProxy(WebView webView) {
         if (DEBUG) {
@@ -46,11 +43,6 @@ public class WebViewProxySettings {
 
     /**
      * 设置代理
-     *
-     * @param webView
-     * @param host
-     * @param port
-     * @return
      */
     public static boolean setProxy(WebView webView, String host, int port) {
         boolean result;
@@ -66,11 +58,6 @@ public class WebViewProxySettings {
 
     /**
      * 设置代理（Android 3.2及以下）
-     *
-     * @param webView
-     * @param host
-     * @param port
-     * @return
      */
     private static boolean setProxyHCAndBelow(WebView webView, String host, int port) {
         Object sNetwork = invokeStaticMethod("android.webkit.Network", "getInstance", new Class[]{Context.class}, webView.getContext());
@@ -83,10 +70,6 @@ public class WebViewProxySettings {
     /**
      * 设置代理（Android 4.0 - 4.3）
      *
-     * @param webView
-     * @param host
-     * @param port
-     * @return
      */
     private static boolean setProxyJB(WebView webView, String host, int port) {
         boolean isSet = !TextUtils.isEmpty(host) && port >= 0;
@@ -111,10 +94,6 @@ public class WebViewProxySettings {
     /**
      * 设置代理（Android 4.4及以上）
      *
-     * @param applicationContext
-     * @param host
-     * @param port
-     * @return
      */
     public static boolean setProxyKKAndAbove(Context applicationContext, String host, int port) {
         boolean result = false;
@@ -328,10 +307,6 @@ public class WebViewProxySettings {
     /**
      * 创建一个新实例
      *
-     * @param className
-     * @param parameterTypes
-     * @param args
-     * @return
      */
     private static Object newInstance(String className, Class<?>[] parameterTypes, Object... args) {
         try {

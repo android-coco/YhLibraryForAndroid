@@ -63,8 +63,6 @@ public class JsCallback {
 
     /**
      * 是否是JSON(JavaScript Object Notation)对象；
-     * @param obj
-     * @return
      */
     private boolean isJavaScriptObject(Object obj) {
         if (obj instanceof JSONObject || obj instanceof JSONArray) {

@@ -23,11 +23,11 @@ import static org.yh.library.utils.StringUtils.isEmpty;
 
 /**
  * 
- * @ClassName: OkHttpRequestManager
- * @Description: (对okhttp封装)
+ * ClassName: OkHttpRequestManager
+ * Description: (对okhttp封装)
  * @author yh   耦合性太高  需要重新编写
- * @date 2016-7-18 下午4:49:41
- * 
+ * date 2016-7-18 下午4:49:41
+ *
  */
 public class YHOkHttp1
 {
@@ -698,19 +698,17 @@ public class YHOkHttp1
 //		}
 //		return new HashMap<String, String>();
 //	}
-	
+
 	/**
-	 * 
-	 * @Title: download
-	 * @Description: 下载文件
-	 * @param @param url 下载地址
-	 * @param @param path 文件路径
-	 * @param @param fileName 文件名称
-	 * @param @param callback 回调
-	 * @param @param tag
-	 * @author yh
-	 * @return void 返回类型
-	 * @throws
+	 * 下载文件
+	 * @param url 下载路径
+	 * @param path  存放路径
+	 * @param fileName  文件名
+	 * @param callback 回调
+	 * @param connTimeOut  连接超时时间
+	 * @param readTimeOut 读取超时时间
+	 * @param writeTimeOut 写超时时间
+	 * @param tag 网络请求标记
 	 */
 	public static void download(String url, final String path, String fileName,
 			final HttpCallBack callback, final long connTimeOut,
@@ -746,19 +744,13 @@ public class YHOkHttp1
 					}
 				});
 	}
-	
 	/**
-	 * 
-	 * @Title: download
-	 * @Description: 下载
-	 * @param @param url
-	 * @param @param path
-	 * @param @param fileName
-	 * @param @param callback
-	 * @param @param tag
-	 * @author yh
-	 * @return void 返回类型
-	 * @throws
+	 * 下载文件
+	 * @param url 下载路径
+	 * @param path  存放路径
+	 * @param fileName  文件名
+	 * @param callback 回调
+	 * @param tag 网络请求标记
 	 */
 	public static void download(String url, final String path, String fileName,
 			final HttpCallBack callback, String tag)

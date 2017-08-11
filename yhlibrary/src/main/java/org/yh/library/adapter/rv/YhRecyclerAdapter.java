@@ -175,7 +175,7 @@ public class YhRecyclerAdapter<D> extends RecyclerView.Adapter<YHRecyclerViewHol
     /**
      * 获取集合
      *
-     * @return
+     * @return list
      */
     public List<D> getDatas()
     {

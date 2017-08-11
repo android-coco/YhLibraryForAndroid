@@ -38,9 +38,9 @@ import okhttp3.OkHttpClient;
 /**
  * @author hao
  * @version 1.0
- * @ClassName: MyApplication<br/>
- * @Description: MyApplication<br/>
- * @date: 2015-6-17 下午5:00:20 <br/>
+ * ClassName: MyApplication<br/>
+ * Description: MyApplication<br/>
+ * date: 2015-6-17 下午5:00:20 <br/>
  * @since JDK 1.7
  */
 public class MyApplication extends Application
@@ -52,6 +52,7 @@ public class MyApplication extends Application
     public static int height = 960;
     private Handler mHandler = new Handler();
     public Gson yhGson = null;
+
     @Override
     public void onCreate()
     {
@@ -73,7 +74,7 @@ public class MyApplication extends Application
             height = 960;
         }
 
-        LogUtils.e(TAG, "onCreate() height：" + height + " width：" + width );
+        LogUtils.e(TAG, "onCreate() height：" + height + " width：" + width);
         mHandler.postDelayed(new Runnable()
         {
 
@@ -85,6 +86,7 @@ public class MyApplication extends Application
         }, 500);
         // 网络框架初始化
         initHttp();
+        //初始化小视频录制
     }
 
     public synchronized static MyApplication getInstance()
@@ -105,7 +107,7 @@ public class MyApplication extends Application
             // 图片缓存框架初始化
             //initImageLoader(mInstance);
             //根据不同的用户生成不同的数据库
-            Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance,"yh.db",true);
+            Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance, "yh.db", true);
         }
         // 发布BUG用邮件形式发送
         CrashHandler.create(getApplicationContext());
@@ -118,7 +120,7 @@ public class MyApplication extends Application
     public static void initHttp()
     {
         //全局设置请求头  单独设置请求头覆盖全局设置
-        Map<String,String> headers = new LinkedHashMap<>();
+        Map<String, String> headers = new LinkedHashMap<>();
         headers.put("imei", "123123123");
         headers.put("version", "1.0");
         headers.put("token", "");
@@ -141,6 +143,7 @@ public class MyApplication extends Application
                 .cookieJar(new CookieJar()
                 {
                     private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+
                     @Override
                     public void saveFromResponse(HttpUrl url, List<Cookie> cookies)
                     {
@@ -157,7 +160,8 @@ public class MyApplication extends Application
                     {
                         if (!StringUtils.isEmpty(cookieStore.get(url.host())))
                         {
-                            LogUtils.e("cookieStore.get(url)", "" + cookieStore.get(url.host()).size());
+                            LogUtils.e("cookieStore.get(url)", "" + cookieStore.get(url.host())
+                                    .size());
                         }
                         List<Cookie> cookies = cookieStore.get(url.host());
                         return cookies != null ? cookies : new ArrayList<Cookie>();
@@ -212,6 +216,7 @@ public class MyApplication extends Application
 //                .build();
 //        ImageLoader.getInstance().init(config);
     }
+
     //管理所有Activity声明周期
     private void registerActivityLifecycleCallbacks()
     {
@@ -221,44 +226,44 @@ public class MyApplication extends Application
             public void onActivityCreated(Activity activity, Bundle bundle)
             {
                 YHActivityStack.create().addActivity(activity);
-                LogUtils.e("onActivityCreated",activity.getClass().toString());
+                LogUtils.e("onActivityCreated", activity.getClass().toString());
             }
 
             @Override
             public void onActivityStarted(Activity activity)
             {
-                LogUtils.e("onActivityStarted",activity.getClass().toString());
+                LogUtils.e("onActivityStarted", activity.getClass().toString());
             }
 
             @Override
             public void onActivityResumed(Activity activity)
             {
-                LogUtils.e("onActivityResumed",activity.getClass().toString());
+                LogUtils.e("onActivityResumed", activity.getClass().toString());
             }
 
             @Override
             public void onActivityPaused(Activity activity)
             {
-                LogUtils.e("onActivityPaused",activity.getClass().toString());
+                LogUtils.e("onActivityPaused", activity.getClass().toString());
             }
 
             @Override
             public void onActivityStopped(Activity activity)
             {
-                LogUtils.e("onActivityStopped",activity.getClass().toString());
+                LogUtils.e("onActivityStopped", activity.getClass().toString());
             }
 
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle bundle)
             {
-                LogUtils.e("onActivitySaveInstanceState",activity.getClass().toString());
+                LogUtils.e("onActivitySaveInstanceState", activity.getClass().toString());
             }
 
             @Override
             public void onActivityDestroyed(Activity activity)
             {
                 YHActivityStack.create().finishActivity(activity);
-                LogUtils.e("onActivityDestroyed",activity.getClass().toString());
+                LogUtils.e("onActivityDestroyed", activity.getClass().toString());
             }
         });
     }

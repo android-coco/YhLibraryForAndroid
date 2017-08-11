@@ -221,9 +221,6 @@ public class JsCallJava {
 
     /**
      * 是否是“Java接口类中方法调用”的内部消息；
-     *
-     * @param message
-     * @return
      */
     static boolean isSafeWebViewCallMsg(String message) {
         return message.startsWith(MSG_PROMPT_HEADER);
