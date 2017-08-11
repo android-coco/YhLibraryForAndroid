@@ -44,7 +44,6 @@ public class DemoActivity extends BaseActiciy
     public void initWidget()
     {
         super.initWidget();
-
         changeFragment(R.id.content,oneFragment);
         FloatingActionButton fab = bindView(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()

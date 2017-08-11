@@ -86,9 +86,9 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
 //            }
 //        },20000);
         //家里
-        url = "http://192.168.0.4/CI/api/menu/menulist?page=" + page;
+        //url = "http://192.168.0.4/CI/api/menu/menulist?page=" + page;
         //公司
-        //url = "http://192.168.0.121:8080/Ci/api/menu/menulist?page=" + page;
+        url = "http://192.168.0.130:8081/api/menu/list?page=" + page;
         YHRequestFactory.getRequestManger().get(url, "",null, new HttpCallBack()
         {
             @Override
