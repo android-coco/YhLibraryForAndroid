@@ -17,8 +17,10 @@ package org.yh.library;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,12 +32,16 @@ import org.yh.library.bean.EventBusBean;
 import org.yh.library.okhttp.OkHttpRequestManager;
 import org.yh.library.ui.AnnotateUtil;
 import org.yh.library.ui.I_BroadcastReg;
+import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.I_SkipActivity;
 import org.yh.library.ui.I_YHActivity;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
+import org.yh.library.utils.StringUtils;
 
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.yh.library.utils.SystemUtils.isGranted;
 
@@ -47,10 +53,10 @@ public abstract class YHActivity extends AppCompatActivity implements
         View.OnClickListener, I_BroadcastReg, I_YHActivity, I_SkipActivity
 {
     protected final String TAG = this.getClass().getSimpleName();
+    public static final int REQUST_CODE = 0x01;//权限code
     public static final int WHICH_MSG = 0X37210;
-
+    public I_PermissionListener mlistener;//权限回调
     public Activity aty;
-
     protected YHFragment currentYHFragment;
     private ThreadDataCallBack callback;
     private YHActivityHandle threadHandle = new YHActivityHandle(this);
@@ -122,10 +128,7 @@ public abstract class YHActivity extends AppCompatActivity implements
     public void initWidget()
     {
     }
-    @Override
-    public void requestPermissionSuccess()
-    {
-    }
+
     // 仅仅是为了代码整洁点
     private void initializer()
     {
@@ -200,30 +203,91 @@ public abstract class YHActivity extends AppCompatActivity implements
         initializer();
         registerBroadcast();
     }
-    //申请权限
-    protected void requestPermission(String permission, int requestCode)
+
+    /**
+     * 权限申请
+     *
+     * @param permissions 待申请的权限集合
+     * @param listener    申请结果监听事件
+     */
+    protected void requestRunTimePermission(String[] permissions, I_PermissionListener listener)
     {
-        if (!isGranted(getApplicationContext(), permission))
+        this.mlistener = listener;
+        //用于存放为授权的权限
+        List<String> permissionList = new ArrayList<>();
+        //遍历传递过来的权限集合
+        for (String permission : permissions)
         {
-            //主要用于给用户一个申请权限的解释，该方法只有在用户在上一次已经拒绝过你的这个权限申请。
-            // 也就是说，用户已经拒绝一次了，
-            // 你又弹个授权框，你需要给用户一个解释，为什么要授权，则使用该方法。
-            YHViewInject.create().showTips("XX:" + ActivityCompat.shouldShowRequestPermissionRationale(aty, permission));
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(aty, permission))
+            //判断是否已经授权
+            if (!isGranted(getApplicationContext(), permission))
             {
-                ActivityCompat.requestPermissions(aty, new String[]{permission}, requestCode);
+                //未授权，则加入待授权的权限集合中
+                permissionList.add(permission);
             }
+        }
+        //判断集合
+        if (!StringUtils.isEmpty(permissionList))
+        {  //如果集合不为空，则需要去授权
+            ActivityCompat.requestPermissions(this, permissionList.toArray(new String[permissionList.size()]), REQUST_CODE);
         } else
-        {
-            //直接执行相应操作了
-            requestPermissionSuccess();
+        {  //为空，则已经全部授权
+            listener.onSuccess();
         }
     }
+
+    //权限回调
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode)
+        {
+            case REQUST_CODE:
+                if (grantResults.length > 0)
+                {
+                    //被用户拒绝的权限集合
+                    List<String> deniedPermissions = new ArrayList<>();
+                    //用户通过的权限集合
+                    List<String> grantedPermissions = new ArrayList<>();
+                    for (int i = 0; i < grantResults.length; i++)
+                    {
+                        //获取授权结果，这是一个int类型的值
+                        int grantResult = grantResults[i];
+
+                        if (grantResult != PackageManager.PERMISSION_GRANTED)
+                        { //用户拒绝授权的权限
+                            String permission = permissions[i];
+                            deniedPermissions.add(permission);
+                        } else
+                        {  //用户同意的权限
+                            String permission = permissions[i];
+                            grantedPermissions.add(permission);
+                        }
+                    }
+
+                    if (deniedPermissions.isEmpty())
+                    {  //用户拒绝权限为空
+                        mlistener.onSuccess();
+                    } else
+                    {  //不为空
+                        //回调授权失败的接口
+                        mlistener.onFailure(deniedPermissions);
+                        //回调授权成功的接口
+                        mlistener.onGranted(grantedPermissions);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     protected void onStart()
     {
         super.onStart();
-       LogUtils.e(TAG, "---------onStart ");
+        LogUtils.e(TAG, "---------onStart ");
     }
 
     @Override
@@ -231,7 +295,7 @@ public abstract class YHActivity extends AppCompatActivity implements
     {
         super.onResume();
         activityState = RESUME;
-       LogUtils.e(TAG, "---------onResume ");
+        LogUtils.e(TAG, "---------onResume ");
     }
 
     @Override
@@ -239,7 +303,7 @@ public abstract class YHActivity extends AppCompatActivity implements
     {
         super.onPause();
         activityState = PAUSE;
-       LogUtils.e(TAG, "---------onPause ");
+        LogUtils.e(TAG, "---------onPause ");
     }
 
     @Override
@@ -247,14 +311,14 @@ public abstract class YHActivity extends AppCompatActivity implements
     {
         super.onStop();
         activityState = STOP;
-       LogUtils.e(TAG, "---------onStop ");
+        LogUtils.e(TAG, "---------onStop ");
     }
 
     @Override
     protected void onRestart()
     {
         super.onRestart();
-       LogUtils.e(TAG, "---------onRestart ");
+        LogUtils.e(TAG, "---------onRestart ");
     }
 
     @Override
@@ -335,6 +399,7 @@ public abstract class YHActivity extends AppCompatActivity implements
         intent.setClass(aty, cls);
         aty.startActivity(intent);
     }
+
     /**
      * 用Fragment替换视图
      *

@@ -5,9 +5,7 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -19,6 +17,7 @@ import com.bumptech.glide.request.target.Target;
 import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
+import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.FileUtils;
 import org.yh.library.utils.LogUtils;
@@ -28,17 +27,18 @@ import org.yh.yhframe.service.MyService;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends BaseActiciy
 {
 
-    private static final int WRITE_EXTERNAL_STORAGE = 1;//权限标记
     Intent serviceIntent;
     private MyService.DownloadBinder downloadBinder;
     Intent myIntentService;
     @BindView(id = R.id.img)
     private ImageView img;
+
     @Override
     public void setRootView()
     {
@@ -60,7 +60,7 @@ public class MainActivity extends BaseActiciy
         LogUtils.e(TAG, Thread.currentThread().getId());
         //startService(myIntentService);
         //YHGlide.getInstanse(this).loadImgeForDrawable(R.mipmap.ic_launcher,img);
-        Target<GlideDrawable> x =  Glide.with(this).load(R.mipmap.ic_launcher).diskCacheStrategy(DiskCacheStrategy.ALL).into(img);
+        Target<GlideDrawable> x = Glide.with(this).load(R.mipmap.ic_launcher).diskCacheStrategy(DiskCacheStrategy.ALL).into(img);
         LogUtils.e(TAG, x);
     }
 
@@ -155,13 +155,13 @@ public class MainActivity extends BaseActiciy
          .addHeader("token", "")
          .addHeader("regid", "123123123")
          */
-        Map<String,String> headers = new LinkedHashMap<>();
+        Map<String, String> headers = new LinkedHashMap<>();
         headers.put("imei", "123123123");
         headers.put("version", "1.1");
         headers.put("token", "");
         headers.put("regid", "123123123");
 //        YHRequestFactory.getRequestManger().setHeaders(headers);
-        YHRequestFactory.getRequestManger().get("", "http://192.168.0.130:8081/api/login/login?user=123456&pass=123456",headers, new HttpCallBack()
+        YHRequestFactory.getRequestManger().get("", "http://192.168.0.130:8081/api/login/login?user=123456&pass=123456", headers, new HttpCallBack()
         {
 
             @Override
@@ -188,12 +188,34 @@ public class MainActivity extends BaseActiciy
         switch (v.getId())
         {
             case R.id.menu:
-                requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE);
+                requestRunTimePermission(new String[]{
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, new I_PermissionListener()
+                {
+                    @Override
+                    public void onSuccess()//所有权限OK
+                    {
+                        YHViewInject.create().showTips("授权成功");
+                        //直接执行相应操作了
+                        showActivity(aty, DemoActivity.class);
+                    }
+
+                    @Override
+                    public void onGranted(List<String> grantedPermission)//部分权限OK
+                    {
+                    }
+
+                    @Override
+                    public void onFailure(List<String> deniedPermission)//全部拒绝
+                    {
+                        YHViewInject.create().showTips("拒绝授权列表：" + deniedPermission);
+                    }
+                });
                 break;
             case R.id.start_recording:
-                Intent video = new Intent(this,VideoActivity.class);
-                video.putExtra(VideoActivity.VIDEO_PATH, FileUtils.getSDCardPath()+"/movie.mp4");
-                video.putExtra(VideoActivity.IMG_PATH,FileUtils.getSDCardPath()+"/Pictures/ScreenShots/SRC_20170711_223947.png");
+                Intent video = new Intent(this, VideoActivity.class);
+                video.putExtra(VideoActivity.VIDEO_PATH, FileUtils.getSDCardPath() + "/movie.mp4");
+                video.putExtra(VideoActivity.IMG_PATH, FileUtils.getSDCardPath() + "/Pictures/ScreenShots/SRC_20170711_223947.png");
                 startActivity(video);
                 break;
         }
@@ -206,13 +228,6 @@ public class MainActivity extends BaseActiciy
         //stopService(serviceIntent);
         //unbindService(connection);
         //stopService(myIntentService);
-        showActivity(aty, DemoActivity.class);
-    }
-
-    @Override
-    public void requestPermissionSuccess()
-    {
-        //直接执行相应操作了
         showActivity(aty, DemoActivity.class);
     }
 
@@ -231,23 +246,5 @@ public class MainActivity extends BaseActiciy
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults)
-    {
-        if (requestCode == WRITE_EXTERNAL_STORAGE)
-        {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
-                YHViewInject.create().showTips("授权成功");
-                showActivity(aty, DemoActivity.class);
-            } else
-            {
-                YHViewInject.create().showTips("您没有授权该权限，请在设置中打开授权");
-            }
-            return;
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
 }

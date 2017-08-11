@@ -3,10 +3,18 @@ package org.yh.yhframe.base;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 
+import org.yh.library.YHActivity;
 import org.yh.library.YHFragment;
+import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.utils.StringUtils;
 import org.yh.yhframe.app.MyApplication;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.yh.library.utils.SystemUtils.isGranted;
 
 /**
  * 具有ActionBar的Activity的基类
@@ -135,7 +143,36 @@ public abstract class BaseFragment extends YHFragment
             setRightImage(actionBarRes.rightImageId);
         }
     }
-
+    /**
+     * 权限申请
+     *
+     * @param permissions 待申请的权限集合
+     * @param listener    申请结果监听事件
+     */
+    protected void requestRunTimePermission(String[] permissions, I_PermissionListener listener)
+    {
+        outsideAty.mlistener = listener;
+        //用于存放为授权的权限
+        List<String> permissionList = new ArrayList<>();
+        //遍历传递过来的权限集合
+        for (String permission : permissions)
+        {
+            //判断是否已经授权
+            if (!isGranted(aty, permission))
+            {
+                //未授权，则加入待授权的权限集合中
+                permissionList.add(permission);
+            }
+        }
+        //判断集合
+        if (!StringUtils.isEmpty(permissionList))
+        {  //如果集合不为空，则需要去授权
+            ActivityCompat.requestPermissions(aty, permissionList.toArray(new String[permissionList.size()]), YHActivity.REQUST_CODE);
+        } else
+        {  //为空，则已经全部授权
+            listener.onSuccess();
+        }
+    }
     /**
      * 方便Fragment中设置ActionBar资源
      *
