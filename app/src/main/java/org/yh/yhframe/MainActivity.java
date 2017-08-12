@@ -19,6 +19,7 @@ import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
 import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.YHViewInject;
+import org.yh.library.utils.Constants;
 import org.yh.library.utils.FileUtils;
 import org.yh.library.utils.LogUtils;
 import org.yh.yhframe.base.BaseActiciy;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class MainActivity extends BaseActiciy
 {
@@ -208,7 +210,7 @@ public class MainActivity extends BaseActiciy
                     @Override
                     public void onFailure(List<String> deniedPermission)//全部拒绝
                     {
-                        YHViewInject.create().showTips("拒绝授权列表：" + deniedPermission);
+                        YHViewInject.create().showTips("拒绝授权列表：" + Constants.initPermissionNames().get(deniedPermission.get(0)));
                     }
                 });
                 break;
