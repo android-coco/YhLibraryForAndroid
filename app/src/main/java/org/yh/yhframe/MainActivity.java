@@ -9,11 +9,7 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.target.Target;
-
+import org.yh.library.YHGlide;
 import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
@@ -27,7 +23,6 @@ import org.yh.yhframe.service.MyIntentService;
 import org.yh.yhframe.service.MyService;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,11 +54,10 @@ public class MainActivity extends BaseActiciy
         toolbar.setRightTitleDrawable(R.mipmap.icon_home_menu_more);
         //startService(serviceIntent);
         //bindService(serviceIntent,connection,BIND_AUTO_CREATE);
-        LogUtils.e(TAG, Thread.currentThread().getId());
+        //LogUtils.e(TAG, Thread.currentThread().getId());
         //startService(myIntentService);
         //YHGlide.getInstanse(this).loadImgeForDrawable(R.mipmap.ic_launcher,img);
-        Target<GlideDrawable> x = Glide.with(this).load(R.mipmap.ic_launcher).diskCacheStrategy(DiskCacheStrategy.ALL).into(img);
-        LogUtils.e(TAG, x);
+        YHGlide.getInstanse(this).loadImgeForDrawable(R.mipmap.ic_launcher,img);
     }
 
     private ServiceConnection connection = new ServiceConnection()
@@ -89,7 +83,7 @@ public class MainActivity extends BaseActiciy
         super.initData();
         serviceIntent = new Intent(aty, MyService.class);
         myIntentService = new Intent(aty, MyIntentService.class);
-        Map<String, Object> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>();
         params.put("type", "7");
         params.put("nurseid", "123456");
         params.put("patientid", "123123");
@@ -107,79 +101,52 @@ public class MainActivity extends BaseActiciy
 //        params.put("v11", "11");
 
         //网络请求简单操作
-//        YHRequestFactory.getRequestManger().postForm("",
-//                "http://mobilecare.fitcome.net/api/Measure/add", null,params, new HttpCallBack()
-//                {
-//                    @Override
-//                    public void onSuccess(String t)
-//                    {
-//                        super.onSuccess(t);
-//                        LogUtils.e(TAG, t);
-//                        //User user = (User)JsonUitl.stringToObject(t,User.class);
-//                        //LogUtils.e(TAG, user.getResult());
-//                    }
-//
-//                    @Override
-//                    public void onFailure(int errorNo, String strMsg)
-//                    {
-//                        super.onFailure(errorNo, strMsg);
-//                        LogUtils.e(TAG, strMsg);
-//                    }
-//                }, TAG);
-//
-//        YHRequestFactory.getRequestManger().get("", "http://211.149.215.12:8081/articleInterface/article/getRegCode?userName=15626590280",null, new HttpCallBack()
+        YHRequestFactory.getRequestManger().post("",
+                "http://mobilecare.fitcome.net/api/Measure/add", null,params, new HttpCallBack()
+                {
+                    @Override
+                    public void onSuccess(String t)
+                    {
+                        super.onSuccess(t);
+                        //User user = (User)JsonUitl.stringToObject(t,User.class);
+                        //LogUtils.e(TAG, user.getResult());
+                    }
+
+                    @Override
+                    public void onFailure(int errorNo, String strMsg)
+                    {
+                        super.onFailure(errorNo, strMsg);
+                        LogUtils.e(TAG, strMsg);
+                    }
+                }, TAG);
+//        //请求头测试
+//        /**
+//         *  .addHeader("imei", "123123123")
+//         .addHeader("version", "1.0")
+//         .addHeader("token", "")
+//         .addHeader("regid", "123123123")
+//         */
+//        Map<String, String> headers = new LinkedHashMap<>();
+//        headers.put("imei", "123123123");
+//        headers.put("version", "1.1");
+//        headers.put("token", "");
+//        headers.put("regid", "123123123");
+////        YHRequestFactory.getRequestManger().setHeaders(headers);
+//        YHRequestFactory.getRequestManger().get("", "http://192.168.0.130:8081/api/login/login?user=123456&pass=123456", headers, new HttpCallBack()
 //        {
-//            @Override
-//            public void onSuccess(Map<String, String> headers, byte[] t)
-//            {
-//                super.onSuccess(headers, t);
-//                LogUtils.e(TAG, headers + new String(t));
-//            }
 //
 //            @Override
 //            public void onSuccess(String t)
 //            {
 //                super.onSuccess(t);
-//                LogUtils.e(TAG, t);
 //            }
 //
 //            @Override
 //            public void onFailure(int errorNo, String strMsg)
 //            {
 //                super.onFailure(errorNo, strMsg);
-//                LogUtils.e(TAG, strMsg);
 //            }
 //        }, TAG);
-        //请求头测试
-        /**
-         *  .addHeader("imei", "123123123")
-         .addHeader("version", "1.0")
-         .addHeader("token", "")
-         .addHeader("regid", "123123123")
-         */
-        Map<String, String> headers = new LinkedHashMap<>();
-        headers.put("imei", "123123123");
-        headers.put("version", "1.1");
-        headers.put("token", "");
-        headers.put("regid", "123123123");
-//        YHRequestFactory.getRequestManger().setHeaders(headers);
-        YHRequestFactory.getRequestManger().get("", "http://192.168.0.130:8081/api/login/login?user=123456&pass=123456", headers, new HttpCallBack()
-        {
-
-            @Override
-            public void onSuccess(String t)
-            {
-                super.onSuccess(t);
-                LogUtils.e(TAG, t);
-            }
-
-            @Override
-            public void onFailure(int errorNo, String strMsg)
-            {
-                super.onFailure(errorNo, strMsg);
-                LogUtils.e(TAG, strMsg);
-            }
-        }, TAG);
 
     }
 

@@ -36,7 +36,6 @@ import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.I_SkipActivity;
 import org.yh.library.ui.I_YHActivity;
 import org.yh.library.ui.YHViewInject;
-import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
 
 import java.lang.ref.SoftReference;
@@ -195,7 +194,7 @@ public abstract class YHActivity extends AppCompatActivity implements
     {
         aty = this;
         //YHActivityStack.create().addActivity(this);
-        LogUtils.e(TAG, "---------onCreat ");
+        //LogUtils.e(TAG, "---------onCreat ");
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         setRootView(); // 必须放在annotate之前调用
@@ -287,7 +286,7 @@ public abstract class YHActivity extends AppCompatActivity implements
     protected void onStart()
     {
         super.onStart();
-        LogUtils.e(TAG, "---------onStart ");
+        //LogUtils.e(TAG, "---------onStart ");
     }
 
     @Override
@@ -295,7 +294,7 @@ public abstract class YHActivity extends AppCompatActivity implements
     {
         super.onResume();
         activityState = RESUME;
-        LogUtils.e(TAG, "---------onResume ");
+        //LogUtils.e(TAG, "---------onResume ");
     }
 
     @Override
@@ -303,7 +302,7 @@ public abstract class YHActivity extends AppCompatActivity implements
     {
         super.onPause();
         activityState = PAUSE;
-        LogUtils.e(TAG, "---------onPause ");
+       // LogUtils.e(TAG, "---------onPause ");
     }
 
     @Override
@@ -311,14 +310,14 @@ public abstract class YHActivity extends AppCompatActivity implements
     {
         super.onStop();
         activityState = STOP;
-        LogUtils.e(TAG, "---------onStop ");
+       // LogUtils.e(TAG, "---------onStop ");
     }
 
     @Override
     protected void onRestart()
     {
         super.onRestart();
-        LogUtils.e(TAG, "---------onRestart ");
+        //LogUtils.e(TAG, "---------onRestart ");
     }
 
     @Override
@@ -326,7 +325,7 @@ public abstract class YHActivity extends AppCompatActivity implements
     {
         unRegisterBroadcast();
         activityState = DESTROY;
-        LogUtils.e(TAG, "---------onDestroy ");
+        //LogUtils.e(TAG, "---------onDestroy ");
         super.onDestroy();
         //YHActivityStack.create().finishActivity(this);
         currentYHFragment = null;

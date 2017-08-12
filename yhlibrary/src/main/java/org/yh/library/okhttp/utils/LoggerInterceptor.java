@@ -17,10 +17,11 @@ import okio.Buffer;
 
 /**
  * Created by zhy on 16/3/1.
+ * HTTP 请求和回复  log日志
  */
 public class LoggerInterceptor implements Interceptor
 {
-    public static final String TAG = "OkHttpUtils";
+    public static final String TAG = "YHOkHttpLog";
     private String tag;
     private boolean showResponse;
 
@@ -53,45 +54,45 @@ public class LoggerInterceptor implements Interceptor
         try
         {
             //===>response LogUtils
-           // LogUtils.e(tag, "========response'LogUtils=======");
+            LogUtils.e(tag, "===========================================服务器回复 'LogUtils=========================================开始");
             Response.Builder builder = response.newBuilder();
             Response clone = builder.build();
-//            LogUtils.e(tag, "请求url : " + clone.request().url());
-//            LogUtils.e(tag, "请求code : " + clone.code());
-//            LogUtils.e(tag, "请求协议protocol : " + clone.protocol());
+            LogUtils.e(tag, "请求url : " + clone.request().url());
+            LogUtils.e(tag, "请求code : " + clone.code());
+            LogUtils.e(tag, "请求协议protocol : " + clone.protocol());
             if (!TextUtils.isEmpty(clone.message()))
-               // LogUtils.e(tag, "message : " + clone.message());
-
-            if (showResponse)
             {
-                ResponseBody body = clone.body();
-                if (body != null)
+                LogUtils.e(tag, "是否成功 : " + clone.message());
+                if (showResponse)
                 {
-                    MediaType mediaType = body.contentType();
-                    if (mediaType != null)
+                    ResponseBody body = clone.body();
+                    if (body != null)
                     {
-                        LogUtils.e(tag, "responseBody's contentType : " + mediaType.toString());
-                        if (isText(mediaType))
+                        MediaType mediaType = body.contentType();
+                        if (mediaType != null)
                         {
-                            String resp = body.string();
-                            LogUtils.e(tag, "responseBody's content : " + resp);
+                            LogUtils.e(tag, "响应主体的类型 : " + mediaType.toString());
+                            if (isText(mediaType))
+                            {
+                                String resp = body.string();
+                                LogUtils.e(tag, "响应主体的内容 : " + resp);
 
-                            body = ResponseBody.create(mediaType, resp);
-                            return response.newBuilder().body(body).build();
-                        } else
-                        {
-                            LogUtils.e(tag, "responseBody's content : " + " maybe [file part] , too large too print , ignored!");
+                                body = ResponseBody.create(mediaType, resp);
+                                return response.newBuilder().body(body).build();
+                            } else
+                            {
+                                LogUtils.e(tag, "响应主体的内容 : " + " 也许[文件部分]，太大了太大了，忽略了!");
+                            }
                         }
                     }
                 }
             }
-
-           // LogUtils.e(tag, "========response'LogUtils=======end");
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
 //            e.printStackTrace();
         }
-
+        LogUtils.e(tag, "===========================================服务器回复 'LogUtils==========================================结束");
         return response;
     }
 
@@ -102,12 +103,12 @@ public class LoggerInterceptor implements Interceptor
             String url = request.url().toString();
             Headers headers = request.headers();
 
-//            LogUtils.e(tag, "========request'LogUtils=======");
-//            LogUtils.e(tag, "method : " + request.method());
-//            LogUtils.e(tag, "url : " + url);
+            LogUtils.e(tag, "===========================================请求 'LogUtils===========================================开始");
+            LogUtils.e(tag, "请求方式 : " + request.method());
+            LogUtils.e(tag, "请求URL : " + url);
             if (headers != null && headers.size() > 0)
             {
-                LogUtils.e(tag, "headers : " + headers.toString());
+                LogUtils.e(tag, "请求头 : " + headers.toString());
             }
             RequestBody requestBody = request.body();
             if (requestBody != null)
@@ -115,18 +116,19 @@ public class LoggerInterceptor implements Interceptor
                 MediaType mediaType = requestBody.contentType();
                 if (mediaType != null)
                 {
-                    LogUtils.e(tag, "requestBody's contentType : " + mediaType.toString());
+                    LogUtils.e(tag, "请求参数类型 : " + mediaType);
                     if (isText(mediaType))
                     {
-                        LogUtils.e(tag, "requestBody's content : " + bodyToString(request));
+                        LogUtils.e(tag, "请求参数内容 : " + bodyToString(request));
                     } else
                     {
-                        LogUtils.e(tag, "requestBody's content : " + " maybe [file part] , too large too print , ignored!");
+                        LogUtils.e(tag, "请求参数内容 : " + " 也许[文件部分]，太大了太大了，忽略了!");
                     }
                 }
             }
-            //LogUtils.e(tag, "========request'LogUtils=======end");
-        } catch (Exception e)
+            LogUtils.e(tag, "===========================================请求 'LogUtils===========================================结束");
+        }
+        catch (Exception e)
         {
 //            e.printStackTrace();
         }
@@ -145,7 +147,9 @@ public class LoggerInterceptor implements Interceptor
                     mediaType.subtype().equals("html") ||
                     mediaType.subtype().equals("webviewhtml")
                     )
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -158,9 +162,10 @@ public class LoggerInterceptor implements Interceptor
             final Buffer buffer = new Buffer();
             copy.body().writeTo(buffer);
             return buffer.readUtf8();
-        } catch (final IOException e)
+        }
+        catch (final IOException e)
         {
-            return "something error when show requestBody.";
+            return "请求参数获取出错.";
         }
     }
 }

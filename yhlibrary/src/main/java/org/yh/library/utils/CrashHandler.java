@@ -139,7 +139,7 @@ public class CrashHandler implements UncaughtExceptionHandler
 	private void saveToSDCard(Throwable ex) throws Exception
 	{
 		//保存文件
-		File file = FileUtils.getSaveFile(Constants.logPath, FILE_NAME_SUFFIX);
+		File file = FileUtils.getSaveFile(Constants.logCachePath, FILE_NAME_SUFFIX);
 		boolean append = false;
 		if (System.currentTimeMillis() - file.lastModified() > 5000)
 		{

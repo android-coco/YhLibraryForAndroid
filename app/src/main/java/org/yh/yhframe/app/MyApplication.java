@@ -13,12 +13,15 @@ import org.yh.library.okhttp.OkHttpUtils;
 import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.https.HttpsUtils;
 import org.yh.library.okhttp.utils.LoggerInterceptor;
+import org.yh.library.okhttp.utils.RetryInterceptor;
 import org.yh.library.ui.YHActivityStack;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.DensityUtils;
+import org.yh.library.utils.FileUtils;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -29,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
+import okhttp3.Cache;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
@@ -46,6 +50,7 @@ public class MyApplication extends Application
 {
     private static final String TAG = "MyApplication";
     private static MyApplication mInstance = null;
+    private static final long cacheSize = 1024*1024*20;//缓存文件最大限制大小20M
     SendEmailThread sendEmail;
     public static int width = 1080;
     public static int height = 960;
@@ -73,7 +78,7 @@ public class MyApplication extends Application
             height = 960;
         }
 
-        LogUtils.e(TAG, "onCreate() height：" + height + " width：" + width);
+        //LogUtils.e(TAG, "onCreate() height：" + height + " width：" + width);
         mHandler.postDelayed(new Runnable()
         {
 
@@ -125,12 +130,17 @@ public class MyApplication extends Application
         headers.put("token", "");
         headers.put("regid", "123123123");
         YHRequestFactory.getRequestManger().setHeaders(headers);
+        //缓存http
+        Cache cache = new Cache(new File(FileUtils.getSavePath(Constants.httpCachePath)), cacheSize);
         HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null,
                 null, null);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(60000L, TimeUnit.MILLISECONDS)
                 .readTimeout(60000L, TimeUnit.MILLISECONDS)
-                .addInterceptor(new LoggerInterceptor(""))
+                .retryOnConnectionFailure(true)//允许重试
+                .addInterceptor(new LoggerInterceptor("",true))//日志拦截 是否显示返回数据
+                .addInterceptor(new RetryInterceptor(3))//重试3次
+                .cache(cache)//添加缓存
                 .hostnameVerifier(new HostnameVerifier()
                 {
                     @Override
@@ -290,7 +300,7 @@ public class MyApplication extends Application
     public void onLowMemory()
     {
         super.onLowMemory();
-        LogUtils.e(TAG, "onLowMemory()");
+        //LogUtils.e(TAG, "onLowMemory()");
     }
 
     @Override
@@ -299,7 +309,7 @@ public class MyApplication extends Application
         // 程序终止的时候执行
         super.onTerminate();
         System.exit(1);
-        LogUtils.e(TAG, "onTerminate()");
+        //LogUtils.e(TAG, "onTerminate()");
     }
 
     @Override
@@ -307,7 +317,7 @@ public class MyApplication extends Application
     {
         // 程序在内存清理的时候执行
         super.onTrimMemory(level);
-        LogUtils.e(TAG, "内存清理()：" + level + "");
+        //LogUtils.e(TAG, "内存清理()：" + level + "");
     }
 
 }

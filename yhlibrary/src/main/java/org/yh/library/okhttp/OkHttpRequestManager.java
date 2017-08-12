@@ -8,7 +8,6 @@ import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.okhttp.callback.I_RequestManager;
 import org.yh.library.okhttp.callback.StringCallback;
 import org.yh.library.utils.Constants;
-import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
 
 import java.io.File;
@@ -86,7 +85,7 @@ public class OkHttpRequestManager implements I_RequestManager
                     final long writeTimeOut)
     {
         String url = host + suffix;
-        LogUtils.e("GET请求host：", url + "   ");
+//        LogUtils.e("GET请求host：", url + "   ");
 
         final String url1 = url;
         // 组成的URL 为空或者不是http或https开头都是非法URL
@@ -140,8 +139,8 @@ public class OkHttpRequestManager implements I_RequestManager
                     @Override
                     public void onError(Call call, Exception e, int id)
                     {
-                        LogUtils.e("OkHttpRequestManager", "GET请求URL：" + url1 + " 请求错误："
-                                + e.getMessage() + "  " + id);
+//                        LogUtils.e("OkHttpRequestManager", "GET请求URL：" + url1 + " 请求错误："
+//                                + e.getMessage() + "  " + id);
                         String error = e.getMessage();
                         if (!isEmpty(error))
                         {
@@ -183,7 +182,7 @@ public class OkHttpRequestManager implements I_RequestManager
 
 
         final String url = host + suffix;
-        LogUtils.e("post请求host：", url);
+//        LogUtils.e("post请求host：", url);
         // 组成的URL 为空或者不是http或https开头都是非法URL
         if (isEmpty(url)
                 || (!url.startsWith(Constants.FILE_HTTP) && !url
@@ -236,8 +235,8 @@ public class OkHttpRequestManager implements I_RequestManager
             public void onError(Call call, Exception e, int id)
             {
                 // failed to connect to
-                LogUtils.e("OkHttpRequestManager", "POST请求URL：" + url + " 请求错误："
-                        + e.getMessage() + "  " + id);
+//                LogUtils.e("OkHttpRequestManager", "POST请求URL：" + url + " 请求错误："
+//                        + e.getMessage() + "  " + id);
                 String error = e.getMessage();
                 if (!isEmpty(error))
                 {
@@ -279,7 +278,7 @@ public class OkHttpRequestManager implements I_RequestManager
 
 
         final String url = host + suffix;
-        LogUtils.e("postForm请求host：", url);
+//        LogUtils.e("postForm请求host：", url);
 
         // 组成的URL 为空或者不是http或https开头都是非法URL
         if (isEmpty(url)
@@ -313,7 +312,7 @@ public class OkHttpRequestManager implements I_RequestManager
                 // 如果是字符
                 formbuilder.addParams(key, (String) obj);
             }
-            LogUtils.e("postForm参数集：", "key:" + key + "   Value：" + obj);
+//            LogUtils.e("postForm参数集：", "key:" + key + "   Value：" + obj);
         }
         formbuilder.build().connTimeOut(connTimeOut).readTimeOut(readTimeOut)
                 .writeTimeOut(writeTimeOut)//
@@ -353,8 +352,8 @@ public class OkHttpRequestManager implements I_RequestManager
                     @Override
                     public void onError(Call call, Exception e, int id)
                     {
-                        LogUtils.e("OkHttpRequestManager", "postForm请求URL：" + url
-                                + " 请求错误：" + e.getMessage() + "  " + id);
+//                        LogUtils.e("OkHttpRequestManager", "postForm请求URL：" + url
+//                                + " 请求错误：" + e.getMessage() + "  " + id);
                         dealError(e, callback);
                     }
 
@@ -416,7 +415,6 @@ public class OkHttpRequestManager implements I_RequestManager
         {
             headers = new LinkedHashMap<>();
         }
-        LogUtils.e("请求头：",headers);
         this.headers = headers;
     }
 
@@ -437,7 +435,7 @@ public class OkHttpRequestManager implements I_RequestManager
                          final HttpCallBack callback, final long connTimeOut,
                          final long readTimeOut, final long writeTimeOut, String tag)
     {
-        LogUtils.e("下载地址：", url + "   ");
+//        LogUtils.e("下载地址：", url + "   ");
         if(StringUtils.isEmpty(headers))
         {
             headers = this.headers;
@@ -485,7 +483,7 @@ public class OkHttpRequestManager implements I_RequestManager
     public void download(String url,Map<String, String> headers, final String path, String fileName,
                          final HttpCallBack callback, String tag)
     {
-        LogUtils.e("下载URL：", url + "   ");
+//        LogUtils.e("下载URL：", url + "   ");
         if(StringUtils.isEmpty(headers))
         {
             headers = this.headers;
