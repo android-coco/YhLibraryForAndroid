@@ -191,15 +191,14 @@ public class MainActivity extends BaseActiciy
         {
             case R.id.menu:
                 requestRunTimePermission(new String[]{
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE}, new I_PermissionListener()
                 {
                     @Override
                     public void onSuccess()//所有权限OK
                     {
-                        YHViewInject.create().showTips("授权成功");
                         //直接执行相应操作了
                         showActivity(aty, DemoActivity.class);
+                        Constants.Config.IS_WRITE_EXTERNAL_STORAGE = true;
                     }
 
                     @Override
@@ -210,6 +209,7 @@ public class MainActivity extends BaseActiciy
                     @Override
                     public void onFailure(List<String> deniedPermission)//全部拒绝
                     {
+                        Constants.Config.IS_WRITE_EXTERNAL_STORAGE = false;
                         YHViewInject.create().showTips("拒绝授权列表：" + Constants.initPermissionNames().get(deniedPermission.get(0)));
                     }
                 });
