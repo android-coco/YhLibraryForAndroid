@@ -10,12 +10,13 @@ import android.widget.TextView;
 import org.yh.library.ui.BindView;
 import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.YHViewInject;
+import org.yh.library.utils.Constants;
 import org.yh.library.utils.LogUtils;
 import org.yh.yhframe.base.BaseFragment;
 
 import java.util.List;
 
-public class TwoFragment extends BaseFragment implements I_PermissionListener
+public class TwoFragment extends BaseFragment
 {
     @BindView(id = R.id.two_txt, click = true)
     TextView two_txt;
@@ -48,30 +49,31 @@ public class TwoFragment extends BaseFragment implements I_PermissionListener
         switch (v.getId())
         {
             case R.id.two_txt:
-                YHViewInject.create().showTips("授权开始");
-                requestRunTimePermission(new String[]{Manifest.permission.CAMERA},this);
+                requestRunTimePermission(new String[]{Manifest.permission.CAMERA}, new I_PermissionListener()
+                {
+                    @Override
+                    public void onSuccess()
+                    {
+                        YHViewInject.create().showTips("授权成功");
+                        //直接执行相应操作了
+                        outsideAty.showActivity(outsideAty, HTML5WebViewCustomAD.class);
+                    }
+
+                    @Override
+                    public void onGranted(List<String> grantedPermission)
+                    {
+
+                    }
+
+                    @Override
+                    public void onFailure(List<String> deniedPermission)
+                    {
+                        YHViewInject.create().showTips("您没有授权" + Constants.initPermissionNames().get(deniedPermission.get(0)) + "权限，请在设置中打开授权");
+                    }
+                });
                 break;
         }
     }
 
 
-    @Override
-    public void onSuccess()
-    {
-        YHViewInject.create().showTips("授权成功");
-        //直接执行相应操作了
-        outsideAty.showActivity(outsideAty, HTML5WebViewCustomAD.class);
-    }
-
-    @Override
-    public void onGranted(List<String> grantedPermission)
-    {
-
-    }
-
-    @Override
-    public void onFailure(List<String> deniedPermission)
-    {
-        YHViewInject.create().showTips("您没有授权该权限，请在设置中打开授权");
-    }
 }

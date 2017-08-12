@@ -25,7 +25,7 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
 
 * Gradle
 ```
-compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.2'
+compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.3'
 ```
 
 * Maven
@@ -77,6 +77,58 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.2'
  2.Constants.Config.yhDBManager
  Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance,"yh.db",true);
  Constants.Config.yhDBManager.insertAll(mAdapter.getDatas());
+ ```
+ 
+ ## android 6.0权限判断
+ ```
+  Activity extends BaseActiciy
+  requestRunTimePermission(new String[]{
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, new I_PermissionListener()
+                    {
+                        @Override
+                        public void onSuccess()//所有权限OK
+                        {
+                            YHViewInject.create().showTips("授权成功");
+                            //直接执行相应操作了
+                        }
+    
+                        @Override
+                        public void onGranted(List<String> grantedPermission)//部分权限OK
+                        {
+                        }
+    
+                        @Override
+                        public void onFailure(List<String> deniedPermission)//全部拒绝
+                        {
+                            YHViewInject.create().showTips("拒绝授权列表：" + Constants.initPermissionNames().get(deniedPermission.get(0)));
+                        }
+                    });
+                    
+  Fragment extends BaseFragment
+  requestRunTimePermission(new String[]{Manifest.permission.CAMERA}, new I_PermissionListener()
+                {
+                    @Override
+                    public void onSuccess()
+                    {
+                        YHViewInject.create().showTips("授权成功");
+                        //直接执行相应操作了
+                        outsideAty.showActivity(outsideAty, HTML5WebViewCustomAD.class);
+                    }
+
+                    @Override
+                    public void onGranted(List<String> grantedPermission)
+                    {
+
+                    }
+
+                    @Override
+                    public void onFailure(List<String> deniedPermission)
+                    {
+                        YHViewInject.create().showTips("您没有授权" + Constants.initPermissionNames().get(deniedPermission.get(0)) + "权限，请在设置中打开授权");
+                    }
+                });
+
  ```
  ## RecyclerView和Adapter,Holder
  ```
