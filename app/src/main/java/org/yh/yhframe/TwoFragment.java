@@ -68,7 +68,7 @@ public class TwoFragment extends BaseFragment
                     @Override
                     public void onFailure(List<String> deniedPermission)
                     {
-                        YHViewInject.create().showTips("您没有授权" + Constants.initPermissionNames().get(deniedPermission.get(0)) + "权限，请在设置中打开授权");
+                        YHViewInject.create().showTips("您没有授权" + Constants.initPermissionNames().get(deniedPermission.get(0)) + "请在设置中打开授权");
                     }
                 });
                 break;
