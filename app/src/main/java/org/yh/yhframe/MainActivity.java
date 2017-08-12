@@ -17,7 +17,7 @@ import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.FileUtils;
-import org.yh.library.utils.LogUtils;
+import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.base.BaseActiciy;
 import org.yh.yhframe.service.MyIntentService;
 import org.yh.yhframe.service.MyService;
@@ -25,6 +25,8 @@ import org.yh.yhframe.service.MyService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.yh.yhframe.app.MyApplication.HOME_HOST;
 
 
 public class MainActivity extends BaseActiciy
@@ -57,7 +59,8 @@ public class MainActivity extends BaseActiciy
         //LogUtils.e(TAG, Thread.currentThread().getId());
         //startService(myIntentService);
         //YHGlide.getInstanse(this).loadImgeForDrawable(R.mipmap.ic_launcher,img);
-        YHGlide.getInstanse(this).loadImgeForDrawable(R.mipmap.ic_launcher,img);
+
+        YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl("http://image.51efan.com/storage/menu/201705/ca07a8ca27b3beae828b871d888cd88f.jpg",img);
     }
 
     private ServiceConnection connection = new ServiceConnection()
@@ -81,44 +84,49 @@ public class MainActivity extends BaseActiciy
     public void initData()
     {
         super.initData();
+        //网络请求简单操作
         serviceIntent = new Intent(aty, MyService.class);
         myIntentService = new Intent(aty, MyIntentService.class);
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
+
         params.put("type", "7");
         params.put("nurseid", "123456");
         params.put("patientid", "123123");
         params.put("date", "2017-07-14 16:42:10");
-//        params.put("v1", "1");
-//        params.put("v2", "2");
-//        params.put("v3", "3");
-//        params.put("v4", "4");
-//        params.put("v5", "5");
-//        params.put("v6", "6");
-//        params.put("v7", "7");
-//        params.put("v8", "8");
-//        params.put("v9", "9");
-//        params.put("v10", "10");
-//        params.put("v11", "11");
+        params.put("v1", "1");
+        params.put("v2", "2");
+        params.put("v3", "3");
+        params.put("v4", "4");
+        params.put("v5", "5");
+        params.put("v6", "6");
+        params.put("v7", "7");
+        params.put("v8", "8");
+        params.put("v9", "9");
+        params.put("v10", "10");
+        params.put("v11", "11");
+//        params.put("file",new File(FileUtils.getSavePath("Download/SAM_0034.JPG")));
+        YHRequestFactory.getRequestManger().postForm(HOME_HOST, "ci/api/Expost/testPost", null, params, new HttpCallBack()
 
-        //网络请求简单操作
-        YHRequestFactory.getRequestManger().post("",
-                "http://mobilecare.fitcome.net/api/Measure/add", null,params, new HttpCallBack()
-                {
-                    @Override
-                    public void onSuccess(String t)
-                    {
-                        super.onSuccess(t);
-                        //User user = (User)JsonUitl.stringToObject(t,User.class);
-                        //LogUtils.e(TAG, user.getResult());
-                    }
+        {
+            @Override
+            public void onSuccess(String t)
+            {
+                super.onSuccess(t);
+            }
 
-                    @Override
-                    public void onFailure(int errorNo, String strMsg)
-                    {
-                        super.onFailure(errorNo, strMsg);
-                        LogUtils.e(TAG, strMsg);
-                    }
-                }, TAG);
+            @Override
+            public void onFailure(int errorNo, String strMsg)
+            {
+                super.onFailure(errorNo, strMsg);
+            }
+
+            @Override
+            public void onFinish()
+            {
+                super.onFinish();
+            }
+        },TAG);
+
 //        //请求头测试
 //        /**
 //         *  .addHeader("imei", "123123123")

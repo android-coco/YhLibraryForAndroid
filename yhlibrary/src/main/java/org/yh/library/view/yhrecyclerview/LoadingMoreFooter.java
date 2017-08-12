@@ -16,7 +16,7 @@ import org.yh.library.R;
 public class LoadingMoreFooter extends LinearLayout
 {
 
-    private SimpleViewSwitcher progressCon;
+    private SimpleViewSwitcher1 progressCon;
     public final static int STATE_LOADING = 0;
     public final static int STATE_COMPLETE = 1;
     public final static int STATE_NOMORE = 2;
@@ -61,7 +61,7 @@ public class LoadingMoreFooter extends LinearLayout
         setGravity(Gravity.CENTER);
         setLayoutParams(new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        progressCon = new SimpleViewSwitcher(getContext());
+        progressCon = new SimpleViewSwitcher1(getContext());
         progressCon.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 

@@ -316,8 +316,8 @@ public class YHVideoPlayer extends FrameLayout implements I_YHVideoPlayerControl
         }
         catch (IOException e)
         {
-            e.printStackTrace();
-            LogUtils.e("打开播放器发生错误", e);
+//            e.printStackTrace();
+            LogUtils.e("打开播放器发生错误", e.getMessage());
         }
     }
 

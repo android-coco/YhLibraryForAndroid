@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.yh.library.ui.BindView;
-import org.yh.library.view.YHRecyclerView;
+import org.yh.library.utils.LogUtils;
 import org.yh.library.view.video.YHVideoPlayer;
 import org.yh.library.view.video.YHVideoPlayerManager;
 import org.yh.yhframe.adapter.rv.VideoAdatper;
@@ -24,7 +24,7 @@ import java.util.List;
 public class VidoRecyclerViewActivity extends BaseActiciy
 {
     @BindView(id = R.id.recyclerview)
-    private YHRecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView;
     @BindView(id = R.id.empty_layout)
     private LinearLayout empty_layout;
     @BindView(id = R.id.id_empty_text)
@@ -65,13 +65,14 @@ public class VidoRecyclerViewActivity extends BaseActiciy
         //分割线为LinearLayoutManager
         //mRecyclerView.addItemDecoration(mRecyclerView.new YHItemDecoration());//分割线
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setEmptyView(empty_layout);//没有数据的空布局
+//        mRecyclerView.setEmptyView(empty_layout);//没有数据的空布局
+        mRecyclerView.setHasFixedSize(true);
 
 //        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
 //        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
 //        mRecyclerView.setFootViewText(getString(R.string.listview_loading), "加载完毕");
-        mRecyclerView.setPullRefreshEnabled(false);
-        mRecyclerView.setLoadingMoreEnabled(false);
+//        mRecyclerView.setPullRefreshEnabled(false);
+//        mRecyclerView.setLoadingMoreEnabled(false);
         mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView
                 .OnChildAttachStateChangeListener()
 
@@ -89,6 +90,7 @@ public class VidoRecyclerViewActivity extends BaseActiciy
                         .nice_video_player);
                 if (yhVideoPlayer != null)
                 {
+                    LogUtils.e(TAG,"fasdfas" + yhVideoPlayer.getCurrentPosition());
                     yhVideoPlayer.release();
                 }
             }
@@ -102,13 +104,14 @@ public class VidoRecyclerViewActivity extends BaseActiciy
             public void run()
             {
                 mAdapter.setDatas(getVideoList());
+                mRecyclerView.setAdapter(mAdapter);
                 //刷新完毕
-                mRecyclerView.refreshComplete();
+//                mRecyclerView.refreshComplete();
             }
         }, 2000);
 
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.refresh();
+
+//        mRecyclerView.refresh();
     }
 
     public List<Video> getVideoList()
@@ -148,28 +151,9 @@ public class VidoRecyclerViewActivity extends BaseActiciy
                         ".mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-37-16.jpg",
                 "http://tanzi27niu.cdsb" +
                         ".mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-41-07.mp4"));
-        videoList.add(new Video("可乐爆米花，嘭嘭嘭......收花的人说要把我娶回家",
-                "http://tanzi27niu.cdsb" +
-                        ".mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-37-16.jpg",
-                "http://tanzi27niu.cdsb" +
-                        ".mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-41-07.mp4"));
-        videoList.add(new Video("可乐爆米花，嘭嘭嘭......收花的人说要把我娶回家",
-                "http://tanzi27niu.cdsb" +
-                        ".mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-37-16.jpg",
-                "http://tanzi27niu.cdsb" +
-                        ".mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-41-07.mp4"));
-        videoList.add(new Video("可乐爆米花，嘭嘭嘭......收花的人说要把我娶回家",
-                "http://tanzi27niu.cdsb" +
-                        ".mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-37-16.jpg",
-                "http://tanzi27niu.cdsb" +
-                        ".mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-41-07.mp4"));
-        videoList.add(new Video("可乐爆米花，嘭嘭嘭......收花的人说要把我娶回家",
-                "http://tanzi27niu.cdsb" +
-                        ".mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-37-16.jpg",
-                "http://tanzi27niu.cdsb" +
-                        ".mobi/wps/wp-content/uploads/2017/04/2017-04-21_16-41-07.mp4"));
         return videoList;
     }
+
 
     @Override
     public void onBackPressed()

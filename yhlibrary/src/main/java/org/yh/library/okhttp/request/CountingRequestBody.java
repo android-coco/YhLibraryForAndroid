@@ -56,7 +56,6 @@ public class CountingRequestBody extends RequestBody
 
         countingSink = new CountingSink(sink);
         BufferedSink bufferedSink = Okio.buffer(countingSink);
-
         delegate.writeTo(bufferedSink);
 
         bufferedSink.flush();

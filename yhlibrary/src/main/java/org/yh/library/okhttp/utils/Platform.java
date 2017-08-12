@@ -19,6 +19,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
+import org.yh.library.utils.LogUtils;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -28,7 +30,7 @@ public class Platform
 
     public static Platform get()
     {
-        L.e(PLATFORM.getClass().toString());
+        LogUtils.e(PLATFORM.getClass().toString());
         return PLATFORM;
     }
 

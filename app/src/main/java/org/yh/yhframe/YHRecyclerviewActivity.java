@@ -13,9 +13,7 @@ import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.JsonUitl;
 import org.yh.library.utils.LogUtils;
-import org.yh.library.utils.StringUtils;
 import org.yh.library.view.YHRecyclerView;
-import org.yh.library.view.loading.bar.YHLoadingBar;
 import org.yh.library.view.yhrecyclerview.ProgressStyle;
 import org.yh.yhframe.adapter.rv.MyRecyclerAdatpter;
 import org.yh.yhframe.app.MyApplication;
@@ -24,6 +22,8 @@ import org.yh.yhframe.bean.JsonMenuModel;
 import org.yh.yhframe.bean.MenuModel;
 
 import java.util.ArrayList;
+
+import static org.yh.yhframe.app.MyApplication.HOME_HOST;
 //                          _ooOoo_                               //
 //                         o8888888o                              //
 //                         88" . "88                              //
@@ -51,6 +51,8 @@ import java.util.ArrayList;
   */
 public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClickListener<MenuModel>
 {
+    /**服务器端一共多少页*/
+    private static int TOTAL_PAGE = 2;//假设10页
     @BindView(id = R.id.recyclerview)
     private YHRecyclerView mRecyclerView;
     @BindView(id = R.id.empty_layout)
@@ -59,9 +61,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     private TextView id_empty_text;
     private MyRecyclerAdatpter mAdapter;
     private int page = 0;
-    private String url = "";
-    private boolean isRefresh = true;//是否上拉刷新
-
+    ArrayList<MenuModel> data = null;
     @Override
     public void setRootView()
     {
@@ -72,77 +72,31 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     public void initData()
     {
         super.initData();
+        data = new ArrayList<>();
     }
 
     private void getDataByLine()
     {
-        YHLoadingBar.make(empty_layout).show();
-//     `   new Handler().postDelayed(new Runnable()
-//        {
-//            @Override
-//            public void run()
-//            {
-//
-//            }
-//        },20000);
-        //家里
-        //url = "http://192.168.0.4/CI/api/menu/menulist?page=" + page;
-        //公司
-        url = "http://192.168.0.130:8081/api/menu/list?page=" + page;
-        YHRequestFactory.getRequestManger().get(url, "",null, new HttpCallBack()
+//        YHLoadingBar.make(empty_layout).show();
+        YHRequestFactory.getRequestManger().get(HOME_HOST, "ci/api/menu/menulist?page=" + page,null, new HttpCallBack()
         {
             @Override
             public void onSuccess(String t)
             {
                 super.onSuccess(t);
                 JsonMenuModel jsonMenuModel = JsonUitl.stringToTObject(MyApplication.getInstance().yhGson, t, JsonMenuModel.class);
+                TOTAL_PAGE = jsonMenuModel.getTotalPage();
                 String resultCode = jsonMenuModel.getResultCode();
                 if ("0".equals(resultCode))
                 {
-                    ArrayList<MenuModel> list = (ArrayList<MenuModel>) jsonMenuModel.getDatas();
-                    if (isRefresh)
-                    {
-                        mAdapter.getDatas().clear();//必须在数据更新前清空，不能太早
-                        if (!StringUtils.isEmpty(list))
-                        {
-                            mAdapter.setDatas(list);
-                            //刷新完毕
-                            mRecyclerView.refreshComplete();
-                        }else
-                        {
-                            id_empty_text.setText("没有数据");
-                        }
-                    } else
-                    {
-                        if (!StringUtils.isEmpty(list))
-                        {
-                            //每页数据16条,如果少于16条代表没有更多数据
-                            //让用户少刷新一次
-                            if (list.size() < 32)
-                            {
-                                //没有更多
-                                mRecyclerView.setNoMore(true);
-                                mAdapter.notifyDataSetChanged();
-                            } else
-                            {
-                                mAdapter.addDatas(list);
-                                //加载完毕
-                                mRecyclerView.loadMoreComplete();
-                            }
-                        } else
-                        {
-                            //没有更多
-                            mRecyclerView.setNoMore(true);
-                            mAdapter.notifyDataSetChanged();
-                        }
-                    }
+                    data.addAll(jsonMenuModel.getDatas());
+                    mAdapter.setDatas(data);
                 } else
                 {
-                    mAdapter.getDatas().clear();//必须在数据更新前清空，不能太早
-                    //刷新完毕
-                    mRecyclerView.refreshComplete();
                     mAdapter.notifyDataSetChanged();
                 }
+                //刷新完毕
+                mRecyclerView.refreshComplete();
             }
 
             @Override
@@ -161,7 +115,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
             public void onFinish()
             {
                 super.onFinish();
-                YHLoadingBar.cancel(empty_layout);
+//                YHLoadingBar.cancel(empty_layout);
                 Constants.Config.yhDBManager.insertAll(mAdapter.getDatas());
             }
         }, TAG);
@@ -196,9 +150,9 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setEmptyView(empty_layout);//没有数据的空布局
 
-        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-        mRecyclerView.setFootViewText(getString(R.string.listview_loading), "加载完毕");
+        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallClipRotate);//可以自定义下拉刷新的样式
+        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallClipRotate);//可以自定义上拉加载的样式
+        mRecyclerView.setFootViewText(getString(R.string.listview_loading), "我是有底线的。");
         //mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
 
         mAdapter = new MyRecyclerAdatpter();
@@ -211,7 +165,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
             public void onRefresh()
             {
                 page = 1;
-                isRefresh = true;
+                mAdapter.getDatas().clear();//必须在数据更新前清空，不能太早
                 getDataByLine();
             }
 
@@ -219,12 +173,15 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
             public void onLoadMore()
             {
                 page++;
-                isRefresh = false;
-                getDataByLine();
+                if (page <= TOTAL_PAGE) {//小于总页数就加载更多
+                    // loading more
+                    getDataByLine();
+                } else {
+                    //the end
+                    mRecyclerView.setNoMore(true);
+                }
             }
         });
-
-
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.refresh();
     }

@@ -3,7 +3,7 @@ package org.yh.library.adapter;
 import android.view.View;
 
 /**
- * 作者：38314 on 2017/5/15 13:17
+ * 作者：yh on 2017/5/15 13:17
  * 邮箱：yh_android@163.com
  */
 public interface I_YHItemClickListener<D>

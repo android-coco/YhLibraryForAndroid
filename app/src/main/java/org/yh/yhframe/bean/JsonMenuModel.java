@@ -14,6 +14,8 @@ public class JsonMenuModel extends YHModel
 {
     @SerializedName("result")
     protected String resultCode;//结果Code
+    @SerializedName("totalpage")
+    protected int totalPage;//最大页数
     @SerializedName("data")
     protected List<MenuModel> datas;//数据
 
@@ -37,11 +39,22 @@ public class JsonMenuModel extends YHModel
         this.datas = datas;
     }
 
+    public int getTotalPage()
+    {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage)
+    {
+        this.totalPage = totalPage;
+    }
+
     @Override
     public String toString()
     {
         return "JsonMenuModel{" +
                 "resultCode='" + resultCode + '\'' +
+                ", totalPage='" + totalPage + '\'' +
                 ", datas=" + datas +
                 '}';
     }

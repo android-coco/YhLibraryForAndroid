@@ -24,7 +24,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 
     private LinearLayout mContainer;
     private ImageView mArrowImageView;
-    private SimpleViewSwitcher mProgressBar;
+    private SimpleViewSwitcher1 mProgressBar;
     private TextView mStatusTextView;
     private int mState = STATE_NORMAL;
 
@@ -70,7 +70,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
         mStatusTextView = (TextView) findViewById(R.id.refresh_status_textview);
 
         //init the progress view
-        mProgressBar = (SimpleViewSwitcher) findViewById(R.id.listview_header_progressbar);
+        mProgressBar = (SimpleViewSwitcher1) findViewById(R.id.listview_header_progressbar);
         AVLoadingIndicatorView progressView = new AVLoadingIndicatorView(getContext());
         progressView.setIndicatorColor(0xffB5B5B5);
         progressView.setIndicatorId(ProgressStyle.BallSpinFadeLoader);

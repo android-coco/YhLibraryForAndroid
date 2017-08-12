@@ -13,7 +13,6 @@ import org.yh.library.okhttp.OkHttpUtils;
 import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.https.HttpsUtils;
 import org.yh.library.okhttp.utils.LoggerInterceptor;
-import org.yh.library.okhttp.utils.RetryInterceptor;
 import org.yh.library.ui.YHActivityStack;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.DensityUtils;
@@ -48,6 +47,9 @@ import okhttp3.OkHttpClient;
  */
 public class MyApplication extends Application
 {
+    public static final String HOME_HOST = "http://192.168.0.3/";//家里
+    public static final String COMPANY_HOST = "http://192.168.0.130/";//公司
+
     private static final String TAG = "MyApplication";
     private static MyApplication mInstance = null;
     private static final long cacheSize = 1024*1024*20;//缓存文件最大限制大小20M
@@ -139,7 +141,7 @@ public class MyApplication extends Application
                 .readTimeout(60000L, TimeUnit.MILLISECONDS)
                 .retryOnConnectionFailure(true)//允许重试
                 .addInterceptor(new LoggerInterceptor("",true))//日志拦截 是否显示返回数据
-                .addInterceptor(new RetryInterceptor(3))//重试3次
+//                .addInterceptor(new RetryInterceptor(3))//重试3次
                 .cache(cache)//添加缓存
                 .hostnameVerifier(new HostnameVerifier()
                 {
