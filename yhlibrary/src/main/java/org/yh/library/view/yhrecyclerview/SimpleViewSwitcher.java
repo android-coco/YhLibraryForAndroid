@@ -8,20 +8,20 @@ import android.view.ViewGroup;
 /**
  * Created by jianghejie on 15/11/22.
  */
-public class SimpleViewSwitcher1 extends ViewGroup
+public class SimpleViewSwitcher extends ViewGroup
 {
 
-    public SimpleViewSwitcher1(Context context)
+    public SimpleViewSwitcher(Context context)
     {
         super(context);
     }
 
-    public SimpleViewSwitcher1(Context context, AttributeSet attrs)
+    public SimpleViewSwitcher(Context context, AttributeSet attrs)
     {
         this(context, attrs, 0);
     }
 
-    public SimpleViewSwitcher1(Context context, AttributeSet attrs, int defStyle)
+    public SimpleViewSwitcher(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
     }

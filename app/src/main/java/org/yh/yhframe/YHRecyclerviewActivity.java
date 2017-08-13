@@ -136,29 +136,42 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
         //lineartlayout
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+
         //CardView
         // 两列
-        //       int spanCount = 2;
+        //int spanCount = 3;
         //GridLayoutManager layoutManager = new GridLayoutManager(this,spanCount);
+        //layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
+
+        //StaggeredGridLayoutManager 不能加分割线
 //        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(spanCount,
 //                StaggeredGridLayoutManager.VERTICAL);
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
 
         //分割线为LinearLayoutManager
         //mRecyclerView.addItemDecoration(mRecyclerView.new YHItemDecoration());//分割线
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setEmptyView(empty_layout);//没有数据的空布局
 
-        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallClipRotate);//可以自定义下拉刷新的样式
-        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallClipRotate);//可以自定义上拉加载的样式
+        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulseRise);//可以自定义下拉刷新的样式
+        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);//可以自定义上拉加载的样式
         mRecyclerView.setFootViewText(getString(R.string.listview_loading), "我是有底线的。");
-        //mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);
+        mRecyclerView.setArrowImageView(R.mipmap.iconfont_downgrey);//箭头
+//        View header = LayoutInflater.from(this).inflate(R.layout.recyclerview_header, (ViewGroup)findViewById(android.R.id.content),false);
+//        mRecyclerView.addHeaderView(header);
+//        View header1 = LayoutInflater.from(this).inflate(R.layout.recyclerview_header, (ViewGroup)findViewById(android.R.id.content),false);
+//        mRecyclerView.addHeaderView(header1);
+//        header1.setBackgroundColor(0xff556B2F);
+//        View header2 = LayoutInflater.from(this).inflate(R.layout.recyclerview_header, (ViewGroup)findViewById(android.R.id.content),false);
+//        mRecyclerView.addHeaderView(header2);
+//        header2.setBackgroundColor(0xff1874CD);
+
 
         mAdapter = new MyRecyclerAdatpter();
-
+        mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
-
         mRecyclerView.setLoadingListener(new YHRecyclerView.LoadingListener()
         {
             @Override
@@ -182,7 +195,6 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
                 }
             }
         });
-        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.refresh();
     }
 
@@ -191,6 +203,13 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     {
         super.onBackClick();
         finish();
+    }
+
+    @Override
+    protected void onMenuClick()
+    {
+        super.onMenuClick();
+        YHViewInject.create().showTips("更多被点击");
     }
 
     @Override

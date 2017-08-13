@@ -24,7 +24,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 
     private LinearLayout mContainer;
     private ImageView mArrowImageView;
-    private SimpleViewSwitcher1 mProgressBar;
+    private SimpleViewSwitcher mProgressBar;
     private TextView mStatusTextView;
     private int mState = STATE_NORMAL;
 
@@ -70,7 +70,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
         mStatusTextView = (TextView) findViewById(R.id.refresh_status_textview);
 
         //init the progress view
-        mProgressBar = (SimpleViewSwitcher1) findViewById(R.id.listview_header_progressbar);
+        mProgressBar = (SimpleViewSwitcher) findViewById(R.id.listview_header_progressbar);
         AVLoadingIndicatorView progressView = new AVLoadingIndicatorView(getContext());
         progressView.setIndicatorColor(0xffB5B5B5);
         progressView.setIndicatorId(ProgressStyle.BallSpinFadeLoader);
@@ -286,39 +286,47 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
         });
         animator.start();
     }
-
+    static Date oldtime = null;//记录最后刷新时间
     public static String friendlyTime(Date time)
     {
+
         //获取time距离当前的秒数
-        int ct = (int) ((System.currentTimeMillis() - time.getTime()) / 1000);
+        int ct = (int) ((System.currentTimeMillis() - (oldtime == null? time : oldtime).getTime()) / 1000);
 
         if (ct == 0)
         {
+            oldtime = time;
             return "刚刚";
         }
 
         if (ct > 0 && ct < 60)
         {
+            oldtime = time;
             return ct + "秒前";
         }
 
         if (ct >= 60 && ct < 3600)
         {
+            oldtime = time;
             return Math.max(ct / 60, 1) + "分钟前";
         }
         if (ct >= 3600 && ct < 86400)
         {
+            oldtime = time;
             return ct / 3600 + "小时前";
         }
         if (ct >= 86400 && ct < 2592000)
         { //86400 * 30
             int day = ct / 86400;
+            oldtime = time;
             return day + "天前";
         }
         if (ct >= 2592000 && ct < 31104000)
         { //86400 * 30
+            oldtime = time;
             return ct / 2592000 + "月前";
         }
+        oldtime = time;
         return ct / 31104000 + "年前";
     }
 

@@ -90,7 +90,6 @@ public class VidoRecyclerViewActivity extends BaseActiciy
                         .nice_video_player);
                 if (yhVideoPlayer != null)
                 {
-                    LogUtils.e(TAG,"fasdfas" + yhVideoPlayer.getCurrentPosition());
                     yhVideoPlayer.release();
                 }
             }

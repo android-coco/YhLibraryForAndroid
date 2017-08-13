@@ -15,6 +15,7 @@ public class ListActivity extends BaseActiciy implements I_YHItemClickListener<C
     @BindView(id = R.id.id_listview_list)
     private ListView mListView;
     private ChatAdapter chatAdapter;
+
     @Override
     public void setRootView()
     {
@@ -38,16 +39,16 @@ public class ListActivity extends BaseActiciy implements I_YHItemClickListener<C
     }
 
     @Override
-    public boolean onItemLongClick(View view, ChatMessage data,int position)
+    public boolean onItemLongClick(View view, ChatMessage data, int position)
     {
-        YHViewInject.create().showTips("长按：" + data.getContent() +"   " +  position);
+        YHViewInject.create().showTips("长按：" + data.getContent() + "   " + position);
         return false;
     }
 
     @Override
-    public void onItemClick(View view, ChatMessage data,int position)
+    public void onItemClick(View view, ChatMessage data, int position)
     {
-        YHViewInject.create().showTips("点击：" +data.getContent() +"  " +  position);
+        YHViewInject.create().showTips("点击：" + data.getContent() + "  " + position);
     }
 
     @Override
@@ -55,5 +56,12 @@ public class ListActivity extends BaseActiciy implements I_YHItemClickListener<C
     {
         super.onBackClick();
         finish();
+    }
+
+    @Override
+    protected void onMenuClick()
+    {
+        super.onMenuClick();
+        YHViewInject.create().showTips("更多被点击");
     }
 }
