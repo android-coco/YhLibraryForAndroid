@@ -15,7 +15,7 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
 
 注，需要在AndroidManifest.xml 中声明如下权限
 
-```
+```xml
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -24,12 +24,12 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
 ## 引入
 
 * Gradle
-```
+```xml
 compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.3'
 ```
 
 * Maven
-```
+```xml
 <dependency>
   <groupId>org.yh.yhframe</groupId>
   <artifactId>YhLibraryForAndroid</artifactId>
@@ -38,12 +38,12 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.3'
 </dependency>
  ```
 ## base包说明：
-```
+```java
 1.BaseActiciy    所有Acticiy的基类
 2.BaseFragment   所有Fragment的基类
 ```
 ## 对Utils的说明：
-```
+```java
  1.PreferenceUtils.java   对SharedPreferences的封装
  2.CipherUtils.java       对常用加密方法进行整理
  3.Constants.java         全局常量
@@ -61,7 +61,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.3'
  15.AnnotateUtil.java     注解工具类(View id绑定)
  ```
  ## view包说明：
- ```
+ ```java
  1.YhToolbar     标题栏
       <include layout="@layout/basetitle"/>
  https://github.com/android-coco/AgentWeb
@@ -127,7 +127,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.3'
  ```
  
  ## 数据库操作
- ```
+ ```java
  1.YhDBManager.java
  2.Constants.Config.yhDBManager
  Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance,"yh.db",true);
@@ -135,7 +135,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.3'
  ```
  
  ## android 6.0权限判断
- ```
+ ```java
   Activity extends BaseActiciy
   requestRunTimePermission(new String[]{
                             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -186,7 +186,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.3'
 
  ```
  ## RecyclerView和Adapter,Holder
- ```
+ ```java
  1.YHAdapter<D>     adatper
  2.YHHolder<D>      holder
  3.YHRecyclerView   RecyclerView
@@ -239,7 +239,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.3'
    mRecyclerView.loadMoreComplete();
  ```
  ## 网络操作
- ```
+ ```java
  1.YHRequestFactory.java
   //url 分为2部分  头和后缀
   //headers  请求头  Map<String,String>
@@ -262,7 +262,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.3'
          }, TAG);
  ```
  ## 图片操作
- ```
+ ```java
  1.YHGlide-->Glide
  YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl(item.getPic(), (ImageView) holder.getView(R.id.menu_pic));
  ```
