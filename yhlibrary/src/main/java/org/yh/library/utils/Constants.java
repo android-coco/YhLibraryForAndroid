@@ -1,6 +1,7 @@
 package org.yh.library.utils;
 
 
+import org.yh.library.BuildConfig;
 import org.yh.library.db.YhDBManager;
 
 import java.util.HashMap;
@@ -146,7 +147,7 @@ public final class Constants
 
     public static class Config
     {
-        public static final boolean DEVELOPER_MODE = false;// 是否是发布模式
+        public static final boolean DEVELOPER_MODE = BuildConfig.LOG_CALLS;// 是否是发布模式
         public static YhDBManager yhDBManager;//数据库操作对象
         public static boolean  IS_WRITE_EXTERNAL_STORAGE = false;//是否有读写磁盘的权限
     }

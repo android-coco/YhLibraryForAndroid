@@ -14,7 +14,13 @@ android {
         warning 'InvalidPackage'
     }
     buildTypes {
+        debug{
+            //是否打印log
+            buildConfigField "boolean","LOG_CALLS","true" //定义了boolean变量LOG_CALLS true;
+        }
         release {
+            //是否打印log
+            buildConfigField "boolean","LOG_CALLS","false" //定义了boolean变量LOG_CALLS false;
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
