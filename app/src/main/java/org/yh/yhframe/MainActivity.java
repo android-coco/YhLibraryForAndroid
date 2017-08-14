@@ -87,7 +87,7 @@ public class MainActivity extends BaseActiciy
         //网络请求简单操作
         serviceIntent = new Intent(aty, MyService.class);
         myIntentService = new Intent(aty, MyIntentService.class);
-        Map<String, Object> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>();
 
         params.put("type", "7");
         params.put("nurseid", "123456");
@@ -105,7 +105,7 @@ public class MainActivity extends BaseActiciy
         params.put("v10", "10");
         params.put("v11", "11");
 //        params.put("file",new File(FileUtils.getSavePath("Download/SAM_0034.JPG")));
-        YHRequestFactory.getRequestManger().postForm(HOME_HOST, "ci/api/Expost/testPost", null, params, new HttpCallBack()
+        YHRequestFactory.getRequestManger().post(HOME_HOST, "api/Expost/testPost", null, params, new HttpCallBack()
 
         {
             @Override

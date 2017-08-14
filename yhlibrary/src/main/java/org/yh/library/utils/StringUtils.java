@@ -79,6 +79,7 @@ public class StringUtils
 
     /**
      * 判断所有对象是否为空
+     *
      * @param obj 对象
      * @return boolean
      */
@@ -87,25 +88,20 @@ public class StringUtils
         if (null == obj)
         {
             return true;
-        }
-        else if ((obj instanceof String) && "".equals(obj))
+        } else if ((obj instanceof String) && "".equals(obj))
         {
             return true;
-        }
-        else if ((obj instanceof Number) && ((Number) obj).doubleValue() == 0)
+        } else if ((obj instanceof Number) && ((Number) obj).doubleValue() == 0)
         {
             return true;
-        }
-        else if ((obj instanceof Collection<?>)
+        } else if ((obj instanceof Collection<?>)
                 && ((Collection<?>) obj).isEmpty())
         {
             return true;
-        }
-        else if ((obj instanceof Map<?, ?>) && ((Map<?, ?>) obj).isEmpty())
+        } else if ((obj instanceof Map<?, ?>) && ((Map<?, ?>) obj).isEmpty())
         {
             return true;
-        }
-        else if ((obj instanceof Object[]) && ((Object[]) obj).length == 0)
+        } else if ((obj instanceof Object[]) && ((Object[]) obj).length == 0)
         {
             return true;
         }
@@ -148,9 +144,9 @@ public class StringUtils
     /**
      * 字符串转整数
      *
-     * @param str  字符串
-     * @param defValue  默认值
-     * @return  数值
+     * @param str      字符串
+     * @param defValue 默认值
+     * @return 数值
      */
     public static int toInt(String str, int defValue)
     {
@@ -167,7 +163,7 @@ public class StringUtils
     /**
      * 对象转整
      *
-     * @param obj  对象
+     * @param obj 对象
      * @return 转换异常返回 0
      */
     public static int toInt(Object obj)
@@ -182,7 +178,7 @@ public class StringUtils
     /**
      * String转long
      *
-     * @param obj  对象
+     * @param obj 对象
      * @return 转换异常返回 0
      */
     public static long toLong(String obj)
@@ -218,7 +214,7 @@ public class StringUtils
     /**
      * 字符串转布尔
      *
-     * @param b  字符串
+     * @param b 字符串
      * @return 转换异常返回 false
      */
     public static boolean toBool(String b)
@@ -312,8 +308,8 @@ public class StringUtils
     /**
      * 以友好的方式显示时间
      *
-     * @param sdate  时间字符串
-     * @return  字符串
+     * @param sdate 时间字符串
+     * @return 字符串
      */
     public static String friendlyTime(String sdate)
     {
@@ -322,8 +318,7 @@ public class StringUtils
         if (isInEasternEightZones())
         {
             time = toDate(sdate);
-        }
-        else
+        } else
         {
             time = transformTime(toDate(sdate), TimeZone.getTimeZone("GMT+08"),
                     TimeZone.getDefault());
@@ -347,8 +342,7 @@ public class StringUtils
                 ftime = Math.max(
                         (cal.getTimeInMillis() - time.getTime()) / 60000, 1)
                         + "分钟前";
-            }
-            else
+            } else
             {
                 ftime = hour + "小时前";
             }
@@ -366,37 +360,29 @@ public class StringUtils
                 ftime = Math.max(
                         (cal.getTimeInMillis() - time.getTime()) / 60000, 1)
                         + "分钟前";
-            }
-            else
+            } else
             {
                 ftime = hour + "小时前";
             }
-        }
-        else if (days == 1)
+        } else if (days == 1)
         {
             ftime = "昨天";
-        }
-        else if (days == 2)
+        } else if (days == 2)
         {
             ftime = "前天 ";
-        }
-        else if (days > 2 && days < 31)
+        } else if (days > 2 && days < 31)
         {
             ftime = days + "天前";
-        }
-        else if (days >= 31 && days <= 2 * 31)
+        } else if (days >= 31 && days <= 2 * 31)
         {
             ftime = "一个月前";
-        }
-        else if (days > 2 * 31 && days <= 3 * 31)
+        } else if (days > 2 * 31 && days <= 3 * 31)
         {
             ftime = "2个月前";
-        }
-        else if (days > 3 * 31 && days <= 4 * 31)
+        } else if (days > 3 * 31 && days <= 4 * 31)
         {
             ftime = "3个月前";
-        }
-        else
+        } else
         {
             ftime = dateFormater2.get().format(time);
         }
@@ -424,8 +410,7 @@ public class StringUtils
         if (hours > 0)
         {
             return mFormatter.format("%d:%02d:%02d", hours, minutes, seconds).toString();
-        }
-        else
+        } else
         {
             return mFormatter.format("%02d:%02d", minutes, seconds).toString();
         }
@@ -457,7 +442,7 @@ public class StringUtils
     /**
      * 判断用户的设备时区是否为东八区（中国） 2014年7月31日
      *
-     * @return  YES/NO
+     * @return YES/NO
      */
     public static boolean isInEasternEightZones()
     {
@@ -465,8 +450,7 @@ public class StringUtils
         if (TimeZone.getDefault() == TimeZone.getTimeZone("GMT+08"))
         {
             defaultVaule = true;
-        }
-        else
+        } else
         {
             defaultVaule = false;
         }
@@ -489,4 +473,24 @@ public class StringUtils
         return finalDate;
     }
 
+
+    /**
+     * 将Unicode编码解析成字符串形式（如汉字）
+     */
+    public static String decodeUnicodeToString(String uString)
+    {
+        StringBuilder sb = new StringBuilder();
+        int i = -1, pos = 0;
+        while ((i = uString.indexOf("\\u", pos)) != -1)
+        {
+            sb.append(uString.substring(pos, i));
+            if (i + 5 < uString.length())
+            {
+                pos = i + 6;
+                sb.append((char) Integer.parseInt(uString.substring(i + 2, i + 6), 16));
+            }
+        }
+        sb.append(uString.substring(pos));
+        return sb.toString();
+    }
 }

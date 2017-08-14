@@ -3,6 +3,7 @@ package org.yh.library.okhttp.utils;
 import android.text.TextUtils;
 
 import org.yh.library.utils.LogUtils;
+import org.yh.library.utils.StringUtils;
 
 import java.io.IOException;
 
@@ -119,7 +120,7 @@ public class LoggerInterceptor implements Interceptor
                 if (mediaType != null)
                 {
                     LogUtils.e(tag, "请求参数类型 : " + mediaType);
-                    LogUtils.e(tag, "请求参数内容 : " + bodyToString(request));
+                    LogUtils.e(tag, "请求参数内容 : " + bodyToString(request).replace("&","   "));
 //                    if (isText(mediaType))
 //                    {
 //                        LogUtils.e(tag, "请求参数内容 : " + bodyToString(request));
@@ -164,7 +165,7 @@ public class LoggerInterceptor implements Interceptor
             final Request copy = request.newBuilder().build();
             final Buffer buffer = new Buffer();
             copy.body().writeTo(buffer);
-            return buffer.readUtf8Line();
+            return StringUtils.decodeUnicodeToString(buffer.readUtf8Line());
         }
         catch (final IOException e)
         {

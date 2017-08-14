@@ -78,7 +78,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     private void getDataByLine()
     {
 //        YHLoadingBar.make(empty_layout).show();
-        YHRequestFactory.getRequestManger().get(HOME_HOST, "ci/api/menu/menulist?page=" + page,null, new HttpCallBack()
+        YHRequestFactory.getRequestManger().get(HOME_HOST, "api/menu/menulist?page=" + page,null, new HttpCallBack()
         {
             @Override
             public void onSuccess(String t)

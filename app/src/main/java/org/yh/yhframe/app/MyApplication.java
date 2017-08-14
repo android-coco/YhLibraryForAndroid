@@ -6,6 +6,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.google.gson.Gson;
 
 import org.yh.library.db.YhDBManager;
@@ -21,10 +25,7 @@ import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.StringUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -32,9 +33,6 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 import okhttp3.Cache;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 
 /**
@@ -47,8 +45,7 @@ import okhttp3.OkHttpClient;
  */
 public class MyApplication extends Application
 {
-    public static final String HOME_HOST = "http://192.168.0.3/";//家里
-    public static final String COMPANY_HOST = "http://192.168.0.130/";//公司
+    public static final String HOME_HOST = "http://192.168.0.130:8081/";//IP地址
 
     private static final String TAG = "MyApplication";
     private static MyApplication mInstance = null;
@@ -134,6 +131,8 @@ public class MyApplication extends Application
         YHRequestFactory.getRequestManger().setHeaders(headers);
         //缓存http
         Cache cache = new Cache(new File(FileUtils.getSavePath(Constants.httpCachePath)), cacheSize);
+        //cookie
+        ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(getInstance()));
         HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null,
                 null, null);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -151,34 +150,36 @@ public class MyApplication extends Application
                         return true;
                     }
                 })
-                .cookieJar(new CookieJar()
-                {
-                    private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
-
-                    @Override
-                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies)
-                    {
-                        cookieStore.put(url.host(), cookies);
-                        if (!StringUtils.isEmpty(cookieStore.get(url)))
-                        {
-                            LogUtils.e("cookieStore.get(url)", "" + cookieStore.get(url).size());
-                        }
-
-                    }
-
-                    @Override
-                    public List<Cookie> loadForRequest(HttpUrl url)
-                    {
-                        if (!StringUtils.isEmpty(cookieStore.get(url.host())))
-                        {
-                            LogUtils.e("cookieStore.get(url)", "" + cookieStore.get(url.host())
-                                    .size());
-                        }
-                        List<Cookie> cookies = cookieStore.get(url.host());
-                        return cookies != null ? cookies : new ArrayList<Cookie>();
-
-                    }
-                })
+                .cookieJar(cookieJar)
+//                .cookieJar(new CookieJar()
+//                {
+//                    private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+//
+//                    @Override
+//                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies)
+//                    {
+//                        cookieStore.put(url.host(), cookies);
+//                        if (!StringUtils.isEmpty(cookieStore.get(url)))
+//                        {
+//                            LogUtils.e("cookieStore.get(url)", "" + cookieStore.get(url).size());
+//                        }
+//                        LogUtils.e("saveFromResponse", "" + cookies);
+//                    }
+//
+//                    @Override
+//                    public List<Cookie> loadForRequest(HttpUrl url)
+//                    {
+//                        if (!StringUtils.isEmpty(cookieStore.get(url.host())))
+//                        {
+//                            LogUtils.e("cookieStore.get(url)", "" + cookieStore.get(url.host())
+//                                    .size());
+//                        }
+//                        List<Cookie> cookies = cookieStore.get(url.host());
+//                        LogUtils.e("loadForRequest", "" + cookies);
+//                        return cookies != null ? cookies : new ArrayList<Cookie>();
+//
+//                    }
+//                })
                 .sslSocketFactory(sslParams.sSLSocketFactory,
                         sslParams.trustManager).build();
         OkHttpUtils.initClient(okHttpClient);
