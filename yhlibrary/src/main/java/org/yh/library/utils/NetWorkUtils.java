@@ -12,7 +12,7 @@ import android.net.NetworkInfo;
 public class NetWorkUtils
 {
     /**
-     *  获取当前的网络状态  -1：没有网络  1：WIFI网络 2：wap网络3：net网络
+     * 获取当前的网络状态  -1：没有网络  1：WIFI网络 2：wap网络3：net网络
      */
     public static final int CMNET = 3;
     public static final int CMWAP = 2;
@@ -35,18 +35,28 @@ public class NetWorkUtils
             if (networkInfo.getExtraInfo().toLowerCase().equals("cmnet"))
             {
                 netType = CMNET;
-            }
-            else
+            } else
             {
                 netType = CMWAP;
             }
-        }
-        else if (nType == ConnectivityManager.TYPE_WIFI)
+        } else if (nType == ConnectivityManager.TYPE_WIFI)
         {
             netType = WIFI;
         }
         LogUtils.e("当前网络状态：", "当前网络状态是：" + networkInfo
                 .getExtraInfo());
         return netType;
+    }
+
+    /**
+     * 手机是否联网
+     */
+    public static boolean isNetworkConnected(Context context)
+    {
+        //6.0 之后得使用 getApplicationContext()..getSystemService(...)
+        //否则会内存泄漏
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
+        return activeNetworkInfo.isConnected();
     }
 }

@@ -11,6 +11,7 @@ import org.yh.library.utils.Constants;
 import org.yh.library.utils.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -405,6 +406,14 @@ public class OkHttpRequestManager implements I_RequestManager
         if (!StringUtils.isEmpty(OkHttpUtils.getInstance()))
         {
             OkHttpUtils.getInstance().cancelTagAll();
+        }
+    }
+
+    public static void deleteCache() throws IOException
+    {
+        if (!StringUtils.isEmpty(OkHttpUtils.getInstance()))
+        {
+            OkHttpUtils.getInstance().deleteCache();
         }
     }
 

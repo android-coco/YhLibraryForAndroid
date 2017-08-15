@@ -114,10 +114,12 @@ public class OkHttpUtils
     }
 
     @SuppressWarnings("rawtypes")
-	public void execute(final RequestCall requestCall, Callback callback)
+    public void execute(final RequestCall requestCall, Callback callback)
     {
         if (callback == null)
+        {
             callback = Callback.CALLBACK_DEFAULT;
+        }
         final Callback finalCallback = callback;
         final int id = requestCall.getOkHttpRequest().getId();
         requestCall.getCall().enqueue(new okhttp3.Callback()
@@ -148,13 +150,17 @@ public class OkHttpUtils
 
                     Object o = finalCallback.parseNetworkResponse(response, id);
                     sendSuccessResultCallback(o, finalCallback, id);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     sendFailResultCallback(call, e, finalCallback, id);
-                } finally
+                }
+                finally
                 {
                     if (response.body() != null)
+                    {
                         response.body().close();
+                    }
                 }
 
             }
@@ -163,9 +169,12 @@ public class OkHttpUtils
 
 
     @SuppressWarnings("rawtypes")
-	public void sendFailResultCallback(final Call call, final Exception e, final Callback callback, final int id)
+    public void sendFailResultCallback(final Call call, final Exception e, final Callback callback, final int id)
     {
-        if (callback == null) return;
+        if (callback == null)
+        {
+            return;
+        }
 
         mPlatform.execute(new Runnable()
         {
@@ -179,13 +188,16 @@ public class OkHttpUtils
     }
 
     @SuppressWarnings("rawtypes")
-	public void sendSuccessResultCallback(final Object object, final Callback callback, final int id)
+    public void sendSuccessResultCallback(final Object object, final Callback callback, final int id)
     {
-        if (callback == null) return;
+        if (callback == null)
+        {
+            return;
+        }
         mPlatform.execute(new Runnable()
         {
             @SuppressWarnings("unchecked")
-			@Override
+            @Override
             public void run()
             {
                 callback.onResponse(object, id);
@@ -212,19 +224,24 @@ public class OkHttpUtils
         }
     }
 
-    
+
     public void cancelTagAll()
     {
         for (Call call : mOkHttpClient.dispatcher().queuedCalls())
         {
-        	call.cancel();
+            call.cancel();
         }
         for (Call call : mOkHttpClient.dispatcher().runningCalls())
         {
-        	call.cancel();
+            call.cancel();
         }
     }
-    
+
+    public void deleteCache() throws IOException
+    {
+        mOkHttpClient.cache().delete();
+    }
+
     public static class METHOD
     {
         public static final String HEAD = "HEAD";

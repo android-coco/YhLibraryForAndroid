@@ -9,6 +9,8 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+
 import org.yh.library.YHGlide;
 import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.callback.HttpCallBack;
@@ -17,6 +19,7 @@ import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.FileUtils;
+import org.yh.library.utils.LogUtils;
 import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.base.BaseActiciy;
 import org.yh.yhframe.service.MyIntentService;
@@ -124,8 +127,10 @@ public class MainActivity extends BaseActiciy
             public void onFinish()
             {
                 super.onFinish();
+                LogUtils.e(TAG,new SharedPrefsCookiePersistor(MyApplication.getInstance()).loadAll()+"");
             }
         },TAG);
+
 
 //        //请求头测试
 //        /**

@@ -14,26 +14,29 @@ import com.google.gson.Gson;
 
 import org.yh.library.db.YhDBManager;
 import org.yh.library.okhttp.OkHttpUtils;
-import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.https.HttpsUtils;
+import org.yh.library.okhttp.utils.HeaderInterceptor;
 import org.yh.library.okhttp.utils.LoggerInterceptor;
 import org.yh.library.ui.YHActivityStack;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.DensityUtils;
 import org.yh.library.utils.FileUtils;
 import org.yh.library.utils.LogUtils;
+import org.yh.library.utils.NetWorkUtils;
 import org.yh.library.utils.StringUtils;
 
 import java.io.File;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 import okhttp3.Cache;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * @author hao
@@ -123,12 +126,12 @@ public class MyApplication extends Application
     public static void initHttp()
     {
         //全局设置请求头  单独设置请求头覆盖全局设置
-        Map<String, String> headers = new LinkedHashMap<>();
-        headers.put("imei", "123123123");
-        headers.put("version", "1.0");
-        headers.put("token", "");
-        headers.put("regid", "123123123");
-        YHRequestFactory.getRequestManger().setHeaders(headers);
+//        Map<String, String> headers = new LinkedHashMap<>();
+//        headers.put("imei", "123123123");
+//        headers.put("version", "1.0");
+//        headers.put("token", "");
+//        headers.put("regid", "123123123");
+//        YHRequestFactory.getRequestManger().setHeaders(headers);
         //缓存http
         Cache cache = new Cache(new File(FileUtils.getSavePath(Constants.httpCachePath)), cacheSize);
         //cookie
@@ -141,6 +144,27 @@ public class MyApplication extends Application
                 .retryOnConnectionFailure(true)//允许重试
                 .addInterceptor(new LoggerInterceptor("",true))//日志拦截 是否显示返回数据
 //                .addInterceptor(new RetryInterceptor(3))//重试3次
+                .addInterceptor(new HeaderInterceptor())// 统一请求头
+                .addNetworkInterceptor(new Interceptor()//添加网络拦截器缓存用
+                {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException
+                    {
+                        Request request = chain.request();
+                        Response response = chain.proceed(request);
+                        if (NetWorkUtils.isNetworkConnected(getInstance())) {
+                            int maxAge = 60 * 60;// 有网 就1个小时可用 缓存有效时间
+                            return response.newBuilder()
+                                    .header("Cache-Control", "public, max-age=" + maxAge)
+                                    .build();
+                        } else {
+                            int maxStale = 60 * 60 * 24 * 7;// 没网 就1周可用 缓存有效时间
+                            return response.newBuilder()
+                                    .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                                    .build();
+                        }
+                    }
+                })
                 .cache(cache)//添加缓存
                 .hostnameVerifier(new HostnameVerifier()
                 {
