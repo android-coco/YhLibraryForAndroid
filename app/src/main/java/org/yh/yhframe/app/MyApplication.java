@@ -19,6 +19,7 @@ import org.yh.library.okhttp.utils.HeaderInterceptor;
 import org.yh.library.okhttp.utils.LoggerInterceptor;
 import org.yh.library.ui.YHActivityStack;
 import org.yh.library.utils.Constants;
+import org.yh.library.utils.CrashHandler;
 import org.yh.library.utils.DensityUtils;
 import org.yh.library.utils.FileUtils;
 import org.yh.library.utils.LogUtils;
@@ -49,14 +50,16 @@ import okhttp3.Response;
 public class MyApplication extends Application
 {
     public static final String HOME_HOST = "http://192.168.0.130:8081/";//IP地址
-
-    private static final String TAG = "MyApplication";
+    private static final String TAG = MyApplication.class.getSimpleName();
     private static MyApplication mInstance = null;
     private static final long cacheSize = 1024*1024*20;//缓存文件最大限制大小20M
-    SendEmailThread sendEmail;
+    SendEmailThread sendEmail;//发送邮件
+    //默认屏幕宽高
     public static int width = 1080;
     public static int height = 960;
+    //延迟加载
     private Handler mHandler = new Handler();
+    //json解析
     public Gson yhGson = null;
 
     @Override
@@ -64,13 +67,13 @@ public class MyApplication extends Application
     {
         super.onCreate();
         mInstance = this;
-        Constants.Config.app = this;
+        Constants.Config.app = this;//框架用到上下文对象
         //注册监听Activiy的声明周期
         registerActivityLifecycleCallbacks();
         width = DensityUtils.getScreenW(MyApplication.getInstance()
-                .getApplicationContext());
+                .getApplicationContext()); //屏幕宽度
         height = DensityUtils.getScreenH(MyApplication.getInstance()
-                .getApplicationContext());
+                .getApplicationContext());//屏幕高度
         if (width == 0)
         {
             width = 1080;
@@ -80,8 +83,7 @@ public class MyApplication extends Application
         {
             height = 960;
         }
-
-        //LogUtils.e(TAG, "onCreate() height：" + height + " width：" + width);
+        LogUtils.e(TAG, "MyApplication onCreate() height：" + height + " width：" + width);
         mHandler.postDelayed(new Runnable()
         {
 
@@ -117,13 +119,18 @@ public class MyApplication extends Application
             Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance, "yh.db", true);
         }
         // 发布BUG用邮件形式发送
-//        CrashHandler.create(getApplicationContext());
-//        sendEmail = new SendEmailThread();
-//        sendEmail.start();
+       if(!LogUtils.isDebug)
+       {
+           CrashHandler.create(getApplicationContext());
+           sendEmail = new SendEmailThread();
+           sendEmail.start();
+       }
 
     }
 
-    // 初始化OKHTTP
+    /**
+     * 初始化OKHTTP
+     */
     public static void initHttp()
     {
         //全局设置请求头  单独设置请求头覆盖全局设置
@@ -210,7 +217,10 @@ public class MyApplication extends Application
         OkHttpUtils.initClient(okHttpClient);
     }
 
-    // 初始化缓存框架
+    /**
+     * 初始化缓存框架ImageLoader
+     * @param context 上下文
+     */
     public static void initImageLoader(Context context)
     {
 
@@ -254,7 +264,9 @@ public class MyApplication extends Application
 //        ImageLoader.getInstance().init(config);
     }
 
-    //管理所有Activity声明周期
+    /**
+     * 管理所有Activity声明周期
+     */
     private void registerActivityLifecycleCallbacks()
     {
         this.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks()
@@ -263,44 +275,44 @@ public class MyApplication extends Application
             public void onActivityCreated(Activity activity, Bundle bundle)
             {
                 YHActivityStack.create().addActivity(activity);
-                LogUtils.e("onActivityCreated", activity.getClass().toString());
+                //LogUtils.e("onActivityCreated", activity.getClass().toString());
             }
 
             @Override
             public void onActivityStarted(Activity activity)
             {
-                LogUtils.e("onActivityStarted", activity.getClass().toString());
+                //LogUtils.e("onActivityStarted", activity.getClass().toString());
             }
 
             @Override
             public void onActivityResumed(Activity activity)
             {
-                LogUtils.e("onActivityResumed", activity.getClass().toString());
+               // LogUtils.e("onActivityResumed", activity.getClass().toString());
             }
 
             @Override
             public void onActivityPaused(Activity activity)
             {
-                LogUtils.e("onActivityPaused", activity.getClass().toString());
+                //LogUtils.e("onActivityPaused", activity.getClass().toString());
             }
 
             @Override
             public void onActivityStopped(Activity activity)
             {
-                LogUtils.e("onActivityStopped", activity.getClass().toString());
+                //LogUtils.e("onActivityStopped", activity.getClass().toString());
             }
 
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle bundle)
             {
-                LogUtils.e("onActivitySaveInstanceState", activity.getClass().toString());
+                //LogUtils.e("onActivitySaveInstanceState", activity.getClass().toString());
             }
 
             @Override
             public void onActivityDestroyed(Activity activity)
             {
                 YHActivityStack.create().finishActivity(activity);
-                LogUtils.e("onActivityDestroyed", activity.getClass().toString());
+                //LogUtils.e("onActivityDestroyed", activity.getClass().toString());
             }
         });
     }
