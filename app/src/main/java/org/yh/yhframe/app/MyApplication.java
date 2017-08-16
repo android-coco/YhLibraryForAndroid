@@ -64,6 +64,7 @@ public class MyApplication extends Application
     {
         super.onCreate();
         mInstance = this;
+        Constants.Config.app = this;
         //注册监听Activiy的声明周期
         registerActivityLifecycleCallbacks();
         width = DensityUtils.getScreenW(MyApplication.getInstance()
@@ -152,7 +153,7 @@ public class MyApplication extends Application
                     {
                         Request request = chain.request();
                         Response response = chain.proceed(request);
-                        if (NetWorkUtils.isNetworkConnected(getInstance())) {
+                        if (NetWorkUtils.isConnectedByState(getInstance())) {
                             int maxAge = 60 * 60;// 有网 就1个小时可用 缓存有效时间
                             return response.newBuilder()
                                     .header("Cache-Control", "public, max-age=" + maxAge)
