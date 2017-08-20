@@ -11,7 +11,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- WIFI状态 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 拍照 -->
     <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"

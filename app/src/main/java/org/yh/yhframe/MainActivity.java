@@ -17,6 +17,7 @@ import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
 import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.YHViewInject;
+import org.yh.library.utils.CipherUtils;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.FileUtils;
 import org.yh.library.utils.LogUtils;
@@ -26,6 +27,7 @@ import org.yh.yhframe.service.MyIntentService;
 import org.yh.yhframe.service.MyService;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +65,8 @@ public class MainActivity extends BaseActiciy
         //startService(myIntentService);
         //YHGlide.getInstanse(this).loadImgeForDrawable(R.mipmap.ic_launcher,img);
 
-        YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl("http://image.51efan.com/storage/menu/201705/ca07a8ca27b3beae828b871d888cd88f.jpg",img);
+        YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl("http://image.51efan" +
+                ".com/storage/menu/201705/ca07a8ca27b3beae828b871d888cd88f.jpg", img);
     }
 
     private ServiceConnection connection = new ServiceConnection()
@@ -108,7 +111,8 @@ public class MainActivity extends BaseActiciy
         params.put("v10", "10");
         params.put("v11", "11");
 //        params.put("file",new File(FileUtils.getSavePath("Download/SAM_0034.JPG")));
-        YHRequestFactory.getRequestManger().post(HOME_HOST, "api/Expost/testPost", null, params, new HttpCallBack()
+        YHRequestFactory.getRequestManger().post(HOME_HOST, "api/Expost/testPost", null, params,
+                new HttpCallBack()
 
         {
             @Override
@@ -127,10 +131,43 @@ public class MainActivity extends BaseActiciy
             public void onFinish()
             {
                 super.onFinish();
-                LogUtils.e(TAG,new SharedPrefsCookiePersistor(MyApplication.getInstance()).loadAll()+"");
+                LogUtils.e(TAG, new SharedPrefsCookiePersistor(MyApplication.getInstance())
+                        .loadAll() + "");
             }
-        },TAG);
+        }, TAG);
+        Map<String, String> headers = new LinkedHashMap<>();
+        headers.put("imei", "8989898989898989");
+        headers.put("version", "1.0");
+        headers.put("token", CipherUtils.md5(CipherUtils.md5("1.0") + CipherUtils.md5
+                ("8989898989898989") + "hunli20170807@@$*"));
+        headers.put("regid", "123123123");
+        Map<String, String> parms1 = new HashMap<>();
+        parms1.put("mobile", "188888888");
+        parms1.put("type", "auth");
+        YHRequestFactory.getRequestManger().post("http://hunli.ywkjsz.com/Home/User/sendVerify",
+                "", headers, parms1, new HttpCallBack()
 
+        {
+
+
+            @Override
+            public void onSuccess(String t)
+            {
+                super.onSuccess(t);
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg)
+            {
+                super.onFailure(errorNo, strMsg);
+            }
+
+            @Override
+            public void onFinish()
+            {
+                super.onFinish();
+            }
+        }, TAG);
 
 //        //请求头测试
 //        /**
@@ -145,7 +182,8 @@ public class MainActivity extends BaseActiciy
 //        headers.put("token", "");
 //        headers.put("regid", "123123123");
 ////        YHRequestFactory.getRequestManger().setHeaders(headers);
-//        YHRequestFactory.getRequestManger().get("", "http://192.168.0.130:8081/api/login/login?user=123456&pass=123456", headers, new HttpCallBack()
+//        YHRequestFactory.getRequestManger().get("",
+// "http://192.168.0.130:8081/api/login/login?user=123456&pass=123456", headers, new HttpCallBack()
 //        {
 //
 //            @Override
@@ -161,6 +199,25 @@ public class MainActivity extends BaseActiciy
 //            }
 //        }, TAG);
 
+    }
+
+    public String convert(String utfString)
+    {
+        StringBuilder sb = new StringBuilder();
+        int i = -1;
+        int pos = 0;
+
+        while ((i = utfString.indexOf("\\u", pos)) != -1)
+        {
+            sb.append(utfString.substring(pos, i));
+            if (i + 5 < utfString.length())
+            {
+                pos = i + 6;
+                sb.append((char) Integer.parseInt(utfString.substring(i + 2, i + 6), 16));
+            }
+        }
+
+        return sb.toString();
     }
 
     @Override
@@ -190,14 +247,16 @@ public class MainActivity extends BaseActiciy
                     public void onFailure(List<String> deniedPermission)//全部拒绝
                     {
                         Constants.Config.IS_WRITE_EXTERNAL_STORAGE = false;
-                        YHViewInject.create().showTips("拒绝授权列表：" + Constants.initPermissionNames().get(deniedPermission.get(0)));
+                        YHViewInject.create().showTips("拒绝授权列表：" + Constants.initPermissionNames
+                                ().get(deniedPermission.get(0)));
                     }
                 });
                 break;
             case R.id.start_recording:
                 Intent video = new Intent(this, VideoActivity.class);
                 video.putExtra(VideoActivity.VIDEO_PATH, FileUtils.getSDCardPath() + "/movie.mp4");
-                video.putExtra(VideoActivity.IMG_PATH, FileUtils.getSDCardPath() + "/Pictures/ScreenShots/SRC_20170711_223947.png");
+                video.putExtra(VideoActivity.IMG_PATH, FileUtils.getSDCardPath() +
+                        "/Pictures/ScreenShots/SRC_20170711_223947.png");
                 startActivity(video);
                 break;
         }
@@ -218,7 +277,8 @@ public class MainActivity extends BaseActiciy
     protected void onMenuClick()
     {
         super.onMenuClick();
-        YHViewInject.create().getExitDialog(aty, "确定删除", null, null, new DialogInterface.OnClickListener()
+        YHViewInject.create().getExitDialog(aty, "确定删除", null, null, new DialogInterface
+                .OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialogInterface, int i)
