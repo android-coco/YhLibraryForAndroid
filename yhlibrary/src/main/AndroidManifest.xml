@@ -13,8 +13,6 @@
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
                        android:resource="@xml/web_download_paths"/>
         </provider>
-        <!-- 小视频录制Activity -->
-        <activity android:name="com.mabeijianxi.smallvideorecord2.MediaRecorderActivity"/>
     </application>
 
 </manifest>
