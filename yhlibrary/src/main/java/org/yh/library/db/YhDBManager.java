@@ -6,7 +6,6 @@ import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by yhlyl on 2017/4/16.
@@ -17,7 +16,7 @@ import java.util.Objects;
 public class YhDBManager
 {
     private static YhDBManager manager;
-    private LiteOrm liteOrm;
+    private static LiteOrm liteOrm;
 
     private YhDBManager(Context context, String dbName,boolean isDebug)
     {
@@ -42,6 +41,11 @@ public class YhDBManager
             }
         }
         return manager;
+    }
+
+    public static  LiteOrm getDb()
+    {
+        return liteOrm;
     }
 
     /**
@@ -100,7 +104,7 @@ public class YhDBManager
      * @param value
      * @return list
      */
-    public <T> List<T> getQueryByWhere(Class<T> cla, String field, Objects value)
+    public <T> List<T> getQueryByWhere(Class<T> cla, String field, Object value)
     {
         return liteOrm.<T>query(new QueryBuilder(cla).where(field + "=?", value));
     }
@@ -115,7 +119,7 @@ public class YhDBManager
      * @param length
      * @return list
      */
-    public <T> List<T> getQueryByWhereLength(Class<T> cla, String field, Objects value, int
+    public <T> List<T> getQueryByWhereLength(Class<T> cla, String field, Object value, int
             start, int length)
     {
         return liteOrm.<T>query(new QueryBuilder(cla).where(field + "=?", value).limit(start,
