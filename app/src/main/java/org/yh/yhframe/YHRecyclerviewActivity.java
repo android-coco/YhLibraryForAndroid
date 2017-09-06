@@ -117,6 +117,12 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
                 super.onFinish();
 //                YHLoadingBar.cancel(empty_layout);
                 Constants.Config.yhDBManager.insertAll(mAdapter.getDatas());
+//                QueryBuilder<MenuModel> qb = new QueryBuilder<>(
+//                        MenuModel.class).where(MenuModel.COL_NAME + " =? ",
+//                        new Object[]
+//                                {"冬菇蒸滑鸡饭（不辣）"}).orderBy(MenuModel.COL_MENUID);
+//                ArrayList<MenuModel> x =Constants.Config.yhDBManager.getDb().query(qb);
+//                LogUtils.e(TAG,"fadfadsfa:" + x + "");
             }
         }, TAG);
     }
