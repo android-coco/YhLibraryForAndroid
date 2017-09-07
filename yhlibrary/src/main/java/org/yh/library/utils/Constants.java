@@ -4,6 +4,7 @@ package org.yh.library.utils;
 import android.app.Application;
 
 import org.yh.library.BuildConfig;
+import org.yh.library.R;
 import org.yh.library.db.YhDBManager;
 
 import java.util.HashMap;
@@ -43,6 +44,11 @@ public final class Constants
     public static final String logCachePath = saveFolder + "/log";
     // 网络缓存
     public static final String httpCachePath = saveFolder + "/http";
+    // 图片加载中的图片
+    public static int  placeholderImgID  = R.drawable.progressloading;
+    // 图片加载错误的图片
+    public static int errorImgID = R.drawable.icon_loding_error;
+
     /**
      * 网络相关
      */

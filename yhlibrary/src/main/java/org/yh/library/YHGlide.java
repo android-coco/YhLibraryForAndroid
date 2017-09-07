@@ -14,6 +14,7 @@ import org.yh.library.utils.StringUtils;
 
 import java.io.File;
 
+
 /**
  * 作者：38314 on 2017/5/24 11:37
  * 邮箱：yh_android@163.com
@@ -23,8 +24,6 @@ public class YHGlide
 {
     private static YHGlide instanse;
     private Context mContext;
-    private int placeholder = R.drawable.progressloading;
-    private int error = R.drawable.icon_loding_error;
 
     private YHGlide()
     {
@@ -56,11 +55,11 @@ public class YHGlide
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
             Glide.with(mContext).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
-                    (placeholder).error(error).into(imageView);
+                    (Constants.placeholderImgID).error(Constants.errorImgID).into(imageView);
         }
         else
         {
-            Glide.with(mContext).load(url).placeholder(placeholder).error(error).into(imageView);
+            Glide.with(mContext).load(url).placeholder(Constants.placeholderImgID).error(Constants.errorImgID).into(imageView);
         }
     }
 
@@ -86,11 +85,11 @@ public class YHGlide
         {
 
             Glide.with(mContext).load(url).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(placeholder).error(error).into(target);
+                    .placeholder(Constants.placeholderImgID).error(Constants.errorImgID).into(target);
         }
         else
         {
-            Glide.with(mContext).load(url).asBitmap().placeholder(placeholder).error(error).into
+            Glide.with(mContext).load(url).asBitmap().placeholder(Constants.placeholderImgID).error(Constants.errorImgID).into
                     (target);
         }
     }
@@ -134,11 +133,11 @@ public class YHGlide
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
             Glide.with(mContext).load(resourceId).diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(placeholder).error(error).into(imageView);
+                    .placeholder(Constants.placeholderImgID).error(Constants.errorImgID).into(imageView);
         }
         else
         {
-            Glide.with(mContext).load(resourceId).placeholder(placeholder).error(error).into
+            Glide.with(mContext).load(resourceId).placeholder(Constants.placeholderImgID).error(Constants.errorImgID).into
                     (imageView);
         }
 
@@ -166,11 +165,11 @@ public class YHGlide
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
             Glide.with(mContext).load(path).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
-                    (placeholder).error(error).into(imageView);
+                    (Constants.placeholderImgID).error(Constants.errorImgID).into(imageView);
         }
         else
         {
-            Glide.with(mContext).load(path).placeholder(placeholder).error(error).into(imageView);
+            Glide.with(mContext).load(path).placeholder(Constants.placeholderImgID).error(Constants.errorImgID).into(imageView);
         }
 
     }
@@ -203,11 +202,11 @@ public class YHGlide
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
             Glide.with(mContext).load(file).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
-                    (placeholder).error(error).into(imageView);
+                    (Constants.placeholderImgID).error(Constants.errorImgID).into(imageView);
         }
         else
         {
-            Glide.with(mContext).load(file).placeholder(placeholder).error(error).into(imageView);
+            Glide.with(mContext).load(file).placeholder(Constants.placeholderImgID).error(Constants.errorImgID).into(imageView);
         }
 
     }
@@ -240,11 +239,11 @@ public class YHGlide
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
             Glide.with(mContext).load(uri).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
-                    (placeholder).error(error).into(imageView);
+                    (Constants.placeholderImgID).error(Constants.errorImgID).into(imageView);
         }
         else
         {
-            Glide.with(mContext).load(uri).placeholder(placeholder).error(error).into(imageView);
+            Glide.with(mContext).load(uri).placeholder(Constants.placeholderImgID).error(Constants.errorImgID).into(imageView);
         }
 
     }
@@ -271,11 +270,11 @@ public class YHGlide
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
             Glide.with(mContext).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(placeholder).error(error).into(imageView);
+                    .placeholder(Constants.placeholderImgID).error(Constants.errorImgID).into(imageView);
         }
         else
         {
-            Glide.with(mContext).load(url).asGif().placeholder(placeholder).error(error).into
+            Glide.with(mContext).load(url).asGif().placeholder(Constants.placeholderImgID).error(Constants.errorImgID).into
                     (imageView);
         }
 

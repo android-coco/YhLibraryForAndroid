@@ -25,6 +25,7 @@ import org.yh.library.utils.FileUtils;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.NetWorkUtils;
 import org.yh.library.utils.StringUtils;
+import org.yh.yhframe.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -114,6 +115,8 @@ public class MyApplication extends Application
             //Gson解析
             yhGson = new Gson();
             // 图片缓存框架初始化
+            Constants.placeholderImgID = R.drawable.img_default;//加载中的资源(图片或者自定义图形)
+            Constants.errorImgID = -1;//错误的资源(图片或者自定义图形)
             //initImageLoader(mInstance);
             //根据不同的用户生成不同的数据库
             Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance, "yh.db", true);
