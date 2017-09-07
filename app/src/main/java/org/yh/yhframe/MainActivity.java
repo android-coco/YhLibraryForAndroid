@@ -64,9 +64,8 @@ public class MainActivity extends BaseActiciy
         //LogUtils.e(TAG, Thread.currentThread().getId());
         //startService(myIntentService);
         //YHGlide.getInstanse(this).loadImgeForDrawable(R.mipmap.ic_launcher,img);
-
         YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl("http://image.51efan" +
-                ".com/storage/menu/201705/ca07a8ca27b3beae828b871d888cd88f.jpg", img);
+                ".com/storage/menu/201705/ca07a8ca27b3beae828b871d888cd88f.jpg", img,R.mipmap.ic_launcher,-1);
     }
 
     private ServiceConnection connection = new ServiceConnection()

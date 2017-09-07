@@ -25,7 +25,7 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
 
 * Gradle
 ```java
-compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.5'
+compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.7'
 ```
 
 * Maven
@@ -71,35 +71,35 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.5'
         //....
       }
  https://github.com/android-coco/LoadingBar
- 3.LoadingBar
+ 3.YHLoadingBar
      //默认样式 loading将会覆盖在parent的内容上面
-     LoadingBar.make(parent).show();
+     YHLoadingBar.make(parent).show();
      //自定义样式
      //提供两种形式,loadingView更简便,loadingFactory自由度更高
-     LoadingBar.make(parent,loadingView).show();
-     LoadingBar.make(parent,loadingFactory).show();
+     YHLoadingBar.make(parent,loadingView).show();
+     YHLoadingBar.make(parent,loadingFactory).show();
      //完全自定义
-     LoadingBar.make(parent,loadingFactory)
+     YHLoadingBar.make(parent,loadingFactory)
              .setOnClickListener(clickListener)//点击事件
              .setOnLoadingBarListener(loadingBarListener)//当loadingbar取消的时候回调
              .show();
      //取消Loading
-     LoadingBar.cancel(parent);
- 4.LoadingDialog
+     YHLoadingBar.cancel(parent);
+ 4.YHLoadingDialog
      //默认样式
-     LoadingDialog.make(context).show();
+     YHLoadingDialog.make(context).show();
      
      //自定义样式
-     LoadingDialog.make(context, dialogFactory).show();
+     YHLoadingDialog.make(context, dialogFactory).show();
      
      //完全自定义
-     LoadingDialog.make(context, dialogFactory)
+     YHLoadingDialog.make(context, dialogFactory)
                 .setMessage(message)//提示消息
                 .setCancelable(cancelable)
                 .show();
      
      //设置更多属性
-     Dialog dialog = LoadingDialog.make(context, dialogFactory)
+     Dialog dialog = YHLoadingDialog.make(context, dialogFactory)
                 .setMessage(message)//提示消息
                 .setCancelable(cancelable)
                 .create();
@@ -107,9 +107,9 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.5'
      dialog.set...
      dialog.show();
      //取消Loading
-     LoadingDialog.cancel();
+     YHLoadingDialog.cancel();
   5.自定义Factory
-      public class CustomLoadingFactory implements LoadingFactory {
+      public class CustomLoadingFactory implements I_LoadingFactory {
       
           @Override
           public View onCreateView(ViewGroup parent) {
@@ -119,11 +119,11 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.5'
       }
      全局配置
      //自定义样式并应用于全局
-     LoadingConfig.setFactory(loadingFactory,dialogFactory);
+     YHLoadingConfig.setFactory(loadingFactory,dialogFactory);
      资源释放
-     其实LoadingBar在cancel的时候已经释放掉了，可以不用手动释放，但是这里也提供释放的方法，根据自己需要选择
+     其实YHLoadingBar在cancel的时候已经释放掉了，可以不用手动释放，但是这里也提供释放的方法，根据自己需要选择
      在Activity onDestroy调用，个人建议在BaseActivity，资源释放只会释放无效的资源
-     LoadingBar.release();
+     YHLoadingBar.release();
  ```
  
  ## 数据库操作

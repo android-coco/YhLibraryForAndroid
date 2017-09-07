@@ -55,10 +55,27 @@ public class YHGlide
     {
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
-            Glide.with(mContext).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(placeholder).error(error).into(imageView);
-        } else
+            Glide.with(mContext).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
+                    (placeholder).error(error).into(imageView);
+        }
+        else
         {
             Glide.with(mContext).load(url).placeholder(placeholder).error(error).into(imageView);
+        }
+    }
+
+    public void loadImgeForUrl(String url, ImageView imageView, int placeholder, int error)
+    {
+        if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
+        {
+            Glide.with(mContext).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
+                    (placeholder).error(error).into(imageView);
+        }
+        else
+        {
+            Glide.with(mContext).load(url).placeholder(placeholder).error(error).into
+                    (imageView);
+
         }
     }
 
@@ -67,21 +84,79 @@ public class YHGlide
     {
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
-            Glide.with(mContext).load(url).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(placeholder).error(error).into(target);
-        } else
-        {
-            Glide.with(mContext).load(url).asBitmap().placeholder(placeholder).error(error).into(target);
+
+            Glide.with(mContext).load(url).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(placeholder).error(error).into(target);
         }
+        else
+        {
+            Glide.with(mContext).load(url).asBitmap().placeholder(placeholder).error(error).into
+                    (target);
+        }
+    }
+
+
+    //在加载开始--> 加载完成(失败)，显示placeholder()图片; 如果加载失败，则显示error() 里面的图片。
+    public void loadImgeForUrl(String url, SimpleTarget<Bitmap> target, int placeholder, int error)
+    {
+        if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
+        {
+            Glide.with(mContext).load(url).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(placeholder).error(error).into(target);
+
+        }
+        else
+        {
+            Glide.with(mContext).load(url).asBitmap().placeholder(placeholder).error(error).into
+                    (target);
+        }
+    }
+
+    public void loadImgeForDrawable(int resourceId, ImageView imageView, int placeholder, int error)
+    {
+        if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
+        {
+            Glide.with(mContext).load(resourceId).diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(placeholder).error(error).into(imageView);
+
+        }
+        else
+        {
+            Glide.with(mContext).load(resourceId).placeholder(placeholder).error(error).into
+                    (imageView);
+
+        }
+
     }
 
     public void loadImgeForDrawable(int resourceId, ImageView imageView)
     {
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
-            Glide.with(mContext).load(resourceId).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(placeholder).error(error).into(imageView);
-        } else
+            Glide.with(mContext).load(resourceId).diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(placeholder).error(error).into(imageView);
+        }
+        else
         {
-            Glide.with(mContext).load(resourceId).placeholder(placeholder).error(error).into(imageView);
+            Glide.with(mContext).load(resourceId).placeholder(placeholder).error(error).into
+                    (imageView);
+        }
+
+    }
+
+    public void loadImgeSD(String path, ImageView imageView, int placeholder, int error)
+    {
+        if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
+        {
+            Glide.with(mContext).load(path).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
+                    (placeholder).error(error).into(imageView);
+
+        }
+        else
+        {
+            Glide.with(mContext).load(path).placeholder(placeholder).error(error).into
+                    (imageView);
+
         }
 
     }
@@ -90,10 +165,32 @@ public class YHGlide
     {
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
-            Glide.with(mContext).load(path).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(placeholder).error(error).into(imageView);
-        } else
+            Glide.with(mContext).load(path).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
+                    (placeholder).error(error).into(imageView);
+        }
+        else
         {
             Glide.with(mContext).load(path).placeholder(placeholder).error(error).into(imageView);
+        }
+
+    }
+
+    //sd卡上的一张图片
+    // String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/temp.jpg" ;
+    // File file = new File( path ) ;
+    public void loadImgeSD(File file, ImageView imageView, int placeholder, int error)
+    {
+        if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
+        {
+            Glide.with(mContext).load(file).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
+                    (placeholder).error(error).into(imageView);
+
+        }
+        else
+        {
+            Glide.with(mContext).load(file).placeholder(placeholder).error(error).into
+                    (imageView);
+
         }
 
     }
@@ -105,10 +202,32 @@ public class YHGlide
     {
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
-            Glide.with(mContext).load(file).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(placeholder).error(error).into(imageView);
-        } else
+            Glide.with(mContext).load(file).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
+                    (placeholder).error(error).into(imageView);
+        }
+        else
         {
             Glide.with(mContext).load(file).placeholder(placeholder).error(error).into(imageView);
+        }
+
+    }
+
+    //String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/temp.jpg" ;
+    // File file = new File( path ) ;
+    //Uri uri = Uri.fromFile( file ) ;
+    public void loadImgeSD(Uri uri, ImageView imageView, int placeholder, int error)
+    {
+        if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
+        {
+            Glide.with(mContext).load(uri).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
+                    (placeholder).error(error).into(imageView);
+
+        }
+        else
+        {
+            Glide.with(mContext).load(uri).placeholder(placeholder).error(error).into
+                    (imageView);
+
         }
 
     }
@@ -120,10 +239,29 @@ public class YHGlide
     {
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
-            Glide.with(mContext).load(uri).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(placeholder).error(error).into(imageView);
-        } else
+            Glide.with(mContext).load(uri).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder
+                    (placeholder).error(error).into(imageView);
+        }
+        else
         {
             Glide.with(mContext).load(uri).placeholder(placeholder).error(error).into(imageView);
+        }
+
+    }
+
+    public void loadImgeGif(String url, ImageView imageView, int placeholder, int error)
+    {
+        if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
+        {
+            Glide.with(mContext).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(placeholder).error(error).into(imageView);
+
+        }
+        else
+        {
+            Glide.with(mContext).load(url).asGif().placeholder(placeholder).error(error).into
+                    (imageView);
+
         }
 
     }
@@ -132,10 +270,13 @@ public class YHGlide
     {
         if (Constants.Config.IS_WRITE_EXTERNAL_STORAGE)
         {
-            Glide.with(mContext).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(placeholder).error(error).into(imageView);
-        } else
+            Glide.with(mContext).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(placeholder).error(error).into(imageView);
+        }
+        else
         {
-            Glide.with(mContext).load(url).asGif().placeholder(placeholder).error(error).into(imageView);
+            Glide.with(mContext).load(url).asGif().placeholder(placeholder).error(error).into
+                    (imageView);
         }
 
     }
@@ -171,4 +312,5 @@ public class YHGlide
     {
         Glide.get(mContext).clearDiskCache();
     }
+
 }
