@@ -9,29 +9,23 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
-
 import org.yh.library.YHGlide;
 import org.yh.library.okhttp.YHRequestFactory;
 import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
 import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.YHViewInject;
-import org.yh.library.utils.CipherUtils;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.FileUtils;
+import org.yh.library.utils.JsonUitl;
 import org.yh.library.utils.LogUtils;
 import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.base.BaseActiciy;
+import org.yh.yhframe.bean.JsonLoginModel;
 import org.yh.yhframe.service.MyIntentService;
 import org.yh.yhframe.service.MyService;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
-import static org.yh.yhframe.app.MyApplication.HOME_HOST;
 
 
 public class MainActivity extends BaseActiciy
@@ -92,81 +86,81 @@ public class MainActivity extends BaseActiciy
         //网络请求简单操作
         serviceIntent = new Intent(aty, MyService.class);
         myIntentService = new Intent(aty, MyIntentService.class);
-        Map<String, String> params = new HashMap<>();
-
-        params.put("type", "7");
-        params.put("nurseid", "123456");
-        params.put("patientid", "123123");
-        params.put("date", "2017-07-14 16:42:10");
-        params.put("v1", "1");
-        params.put("v2", "2");
-        params.put("v3", "3");
-        params.put("v4", "4");
-        params.put("v5", "5");
-        params.put("v6", "6");
-        params.put("v7", "7");
-        params.put("v8", "8");
-        params.put("v9", "9");
-        params.put("v10", "10");
-        params.put("v11", "11");
-//        params.put("file",new File(FileUtils.getSavePath("Download/SAM_0034.JPG")));
-        YHRequestFactory.getRequestManger().post(HOME_HOST, "api/Expost/testPost", null, params,
-                new HttpCallBack()
-
-        {
-            @Override
-            public void onSuccess(String t)
-            {
-                super.onSuccess(t);
-            }
-
-            @Override
-            public void onFailure(int errorNo, String strMsg)
-            {
-                super.onFailure(errorNo, strMsg);
-            }
-
-            @Override
-            public void onFinish()
-            {
-                super.onFinish();
-                LogUtils.e(TAG, new SharedPrefsCookiePersistor(MyApplication.getInstance())
-                        .loadAll() + "");
-            }
-        }, TAG);
-        Map<String, String> headers = new LinkedHashMap<>();
-        headers.put("imei", "8989898989898989");
-        headers.put("version", "1.0");
-        headers.put("token", CipherUtils.md5(CipherUtils.md5("1.0") + CipherUtils.md5
-                ("8989898989898989") + "hunli20170807@@$*"));
-        headers.put("regid", "123123123");
-        Map<String, String> parms1 = new HashMap<>();
-        parms1.put("mobile", "188888888");
-        parms1.put("type", "auth");
-        YHRequestFactory.getRequestManger().post("http://hunli.ywkjsz.com/Home/User/sendVerify",
-                "", headers, parms1, new HttpCallBack()
-
-        {
-
-
-            @Override
-            public void onSuccess(String t)
-            {
-                super.onSuccess(t);
-            }
-
-            @Override
-            public void onFailure(int errorNo, String strMsg)
-            {
-                super.onFailure(errorNo, strMsg);
-            }
-
-            @Override
-            public void onFinish()
-            {
-                super.onFinish();
-            }
-        }, TAG);
+//        Map<String, String> params = new HashMap<>();
+//
+//        params.put("type", "7");
+//        params.put("nurseid", "123456");
+//        params.put("patientid", "123123");
+//        params.put("date", "2017-07-14 16:42:10");
+//        params.put("v1", "1");
+//        params.put("v2", "2");
+//        params.put("v3", "3");
+//        params.put("v4", "4");
+//        params.put("v5", "5");
+//        params.put("v6", "6");
+//        params.put("v7", "7");
+//        params.put("v8", "8");
+//        params.put("v9", "9");
+//        params.put("v10", "10");
+//        params.put("v11", "11");
+////        params.put("file",new File(FileUtils.getSavePath("Download/SAM_0034.JPG")));
+//        YHRequestFactory.getRequestManger().post(HOME_HOST, "api/Expost/testPost", null, params,
+//                new HttpCallBack()
+//
+//        {
+//            @Override
+//            public void onSuccess(String t)
+//            {
+//                super.onSuccess(t);
+//            }
+//
+//            @Override
+//            public void onFailure(int errorNo, String strMsg)
+//            {
+//                super.onFailure(errorNo, strMsg);
+//            }
+//
+//            @Override
+//            public void onFinish()
+//            {
+//                super.onFinish();
+//                LogUtils.e(TAG, new SharedPrefsCookiePersistor(MyApplication.getInstance())
+//                        .loadAll() + "");
+//            }
+//        }, TAG);
+//        Map<String, String> headers = new LinkedHashMap<>();
+//        headers.put("imei", "8989898989898989");
+//        headers.put("version", "1.0");
+//        headers.put("token", CipherUtils.md5(CipherUtils.md5("1.0") + CipherUtils.md5
+//                ("8989898989898989") + "hunli20170807@@$*"));
+//        headers.put("regid", "123123123");
+//        Map<String, String> parms1 = new HashMap<>();
+//        parms1.put("mobile", "188888888");
+//        parms1.put("type", "auth");
+//        YHRequestFactory.getRequestManger().post("http://hunli.ywkjsz.com/Home/User/sendVerify",
+//                "", headers, parms1, new HttpCallBack()
+//
+//        {
+//
+//
+//            @Override
+//            public void onSuccess(String t)
+//            {
+//                super.onSuccess(t);
+//            }
+//
+//            @Override
+//            public void onFailure(int errorNo, String strMsg)
+//            {
+//                super.onFailure(errorNo, strMsg);
+//            }
+//
+//            @Override
+//            public void onFinish()
+//            {
+//                super.onFinish();
+//            }
+//        }, TAG);
 
 //        //请求头测试
 //        /**
@@ -197,6 +191,17 @@ public class MainActivity extends BaseActiciy
 //                super.onFailure(errorNo, strMsg);
 //            }
 //        }, TAG);
+
+        YHRequestFactory.getRequestManger().get("", "http://116.196.82.249:8181/login?name=youhao&pass=123456", null, new HttpCallBack()
+        {
+            @Override
+            public void onSuccess(String t)
+            {
+                super.onSuccess(t);
+                JsonLoginModel jsonMenuModel = JsonUitl.stringToTObject(MyApplication.getInstance().yhGson, t, JsonLoginModel.class);
+                LogUtils.e(TAG,jsonMenuModel + "");
+            }
+        },TAG);
 
     }
 
