@@ -25,7 +25,7 @@ Android实用框架采用MVC设计模式,多个项目经验总结,持续完善�
 
 * Gradle
 ```java
-compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.9'
+compile 'org.yh.yhframe:YhLibraryForAndroid:1.0.10'
 ```
 
 * Maven
