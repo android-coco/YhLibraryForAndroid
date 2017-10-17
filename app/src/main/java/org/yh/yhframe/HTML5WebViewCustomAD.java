@@ -27,7 +27,8 @@ import org.yh.yhframe.base.BaseActiciy;
 public class HTML5WebViewCustomAD extends BaseActiciy
 {
     //private String ad_url = "http://211.149.215.12:8081/articleInterface/article/getItem?item_id=4926&os=2";
-    private String ad_url = "file:///android_asset/js_interaction/hello.html";
+    //private String ad_url = "file:///android_asset/js_interaction/hello.html";
+    private String ad_url = "http://192.168.0.130:8181/record/nr1/edit?pid=124&uid=10010&type=1";
     private YHWebView mYHWebView;
     private AlertDialog mAlertDialog;
     @BindView(id = R.id.container)
@@ -97,6 +98,7 @@ public class HTML5WebViewCustomAD extends BaseActiciy
     protected void onBackClick()
     {
         super.onBackClick();
+        mYHWebView.getJsEntraceAccess().quickCallJs("setTime","{\"date\":\"2017-01-02\",\"time\":\"30:00\"}");
         YHViewInject.create().getExitDialog(aty, "您确定要关闭该页面吗?", "确定", "再逛逛", new DialogInterface.OnClickListener()
         {
             @Override
