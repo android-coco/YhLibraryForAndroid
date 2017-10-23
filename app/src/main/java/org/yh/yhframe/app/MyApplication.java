@@ -21,20 +21,17 @@ import org.yh.library.ui.YHActivityStack;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.CrashHandler;
 import org.yh.library.utils.DensityUtils;
-import org.yh.library.utils.FileUtils;
 import org.yh.library.utils.LogUtils;
 import org.yh.library.utils.NetWorkUtils;
 import org.yh.library.utils.StringUtils;
 import org.yh.yhframe.R;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
-import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -43,9 +40,9 @@ import okhttp3.Response;
 /**
  * @author hao
  * @version 1.0
- * ClassName: MyApplication<br/>
- * Description: MyApplication<br/>
- * date: 2015-6-17 下午5:00:20 <br/>
+ *          ClassName: MyApplication<br/>
+ *          Description: MyApplication<br/>
+ *          date: 2015-6-17 下午5:00:20 <br/>
  * @since JDK 1.7
  */
 public class MyApplication extends Application
@@ -53,7 +50,7 @@ public class MyApplication extends Application
     public static final String HOME_HOST = "http://116.196.82.249:8080/";//IP地址
     private static final String TAG = MyApplication.class.getSimpleName();
     private static MyApplication mInstance = null;
-    private static final long cacheSize = 1024*1024*20;//缓存文件最大限制大小20M
+    private static final long cacheSize = 1024 * 1024 * 20;//缓存文件最大限制大小20M
     SendEmailThread sendEmail;//发送邮件
     //默认屏幕宽高
     public static int width = 1080;
@@ -122,12 +119,12 @@ public class MyApplication extends Application
             Constants.Config.yhDBManager = YhDBManager.getInstance(mInstance, "yh.db", true);
         }
         // 发布BUG用邮件形式发送
-       if(!LogUtils.isDebug)
-       {
-           CrashHandler.create(getApplicationContext());
-           sendEmail = new SendEmailThread();
-           sendEmail.start();
-       }
+        if (!LogUtils.isDebug)
+        {
+            CrashHandler.create(getApplicationContext());
+            sendEmail = new SendEmailThread();
+            sendEmail.start();
+        }
 
     }
 
@@ -144,7 +141,7 @@ public class MyApplication extends Application
 //        headers.put("regid", "123123123");
 //        YHRequestFactory.getRequestManger().setHeaders(headers);
         //缓存http
-        Cache cache = new Cache(new File(FileUtils.getSavePath(Constants.httpCachePath)), cacheSize);
+        //Cache cache = new Cache(new File(FileUtils.getSavePath(Constants.httpCachePath)), cacheSize);
         //cookie
         ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(getInstance()));
         HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null,
@@ -152,8 +149,9 @@ public class MyApplication extends Application
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(60000L, TimeUnit.MILLISECONDS)
                 .readTimeout(60000L, TimeUnit.MILLISECONDS)
-                .retryOnConnectionFailure(true)//允许重试
-                .addInterceptor(new LoggerInterceptor("",true))//日志拦截 是否显示返回数据
+                .writeTimeout(60000L, TimeUnit.MILLISECONDS)
+//                .retryOnConnectionFailure(true)//允许重试
+               .addInterceptor(new LoggerInterceptor("",true))//日志拦截 是否显示返回数据
 //                .addInterceptor(new RetryInterceptor(3))//重试3次
                 .addInterceptor(new HeaderInterceptor())// 统一请求头
                 .addNetworkInterceptor(new Interceptor()//添加网络拦截器缓存用
@@ -163,12 +161,14 @@ public class MyApplication extends Application
                     {
                         Request request = chain.request();
                         Response response = chain.proceed(request);
-                        if (NetWorkUtils.isConnectedByState(getInstance())) {
+                        if (NetWorkUtils.isConnectedByState(getInstance()))
+                        {
                             int maxAge = 60 * 60;// 有网 就1个小时可用 缓存有效时间
                             return response.newBuilder()
                                     .header("Cache-Control", "public, max-age=" + maxAge)
                                     .build();
-                        } else {
+                        } else
+                        {
                             int maxStale = 60 * 60 * 24 * 7;// 没网 就1周可用 缓存有效时间
                             return response.newBuilder()
                                     .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
@@ -176,7 +176,7 @@ public class MyApplication extends Application
                         }
                     }
                 })
-                .cache(cache)//添加缓存
+                // .cache(cache)//添加缓存
                 .hostnameVerifier(new HostnameVerifier()
                 {
                     @Override
@@ -222,6 +222,7 @@ public class MyApplication extends Application
 
     /**
      * 初始化缓存框架ImageLoader
+     *
      * @param context 上下文
      */
     public static void initImageLoader(Context context)
@@ -290,7 +291,7 @@ public class MyApplication extends Application
             @Override
             public void onActivityResumed(Activity activity)
             {
-               // LogUtils.e("onActivityResumed", activity.getClass().toString());
+                // LogUtils.e("onActivityResumed", activity.getClass().toString());
             }
 
             @Override

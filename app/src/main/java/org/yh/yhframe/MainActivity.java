@@ -25,7 +25,9 @@ import org.yh.yhframe.bean.JsonLoginModel;
 import org.yh.yhframe.service.MyIntentService;
 import org.yh.yhframe.service.MyService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends BaseActiciy
@@ -199,9 +201,50 @@ public class MainActivity extends BaseActiciy
             {
                 super.onSuccess(t);
                 JsonLoginModel jsonMenuModel = JsonUitl.stringToTObject(MyApplication.getInstance().yhGson, t, JsonLoginModel.class);
-                LogUtils.e(TAG,jsonMenuModel + "");
+                LogUtils.e(TAG, jsonMenuModel + "");
             }
-        },TAG);
+
+            @Override
+            public void onFailure(int errorNo, String strMsg)
+            {
+                super.onFailure(errorNo, strMsg);
+                LogUtils.e(TAG, strMsg + errorNo);
+            }
+
+            @Override
+            public void onFinish()
+            {
+                super.onFinish();
+                LogUtils.e(TAG, "onFinish()");
+            }
+        }, TAG);
+
+
+        Map<String, String> parms1 = new HashMap<>();
+        parms1.put("code", "admin");
+        parms1.put("password", "7c4a8d09ca3762af61e59520943dc26494f8941b");
+        YHRequestFactory.getRequestManger().post("", "http://192.168.0.129:8181/login", null, parms1, new HttpCallBack()
+        {
+            @Override
+            public void onSuccess(String t)
+            {
+                super.onSuccess(t);
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg)
+            {
+                super.onFailure(errorNo, strMsg);
+                LogUtils.e(TAG, strMsg + errorNo);
+            }
+
+            @Override
+            public void onFinish()
+            {
+                super.onFinish();
+                LogUtils.e(TAG, "onFinish()");
+            }
+        }, TAG+"1");
 
     }
 

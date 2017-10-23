@@ -24,9 +24,9 @@ import static org.yh.library.utils.StringUtils.isEmpty;
 
 /**
  * @author yh
- * ClassName: OkHttpRequestManager
- * Description: (对okhttp封装)
- * date 2016-7-18 下午4:49:41
+ *         ClassName: OkHttpRequestManager
+ *         Description: (对okhttp封装)
+ *         date 2016-7-18 下午4:49:41
  */
 public class OkHttpRequestManager implements I_RequestManager
 {
@@ -42,7 +42,7 @@ public class OkHttpRequestManager implements I_RequestManager
     private final static long writeTimeOut = 60 * 1000L;//写超时时间
     private final static long connTimeOut = 10 * 1000L;//连接超时时间
 
-    private Map<String,String> headers = null;//请求头
+    private Map<String, String> headers = null;//请求头
 
 
     private OkHttpRequestManager()
@@ -63,24 +63,26 @@ public class OkHttpRequestManager implements I_RequestManager
         }
         return oKHTTPRequestManager;
     }
+
     @Override
-    public void get(final String host, String suffix,Map<String, String> headers,
+    public void get(final String host, String suffix, Map<String, String> headers,
                     final HttpCallBack callback, Object tag)
     {
-        get(host, suffix,headers, callback, tag, connTimeOut, readTimeOut,
+        get(host, suffix, headers, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
 
     @Override
-    public void get(final String host, String suffix,Map<String, String> headers,
+    public void get(final String host, String suffix, Map<String, String> headers,
                     final HttpCallBack callback, final long connTimeOut,
                     final long readTimeOut, final long writeTimeOut, Object tag)
     {
         get(host, suffix, headers, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
+
     @Override
-    public void get(final String host, final String suffix,Map<String, String> headers,
+    public void get(final String host, final String suffix, Map<String, String> headers,
                     final HttpCallBack callback, final Object tag,
                     final long connTimeOut, final long readTimeOut,
                     final long writeTimeOut)
@@ -98,7 +100,7 @@ public class OkHttpRequestManager implements I_RequestManager
             callback.onFinish();
             return;
         }
-        if(StringUtils.isEmpty(headers))
+        if (StringUtils.isEmpty(headers))
         {
             headers = this.headers;
         }
@@ -142,13 +144,17 @@ public class OkHttpRequestManager implements I_RequestManager
                     {
 //                        LogUtils.e("OkHttpRequestManager", "GET请求URL：" + url1 + " 请求错误："
 //                                + e.getMessage() + "  " + id);
-                        String error = e.getMessage();
-                        if (!isEmpty(error))
+                        if (!isEmpty(e))
                         {
-                            if (error.startsWith("failed to connect to"))
+                            if (e instanceof java.net.SocketTimeoutException)
+                            {
+                                callback.onFailure(-5, "请求超时");
+                                callback.onFinish();
+                            } else if (e instanceof java.net.ConnectException)
                             {
                                 callback.onFailure(-4, "连接超时");
                                 callback.onFinish();
+
                             } else
                             {
                                 dealError(e, callback);
@@ -159,23 +165,25 @@ public class OkHttpRequestManager implements I_RequestManager
     }
 
     @Override
-    public void post(final String host, String suffix,Map<String, String> headers,
+    public void post(final String host, String suffix, Map<String, String> headers,
                      Map<String, String> params, final HttpCallBack callback,
                      final long connTimeOut, final long readTimeOut,
                      final long writeTimeOut, Object tag)
     {
-        post(host, suffix,headers,params, callback, tag, connTimeOut, readTimeOut,
+        post(host, suffix, headers, params, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
+
     @Override
-    public void post(final String host, String suffix,Map<String, String> headers,
+    public void post(final String host, String suffix, Map<String, String> headers,
                      Map<String, String> params, final HttpCallBack callback, Object tag)
     {
-        post(host, suffix,headers,params, callback, tag, connTimeOut, readTimeOut,
+        post(host, suffix, headers, params, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
+
     @Override
-    public void post(final String host, final String suffix,Map<String, String> headers,
+    public void post(final String host, final String suffix, Map<String, String> headers,
                      final Map<String, String> params, final HttpCallBack callback,
                      final Object tag, final long connTimeOut, final long readTimeOut,
                      final long writeTimeOut)
@@ -193,7 +201,7 @@ public class OkHttpRequestManager implements I_RequestManager
             callback.onFinish();
             return;
         }
-        if(StringUtils.isEmpty(headers))
+        if (StringUtils.isEmpty(headers))
         {
             headers = this.headers;
         }
@@ -237,14 +245,18 @@ public class OkHttpRequestManager implements I_RequestManager
             {
                 // failed to connect to
 //                LogUtils.e("OkHttpRequestManager", "POST请求URL：" + url + " 请求错误："
-//                        + e.getMessage() + "  " + id);
-                String error = e.getMessage();
-                if (!isEmpty(error))
+//                        + e + "  " + id);
+                if (!isEmpty(e))
                 {
-                    if (error.startsWith("failed to connect to"))
+                    if (e instanceof java.net.SocketTimeoutException)
+                    {
+                        callback.onFailure(-5, "请求超时");
+                        callback.onFinish();
+                    } else if (e instanceof java.net.ConnectException)
                     {
                         callback.onFailure(-4, "连接超时");
                         callback.onFinish();
+
                     } else
                     {
                         dealError(e, callback);
@@ -254,24 +266,24 @@ public class OkHttpRequestManager implements I_RequestManager
         });
     }
 
-    public void postForm(final String host, final String suffix,Map<String, String> headers,
+    public void postForm(final String host, final String suffix, Map<String, String> headers,
                          final Map<String, Object> params, final HttpCallBack callback,
                          final Object tag)
     {
-        postForm(host, suffix,headers, params, callback, tag, connTimeOut, readTimeOut,
+        postForm(host, suffix, headers, params, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
 
-    public void postForm(final String host, final String suffix,Map<String, String> headers,
+    public void postForm(final String host, final String suffix, Map<String, String> headers,
                          final Map<String, Object> params, final HttpCallBack callback,
                          final long connTimeOut, final long readTimeOut,
                          final long writeTimeOut, final Object tag)
     {
-        postForm(host, suffix,headers, params, callback, tag, connTimeOut, readTimeOut,
+        postForm(host, suffix, headers, params, callback, tag, connTimeOut, readTimeOut,
                 writeTimeOut);
     }
 
-    public void postForm(final String host, final String suffix,Map<String, String> headers,
+    public void postForm(final String host, final String suffix, Map<String, String> headers,
                          final Map<String, Object> params, final HttpCallBack callback,
                          final Object tag, final long connTimeOut, final long readTimeOut,
                          final long writeTimeOut)
@@ -290,7 +302,7 @@ public class OkHttpRequestManager implements I_RequestManager
             callback.onFinish();
             return;
         }
-        if(StringUtils.isEmpty(headers))
+        if (StringUtils.isEmpty(headers))
         {
             headers = this.headers;
         }
@@ -418,9 +430,9 @@ public class OkHttpRequestManager implements I_RequestManager
     }
 
     @Override
-    public void setHeaders(Map<String,String> headers)
+    public void setHeaders(Map<String, String> headers)
     {
-        if(StringUtils.isEmpty(headers))
+        if (StringUtils.isEmpty(headers))
         {
             headers = new LinkedHashMap<>();
         }
@@ -429,23 +441,24 @@ public class OkHttpRequestManager implements I_RequestManager
 
     /**
      * 下载文件
-     * @param url 下载路径
-     * @param headers 头
-     * @param path  存放路径
-     * @param fileName  文件名
-     * @param callback 回调
+     *
+     * @param url          下载路径
+     * @param headers      头
+     * @param path         存放路径
+     * @param fileName     文件名
+     * @param callback     回调
      * @param connTimeOut  连接超时时间
-     * @param readTimeOut 读取超时时间
+     * @param readTimeOut  读取超时时间
      * @param writeTimeOut 写超时时间
-     * @param tag 网络请求标记
+     * @param tag          网络请求标记
      */
     @Override
-    public void download(String url, Map<String, String> headers,final String path, String fileName,
+    public void download(String url, Map<String, String> headers, final String path, String fileName,
                          final HttpCallBack callback, final long connTimeOut,
                          final long readTimeOut, final long writeTimeOut, String tag)
     {
 //        LogUtils.e("下载地址：", url + "   ");
-        if(StringUtils.isEmpty(headers))
+        if (StringUtils.isEmpty(headers))
         {
             headers = this.headers;
         }
@@ -481,19 +494,20 @@ public class OkHttpRequestManager implements I_RequestManager
 
     /**
      * 下载文件
-     * @param url 下载路径
-     * @param headers 头
-     * @param path  存放路径
-     * @param fileName  文件名
+     *
+     * @param url      下载路径
+     * @param headers  头
+     * @param path     存放路径
+     * @param fileName 文件名
      * @param callback 回调
-     * @param tag 网络请求标记
+     * @param tag      网络请求标记
      */
     @Override
-    public void download(String url,Map<String, String> headers, final String path, String fileName,
+    public void download(String url, Map<String, String> headers, final String path, String fileName,
                          final HttpCallBack callback, String tag)
     {
 //        LogUtils.e("下载URL：", url + "   ");
-        if(StringUtils.isEmpty(headers))
+        if (StringUtils.isEmpty(headers))
         {
             headers = this.headers;
         }
