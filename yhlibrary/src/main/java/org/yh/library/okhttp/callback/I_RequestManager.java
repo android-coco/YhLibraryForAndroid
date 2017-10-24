@@ -37,6 +37,20 @@ public interface I_RequestManager
               final Object tag, final long connTimeOut, final long readTimeOut,
               final long writeTimeOut);
 
+
+    void postString(final String host, String suffix,Map<String, String> headers,
+                    String params, final HttpCallBack callback,
+              final long connTimeOut, final long readTimeOut,
+              final long writeTimeOut, Object tag);
+
+    void postString(final String host, String suffix,Map<String, String> headers,
+                    String params, final HttpCallBack callback, Object tag);
+
+    void postString(final String host, final String suffix,Map<String, String> headers,
+              final String params, final HttpCallBack callback,
+              final Object tag, final long connTimeOut, final long readTimeOut,
+              final long writeTimeOut);
+
     void postForm(final String host, final String suffix,Map<String, String> headers,
                   final Map<String, Object> params, final HttpCallBack callback,
                   final Object tag);

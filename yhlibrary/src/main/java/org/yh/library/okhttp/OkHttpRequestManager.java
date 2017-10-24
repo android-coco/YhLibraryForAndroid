@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.Request;
 
 import static org.yh.library.utils.StringUtils.isEmpty;
@@ -265,6 +266,110 @@ public class OkHttpRequestManager implements I_RequestManager
             }
         });
     }
+
+
+    @Override
+    public void postString(final String host, String suffix, Map<String, String> headers,
+                           String params, final HttpCallBack callback,
+                           final long connTimeOut, final long readTimeOut,
+                           final long writeTimeOut, Object tag)
+    {
+        postString(host, suffix, headers, params, callback, tag, connTimeOut, readTimeOut,
+                writeTimeOut);
+    }
+
+    @Override
+    public void postString(final String host, String suffix, Map<String, String> headers,
+                           String params, final HttpCallBack callback, Object tag)
+    {
+        postString(host, suffix, headers, params, callback, tag, connTimeOut, readTimeOut,
+                writeTimeOut);
+    }
+
+    @Override
+    public void postString(final String host, final String suffix, Map<String, String> headers,
+                           final String params, final HttpCallBack callback,
+                           final Object tag, final long connTimeOut, final long readTimeOut,
+                           final long writeTimeOut)
+    {
+
+
+        final String url = host + suffix;
+//        LogUtils.e("post请求host：", url);
+        // 组成的URL 为空或者不是http或https开头都是非法URL
+        if (isEmpty(url)
+                || (!url.startsWith(Constants.FILE_HTTP) && !url
+                .startsWith(Constants.FILE_HTTPS)))
+        {
+            callback.onFailure(-3, "非法URL");
+            callback.onFinish();
+            return;
+        }
+        if (StringUtils.isEmpty(headers))
+        {
+            headers = this.headers;
+        }
+        OkHttpUtils.postString().url(url).headers(headers).tag(tag).content(params).mediaType(MediaType.parse("application/json; charset=utf-8")).build()
+                .connTimeOut(connTimeOut).readTimeOut(readTimeOut)
+                .writeTimeOut(writeTimeOut).execute(new StringCallback()
+        {
+
+            @Override
+            public void onResponse(String response, int id)
+            {
+                try
+                {
+                    JSONObject json = new JSONObject(response);
+                    String ret = json.getString(Constants.RESULT);
+                    if (ERROE_3001.equals(ret)
+                            || ERROE_3002.equals(ret))
+                    {
+                        //相关操作
+//								EventBus.getDefault().post(
+//									new EventBusBean(new Intent(
+//											AppConfig.ACTION_PLOGIN_OUT)));
+//								EventBus.getDefault().post(
+//										new EventBusBean(new Intent(
+//												AppConfig.ACTION_AGAIN_TOKEN)));
+                    } else
+                    {
+                        callback.onSuccess(response);
+                        callback.onFinish();
+                    }
+                }
+                catch (JSONException e)
+                {
+                    callback.onSuccess(response);
+                    callback.onFinish();
+                }
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int id)
+            {
+                // failed to connect to
+//                LogUtils.e("OkHttpRequestManager", "POST请求URL：" + url + " 请求错误："
+//                        + e + "  " + id);
+                if (!isEmpty(e))
+                {
+                    if (e instanceof java.net.SocketTimeoutException)
+                    {
+                        callback.onFailure(-5, "请求超时");
+                        callback.onFinish();
+                    } else if (e instanceof java.net.ConnectException)
+                    {
+                        callback.onFailure(-4, "连接超时");
+                        callback.onFinish();
+
+                    } else
+                    {
+                        dealError(e, callback);
+                    }
+                }
+            }
+        });
+    }
+
 
     public void postForm(final String host, final String suffix, Map<String, String> headers,
                          final Map<String, Object> params, final HttpCallBack callback,

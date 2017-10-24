@@ -246,6 +246,27 @@ public class MainActivity extends BaseActiciy
             }
         }, TAG+"1");
 
+
+        YHRequestFactory.getRequestManger().postString("", "http://115.159.123.101:8085/interface/terminal_profile", null, "{\"sns\":\"123456789012345\"}", new HttpCallBack()
+        {
+            @Override
+            public void onSuccess(String t)
+            {
+                super.onSuccess(t);
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg)
+            {
+                super.onFailure(errorNo, strMsg);
+            }
+
+            @Override
+            public void onFinish()
+            {
+                super.onFinish();
+            }
+        },TAG);
     }
 
     public String convert(String utfString)

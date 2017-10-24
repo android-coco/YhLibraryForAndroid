@@ -66,7 +66,7 @@ publish{
     userOrg = 'androidcoco'//https://bintray.com用户名
     groupId = 'org.yh.yhframe'//jcenter上的路径
     artifactId = 'YhLibraryForAndroid'//项目名称
-    publishVersion = '1.0.11'//版本号
+    publishVersion = '1.0.12'//版本号
     desc = 'Android实用框架采用MVC设计模式,多个项目经验总结,持续完善中'//描述，不重要
     website = siteUrl//项目主页
 }
