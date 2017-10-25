@@ -16,7 +16,6 @@ import org.yh.library.utils.LogUtils;
 import org.yh.library.view.YHRecyclerView;
 import org.yh.library.view.yhrecyclerview.ProgressStyle;
 import org.yh.yhframe.adapter.rv.MyRecyclerAdatpter;
-import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.base.BaseActiciy;
 import org.yh.yhframe.bean.JsonMenuModel;
 import org.yh.yhframe.bean.MenuModel;
@@ -84,7 +83,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
             public void onSuccess(String t)
             {
                 super.onSuccess(t);
-                JsonMenuModel jsonMenuModel = JsonUitl.stringToTObject(MyApplication.getInstance().yhGson, t, JsonMenuModel.class);
+                JsonMenuModel jsonMenuModel = JsonUitl.stringToTObject(t, JsonMenuModel.class);
                 TOTAL_PAGE = jsonMenuModel.getTotalPage();
                 String resultCode = jsonMenuModel.getResultCode();
                 if ("0".equals(resultCode))

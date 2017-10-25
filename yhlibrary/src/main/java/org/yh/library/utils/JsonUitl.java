@@ -25,8 +25,9 @@ public class JsonUitl
      * @param classOfT
      * @return json
      */
-    public static Object stringToObject(Gson mGson,String json, Class classOfT)
+    public static Object stringToObject(String json, Class classOfT)
     {
+        Gson mGson = new Gson();
         return mGson.fromJson(json, classOfT);
     }
 
@@ -37,8 +38,9 @@ public class JsonUitl
      * @param <T>
      * @return json
      */
-    public static <T> String objectToString(Gson mGson,T object)
+    public static <T> String objectToString(T object)
     {
+        Gson mGson = new Gson();
         return mGson.toJson(object);
     }
 
@@ -50,9 +52,10 @@ public class JsonUitl
      * @param <T>
      * @return json
      */
-    public static <T> T stringToTObject(Gson mGson,String json, Class<T> cls)
+    public static <T> T stringToTObject(String json, Class<T> cls)
     {
-        return mGson.fromJson(json,cls);
+        Gson mGson = new Gson();
+        return mGson.fromJson(json, cls);
     }
 
     /**
@@ -63,8 +66,9 @@ public class JsonUitl
      * @param <T>
      * @return list
      */
-    public static <T> List<T> stringToList(Gson mGson,String json, Class<T> cls)
+    public static <T> List<T> stringToList(String json, Class<T> cls)
     {
+        Gson mGson = new Gson();
         List<T> list = new ArrayList<>();
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
         for (final JsonElement elem : array)
@@ -75,13 +79,30 @@ public class JsonUitl
     }
 
     /**
+     * 将Json数组解析成相应的映射对象列表
+     * @param jsonData
+     * @param cls
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> parseJsonArrayWithGson(String jsonData, Class<T> cls)
+    {
+        Gson gson = new Gson();
+        List<T> result = gson.fromJson(jsonData, new TypeToken<List<T>>()
+        {
+        }.getType());
+        return result;
+    }
+
+    /**
      * 把json 字符串转化成list
      *
      * @param json
      * @return map
      */
-    public static Map<String, Object> stringToMap(Gson mGson,String json)
+    public static Map<String, Object> stringToMap(String json)
     {
+        Gson mGson = new Gson();
         Map<String, Object> retMap = mGson.fromJson(json,
                 new TypeToken<Map<String, List<Object>>>()
                 {

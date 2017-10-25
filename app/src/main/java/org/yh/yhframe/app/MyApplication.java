@@ -10,7 +10,6 @@ import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
-import com.google.gson.Gson;
 
 import org.yh.library.db.YhDBManager;
 import org.yh.library.okhttp.OkHttpUtils;
@@ -57,8 +56,6 @@ public class MyApplication extends Application
     public static int height = 960;
     //延迟加载
     private Handler mHandler = new Handler();
-    //json解析
-    public Gson yhGson = null;
 
     @Override
     public void onCreate()
@@ -109,8 +106,6 @@ public class MyApplication extends Application
 
         if (!StringUtils.isEmpty(mInstance))
         {
-            //Gson解析
-            yhGson = new Gson();
             // 图片缓存框架初始化
             Constants.placeholderImgID = R.drawable.img_default;//加载中的资源(图片或者自定义图形)
             Constants.errorImgID = -1;//错误的资源(图片或者自定义图形)

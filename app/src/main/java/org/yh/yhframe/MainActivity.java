@@ -200,7 +200,7 @@ public class MainActivity extends BaseActiciy
             public void onSuccess(String t)
             {
                 super.onSuccess(t);
-                JsonLoginModel jsonMenuModel = JsonUitl.stringToTObject(MyApplication.getInstance().yhGson, t, JsonLoginModel.class);
+                JsonLoginModel jsonMenuModel = JsonUitl.stringToTObject(t, JsonLoginModel.class);
                 LogUtils.e(TAG, jsonMenuModel + "");
             }
 
