@@ -4,4 +4,11 @@
     <color name="white">#FFFFFF</color>
     <color name="light_grey">#D7D7D7</color>
     <color name="super_light_grey">#FAFAFA</color>
+    <!--仿IOS底部弹框-->
+    <color name="trans">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="alertdialog_line">#c6c6c6</color>
+    <color name="actionsheet_blue">#037BFF</color>
+    <color name="actionsheet_red">#FD4A2E</color>
+    <color name="actionsheet_gray">#8F8F8F</color>
 </resources>
