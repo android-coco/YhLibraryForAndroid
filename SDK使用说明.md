@@ -1,4 +1,4 @@
-﻿# SDK使用说明
+﻿# 手表定位SDK使用说明(非YhLibraryForAndroid说明)
 
 标签（空格分隔）： 学习
 
