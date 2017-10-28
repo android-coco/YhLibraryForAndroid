@@ -13,6 +13,7 @@ import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.JsonUitl;
 import org.yh.library.utils.LogUtils;
+import org.yh.library.utils.StringUtils;
 import org.yh.library.view.YHRecyclerView;
 import org.yh.library.view.yhrecyclerview.ProgressStyle;
 import org.yh.yhframe.adapter.rv.MyRecyclerAdatpter;
@@ -43,14 +44,18 @@ import static org.yh.yhframe.app.MyApplication.HOME_HOST;
 //                           `=---='                              //
 //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        //
 //         佛祖保佑       永无BUG     永不修改                       //
+
 /**
-  * YHRecyclerviewActivity
-  * @author 38314
-  * @time 2017/5/24 10:36
-  */
+ * YHRecyclerviewActivity
+ *
+ * @author 38314
+ * @time 2017/5/24 10:36
+ */
 public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClickListener<MenuModel>
 {
-    /**服务器端一共多少页*/
+    /**
+     * 服务器端一共多少页
+     */
     private static int TOTAL_PAGE = 2;//假设10页
     @BindView(id = R.id.recyclerview)
     private YHRecyclerView mRecyclerView;
@@ -61,6 +66,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     private MyRecyclerAdatpter mAdapter;
     private int page = 0;
     ArrayList<MenuModel> data = null;
+
     @Override
     public void setRootView()
     {
@@ -77,7 +83,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
     private void getDataByLine()
     {
 //        YHLoadingBar.make(empty_layout).show();
-        YHRequestFactory.getRequestManger().get(HOME_HOST, "api/menu/menulist?page=" + page,null, new HttpCallBack()
+        YHRequestFactory.getRequestManger().get(HOME_HOST, "api/menu/menulist?page=" + page, null, new HttpCallBack()
         {
             @Override
             public void onSuccess(String t)
@@ -88,11 +94,19 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
                 String resultCode = jsonMenuModel.getResultCode();
                 if ("0".equals(resultCode))
                 {
-                    data.addAll(jsonMenuModel.getDatas());
-                    mAdapter.setDatas(data);
+                    if (StringUtils.isEmpty(jsonMenuModel.getDatas()))
+                    {
+                        id_empty_text.setText("暂无数据!");
+                        mRecyclerView.setEmptyView(empty_layout);//没有数据的空布局
+                    } else
+                    {
+                        data.addAll(jsonMenuModel.getDatas());
+                        mAdapter.setDatas(data);
+                    }
                 } else
                 {
-                    mAdapter.notifyDataSetChanged();
+                    id_empty_text.setText("Code:" + resultCode);
+                    mRecyclerView.setEmptyView(empty_layout);
                 }
                 //刷新完毕
                 mRecyclerView.refreshComplete();
@@ -104,6 +118,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
                 super.onFailure(errorNo, strMsg);
                 LogUtils.e(TAG, strMsg);
                 id_empty_text.setText("加载失败");
+                mRecyclerView.setEmptyView(empty_layout);
                 mAdapter.getDatas().clear();//必须在数据更新前清空，不能太早
                 //刷新完毕
                 mRecyclerView.refreshComplete();
@@ -191,10 +206,12 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
             public void onLoadMore()
             {
                 page++;
-                if (page <= TOTAL_PAGE) {//小于总页数就加载更多
+                if (page <= TOTAL_PAGE)
+                {//小于总页数就加载更多
                     // loading more
                     getDataByLine();
-                } else {
+                } else
+                {
                     //the end
                     mRecyclerView.setNoMore(true);
                 }
