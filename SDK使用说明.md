@@ -9,9 +9,9 @@
  - AndroidStuido 一台可以上网的电脑 Liunx/mac/windows
  
 ## 2, 项目引入
-当前使用model的bulid.gradle 最后加入
+当前使用model的bulid.gradle 最后加入  x.x.x为版本号请使用最新稳定版当前编写文档时最新版本1.0.1
 ```java
-    compile 'org.yh.yhframe:WatchLib:1.0.0'
+    compile 'org.yh.yhframe:WatchLib:x.x.x'
 ```
 ## 3，配置
 项目的bulid.gradle
