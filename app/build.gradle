@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "org.yh.yhframe"
         minSdkVersion 19
@@ -28,5 +29,7 @@ dependencies {
     })
 
     compile project(':yhlibrary')
+    //限制布局
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
