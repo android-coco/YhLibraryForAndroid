@@ -1,10 +1,6 @@
-﻿[ ![Download](https://api.bintray.com/packages/androidcoco/maven/WatchLib/images/download.svg?version=1.0.4) ](https://bintray.com/androidcoco/maven/WatchLib/1.0.4/link)
-
 # 手表定位SDK使用说明(非YhLibraryForAndroid说明)
 
-标签（空格分隔）： 学习
-
----
+[ ![Download](https://api.bintray.com/packages/androidcoco/maven/WatchLib/images/download.svg?version=1.0.4) ](https://bintray.com/androidcoco/maven/WatchLib/1.0.4/link)
 
 ## 1，环境要求
 
