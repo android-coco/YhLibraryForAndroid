@@ -10,8 +10,9 @@ import org.yh.library.view.video.YHVideoPlayer;
 import org.yh.library.view.video.YHVideoPlayerController;
 import org.yh.library.view.video.YHVideoPlayerManager;
 import org.yh.yhframe.base.BaseActiciy;
-
 /**
+ * 作者：38314 on 2017/7/12 13:53
+ * 邮箱：yh_android@163.com
  * 视频播放
  */
 public class VideoActivity extends BaseActiciy

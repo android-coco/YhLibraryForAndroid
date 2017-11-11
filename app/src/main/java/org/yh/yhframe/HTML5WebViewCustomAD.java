@@ -21,9 +21,9 @@ import org.yh.library.view.webview.YHWebView;
 import org.yh.yhframe.base.BaseActiciy;
 
 /**
- * Created by yhlyl on 2017/5/15.
+ * 作者：38314 on 2017/7/12 13:53
+ * 邮箱：yh_android@163.com
  */
-
 public class HTML5WebViewCustomAD extends BaseActiciy
 {
     //private String ad_url = "http://211.149.215.12:8081/articleInterface/article/getItem?item_id=4926&os=2";

@@ -15,7 +15,10 @@ import org.yh.yhframe.view.LineChartView;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 作者：38314 on 2017/7/12 13:53
+ * 邮箱：yh_android@163.com
+ */
 public class OneFragment extends BaseFragment
 {
     @BindView(id = R.id.one_text, click = true)
