@@ -1,10 +1,6 @@
-﻿[ ![Download](https://api.bintray.com/packages/androidcoco/maven/WatchLib/images/download.svg?version=1.0.4) ](https://bintray.com/androidcoco/maven/WatchLib/1.0.4/link)
-
 # 手表定位SDK使用说明(非YhLibraryForAndroid说明)
 
-标签（空格分隔）： 学习
-
----
+[ ![Download](https://api.bintray.com/packages/androidcoco/maven/WatchLib/images/download.svg?version=1.0.4) ](https://bintray.com/androidcoco/maven/WatchLib/1.0.4/link)
 
 ## 1，环境要求
 
@@ -14,6 +10,18 @@
 当前使用model的bulid.gradle 最后加入  x.x.x为版本号请使用最新稳定版当前编写文档时最新版本1.0.1
 ```java
     compile 'org.yh.yhframe:WatchLib:last_version'
+    
+    //App 继承ShunQingApp 必须SDK初始化用
+    public class MyApp extends ShunQingApp
+    {
+        @Override
+        public void onCreate()
+        {
+            super.onCreate();
+        }
+        ......
+        .....
+    }
 ```
 ## 3，配置
 项目的bulid.gradle
@@ -27,10 +35,16 @@ allprojects {
 ``` 
 ## 4，百度地图Key配置
 ```JAVA
-<!-- 百度地图Key -->
+<application
+        ....
+        android:name=".MyApp"
+        android:theme="@style/BaseAppTheme">
+        <!-- 百度地图Key -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="你自己的key百度申请">
+            android:value="a9G8YTwtEP6DlGtXMQefGFktB0m0eTMC"/>
+        ....
+    </application>
 ```
 ## 5，同步项目
 ## 6，新建一个普通的Activiy
