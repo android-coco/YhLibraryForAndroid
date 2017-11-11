@@ -9,7 +9,10 @@ import android.widget.TextView;
 import org.yh.library.ui.BindView;
 import org.yh.library.utils.LogUtils;
 import org.yh.yhframe.base.BaseFragment;
-
+/**
+ * 作者：38314 on 2017/7/12 13:53
+ * 邮箱：yh_android@163.com
+ */
 public class FourFragment extends BaseFragment
 {
     @BindView(id = R.id.four_txt, click = true)
