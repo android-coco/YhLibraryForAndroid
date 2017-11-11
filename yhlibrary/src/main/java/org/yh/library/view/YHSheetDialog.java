@@ -23,7 +23,7 @@ import java.util.List;
  * Created by yhlyl on 2017/10/13.
  * 底部弹出选择
  */
-public class YhSheetDialog
+public class YHSheetDialog
 {
     private Context context;
     private Dialog dialog;
@@ -35,14 +35,14 @@ public class YhSheetDialog
     private List<SheetItem> sheetItemList;
     private Display display;
 
-    public YhSheetDialog(Context context) {
+    public YHSheetDialog(Context context) {
         this.context = context;
         WindowManager windowManager = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
         display = windowManager.getDefaultDisplay();
     }
 
-    public YhSheetDialog builder() {
+    public YHSheetDialog builder() {
         // 获取Dialog布局
         View view = LayoutInflater.from(context).inflate(
                 R.layout.view_actionsheet, null);
@@ -75,19 +75,19 @@ public class YhSheetDialog
         return this;
     }
 
-    public YhSheetDialog setTitle(String title) {
+    public YHSheetDialog setTitle(String title) {
         showTitle = true;
         txt_title.setVisibility(View.VISIBLE);
         txt_title.setText(title);
         return this;
     }
 
-    public YhSheetDialog setCancelable(boolean cancel) {
+    public YHSheetDialog setCancelable(boolean cancel) {
         dialog.setCancelable(cancel);
         return this;
     }
 
-    public YhSheetDialog setCanceledOnTouchOutside(boolean cancel) {
+    public YHSheetDialog setCanceledOnTouchOutside(boolean cancel) {
         dialog.setCanceledOnTouchOutside(cancel);
         return this;
     }
@@ -101,7 +101,7 @@ public class YhSheetDialog
      * @param listener
      * @return
      */
-    public YhSheetDialog addSheetItem(String strItem, SheetItemColor color,
+    public YHSheetDialog addSheetItem(String strItem, SheetItemColor color,
                                       OnSheetItemClickListener listener) {
         if (sheetItemList == null) {
             sheetItemList = new ArrayList<SheetItem>();

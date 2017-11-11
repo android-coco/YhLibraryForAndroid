@@ -24,8 +24,9 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
+        myline:axesWidth="2dp"
         myline:lineColor="#FF0000"
         myline:textColor="#ABABAB"
-        myline:axesWidth="2dp"
         myline:textSize="12sp"/>
+
 </FrameLayout>

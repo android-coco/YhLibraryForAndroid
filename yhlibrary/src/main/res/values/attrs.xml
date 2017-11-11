@@ -37,94 +37,114 @@
 
 
     <declare-styleable name="YHTextView">
-        <attr name="sLeftIconRes" format="reference" />
-        <attr name="sRightIconRes" format="reference" />
+        <attr name="sLeftIconRes" format="reference"/>
+        <attr name="sRightIconRes" format="reference"/>
 
-        <attr name="sLeftIconWidth" format="dimension" />
-        <attr name="sLeftIconHeight" format="dimension" />
+        <attr name="sLeftIconWidth" format="dimension"/>
+        <attr name="sLeftIconHeight" format="dimension"/>
 
-        <attr name="sRightIconWidth" format="dimension" />
-        <attr name="sRightIconHeight" format="dimension" />
+        <attr name="sRightIconWidth" format="dimension"/>
+        <attr name="sRightIconHeight" format="dimension"/>
 
-        <attr name="sRightCheckBoxRes" format="reference" />
+        <attr name="sRightCheckBoxRes" format="reference"/>
 
-        <attr name="sLeftTextString" format="string" />
-        <attr name="sCenterTextString" format="string" />
-        <attr name="sRightTextString" format="string" />
+        <attr name="sLeftTextString" format="string"/>
+        <attr name="sCenterTextString" format="string"/>
+        <attr name="sRightTextString" format="string"/>
 
-        <attr name="sLeftTopTextString" format="string" />
-        <attr name="sLeftBottomTextString" format="string" />
-        <attr name="sLeftBottomTextString2" format="string" />
-
-
-        <attr name="sTopLineMargin" format="dimension" />
-        <attr name="sTopLineMarginLeft" format="dimension" />
-        <attr name="sTopLineMarginRight" format="dimension" />
-
-        <attr name="sBottomLineMargin" format="dimension" />
-        <attr name="sBottomLineMarginLeft" format="dimension" />
-        <attr name="sBottomLineMarginRight" format="dimension" />
-
-        <attr name="sBothLineMargin" format="dimension" />
-        <attr name="sBothLineMarginLeft" format="dimension" />
-        <attr name="sBothLineMarginRight" format="dimension" />
-
-        <attr name="sCenterSpaceHeight" format="dimension" />
-
-        <attr name="sLeftIconMarginLeft" format="dimension" />
-        <attr name="sLeftTextMarginLeft" format="dimension" />
-
-        <attr name="sLeftTopTextMarginLeft" format="dimension" />
-        <attr name="sLeftBottomTextMarginLeft" format="dimension" />
-        <attr name="sLeftBottomTextMarginLeft2" format="dimension" />
-
-        <attr name="sRightTextStringRightIconRes" format="reference" />
-        <attr name="sRightTextStringRightIconResPadding" format="dimension" />
-
-        <attr name="sRightIconMarginRight" format="dimension" />
-        <attr name="sRightTextMarginRight" format="dimension" />
-        <attr name="sRightCheckBoxMarginRight" format="dimension" />
-        <attr name="sRightCheckBoxShow" format="boolean" />
-        <attr name="sIsChecked" format="boolean" />
-        <attr name="sUseRipple" format="boolean" />
-
-        <attr name="sLeftTextSize" format="dimension" />
-        <attr name="sLeftTopTextSize" format="dimension" />
-        <attr name="sLeftBottomTextSize" format="dimension" />
-        <attr name="sLeftBottomTextSize2" format="dimension" />
-        <attr name="sRightTextSize" format="dimension" />
-        <attr name="sCenterTextSize" format="dimension" />
+        <attr name="sLeftTopTextString" format="string"/>
+        <attr name="sLeftBottomTextString" format="string"/>
+        <attr name="sLeftBottomTextString2" format="string"/>
 
 
-        <attr name="sBackgroundColor" format="color" />
-        <attr name="sLeftTextColor" format="color" />
-        <attr name="sLeftTopTextColor" format="color" />
-        <attr name="sLeftBottomTextColor" format="color" />
-        <attr name="sLeftBottomTextColor2" format="color" />
-        <attr name="sRightTextColor" format="color" />
-        <attr name="sCenterTextColor" format="color" />
+        <attr name="sTopLineMargin" format="dimension"/>
+        <attr name="sTopLineMarginLeft" format="dimension"/>
+        <attr name="sTopLineMarginRight" format="dimension"/>
 
-        <attr name="sIsSingLines" format="boolean" />
-        <attr name="sMaxLines" format="integer" />
-        <attr name="sMaxEms" format="integer" />
+        <attr name="sBottomLineMargin" format="dimension"/>
+        <attr name="sBottomLineMarginLeft" format="dimension"/>
+        <attr name="sBottomLineMarginRight" format="dimension"/>
+
+        <attr name="sBothLineMargin" format="dimension"/>
+        <attr name="sBothLineMarginLeft" format="dimension"/>
+        <attr name="sBothLineMarginRight" format="dimension"/>
+
+        <attr name="sCenterSpaceHeight" format="dimension"/>
+
+        <attr name="sLeftIconMarginLeft" format="dimension"/>
+        <attr name="sLeftTextMarginLeft" format="dimension"/>
+
+        <attr name="sLeftTopTextMarginLeft" format="dimension"/>
+        <attr name="sLeftBottomTextMarginLeft" format="dimension"/>
+        <attr name="sLeftBottomTextMarginLeft2" format="dimension"/>
+
+        <attr name="sRightTextStringRightIconRes" format="reference"/>
+        <attr name="sRightTextStringRightIconResPadding" format="dimension"/>
+
+        <attr name="sRightIconMarginRight" format="dimension"/>
+        <attr name="sRightTextMarginRight" format="dimension"/>
+        <attr name="sRightCheckBoxMarginRight" format="dimension"/>
+        <attr name="sRightCheckBoxShow" format="boolean"/>
+        <attr name="sIsChecked" format="boolean"/>
+        <attr name="sUseRipple" format="boolean"/>
+
+        <attr name="sLeftTextSize" format="dimension"/>
+        <attr name="sLeftTopTextSize" format="dimension"/>
+        <attr name="sLeftBottomTextSize" format="dimension"/>
+        <attr name="sLeftBottomTextSize2" format="dimension"/>
+        <attr name="sRightTextSize" format="dimension"/>
+        <attr name="sCenterTextSize" format="dimension"/>
+
+
+        <attr name="sBackgroundColor" format="color"/>
+        <attr name="sLeftTextColor" format="color"/>
+        <attr name="sLeftTopTextColor" format="color"/>
+        <attr name="sLeftBottomTextColor" format="color"/>
+        <attr name="sLeftBottomTextColor2" format="color"/>
+        <attr name="sRightTextColor" format="color"/>
+        <attr name="sCenterTextColor" format="color"/>
+
+        <attr name="sIsSingLines" format="boolean"/>
+        <attr name="sMaxLines" format="integer"/>
+        <attr name="sMaxEms" format="integer"/>
 
         <attr name="sLineShow" format="enum">
-            <enum name="none" value="0" />
-            <enum name="top" value="1" />
-            <enum name="bottom" value="2" />
-            <enum name="both" value="3" />
+            <enum name="none" value="0"/>
+            <enum name="top" value="1"/>
+            <enum name="bottom" value="2"/>
+            <enum name="both" value="3"/>
         </attr>
 
-        <attr name="sBothLineWidth" format="dimension" />
-        <attr name="sTopLineWidth" format="dimension" />
-        <attr name="sBottomLineWidth" format="dimension" />
-        <attr name="sLineColor" format="color" />
+        <attr name="sBothLineWidth" format="dimension"/>
+        <attr name="sTopLineWidth" format="dimension"/>
+        <attr name="sBottomLineWidth" format="dimension"/>
+        <attr name="sLineColor" format="color"/>
 
-        <attr name="sLeftTopViewIsClickable" format="boolean" />
-        <attr name="sLeftBottomViewIsClickable" format="boolean" />
-        <attr name="sLeftBottomView2IsClickable" format="boolean" />
+        <attr name="sLeftTopViewIsClickable" format="boolean"/>
+        <attr name="sLeftBottomViewIsClickable" format="boolean"/>
+        <attr name="sLeftBottomView2IsClickable" format="boolean"/>
 
-        <attr name="sBackgroundDrawableRes" format="reference" />
+        <attr name="sBackgroundDrawableRes" format="reference"/>
 
+    </declare-styleable>
+
+
+    <!--标签选择器-->
+    <declare-styleable name="labels_view">
+        <attr name="selectType" format="enum">
+            <enum name="NONE" value="1"/>
+            <enum name="SINGLE" value="2"/>
+            <enum name="MULTI" value="3"/>
+        </attr>
+        <attr name="maxSelect" format="integer"/>
+        <attr name="labelTextColor" format="reference"/>
+        <attr name="labelTextSize" format="dimension"/>
+        <attr name="labelTextPaddingLeft" format="dimension"/>
+        <attr name="labelTextPaddingTop" format="dimension"/>
+        <attr name="labelTextPaddingRight" format="dimension"/>
+        <attr name="labelTextPaddingBottom" format="dimension"/>
+        <attr name="lineMargin" format="dimension"/>
+        <attr name="wordMargin" format="dimension"/>
+        <attr name="labelBackground" format="reference"/>
     </declare-styleable>
 </resources>

@@ -14,5 +14,23 @@
         android:gravity="center"
         android:text="@string/two_fragment"
         android:textSize="30sp"/>
-
+    <org.yh.library.view.YHLabelsView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/labels"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:minHeight="25dp"
+        android:padding="5dp"
+        app:labelBackground="@drawable/label_bg"
+        app:labelTextColor="@drawable/label_text_color"
+        app:labelTextPaddingBottom="5dp"
+        app:labelTextPaddingLeft="10dp"
+        app:labelTextPaddingRight="10dp"
+        app:labelTextPaddingTop="5dp"
+        app:labelTextSize="14sp"
+        app:lineMargin="10dp"
+        app:maxSelect="0"
+        app:selectType="SINGLE"
+        app:wordMargin="10dp"/>
 </FrameLayout>
