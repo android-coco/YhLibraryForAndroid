@@ -42,7 +42,7 @@
         </activity>
         <activity
             android:name=".DemoActivity"
-            android:label="@string/title_activity_demo">
+            >
         </activity>
         <activity android:name=".YHRecyclerviewActivity"/>
         <activity android:name=".HTML5WebViewCustomAD"/>
