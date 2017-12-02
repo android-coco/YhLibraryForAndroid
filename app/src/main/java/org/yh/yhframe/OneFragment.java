@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.yh.library.okhttp.OkHttpUtils;
+import org.yh.library.okhttp.YHRequestFactory;
+import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.LogUtils;
@@ -54,6 +57,43 @@ public class OneFragment extends BaseFragment
         shadeColors = new int[]{
                 Color.argb(100, 255, 86, 86), Color.argb(15, 255, 86, 86),
                 Color.argb(0, 255, 86, 86)};
+
+        YHRequestFactory.getRequestManger().get("", "http://192.168.0.129:8181/patient/info?patient_id=802040&department_id=125", null, new HttpCallBack()
+        {
+            @Override
+            public void onSuccess(String t)
+            {
+                super.onSuccess(t);
+                LogUtils.e(TAG,t);
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg)
+            {
+                super.onFailure(errorNo, strMsg);
+                LogUtils.e(TAG,errorNo + " " + strMsg);
+            }
+
+            @Override
+            public void onFinish()
+            {
+                super.onFinish();
+                LogUtils.e(TAG,"onFinish()");
+                outsideAty.runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        //  设置折线数据
+                        mLineChartView.setItems(mItems);
+                        //  设置渐变颜色
+                        mLineChartView.setShadeColors(shadeColors);
+                        //  开启动画
+                        mLineChartView.startAnim(mLineChartView, 2000);
+                    }
+                });
+            }
+        },TAG);
     }
 
     @Override
@@ -103,5 +143,12 @@ public class OneFragment extends BaseFragment
     {
         super.onMenuClick();
         YHViewInject.create().showTips("菜单键");
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        OkHttpUtils.getInstance().cancelTag(TAG);
     }
 }

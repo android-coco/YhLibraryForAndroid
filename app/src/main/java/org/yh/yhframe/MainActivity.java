@@ -10,24 +10,17 @@ import android.view.View;
 import android.widget.ImageView;
 
 import org.yh.library.YHGlide;
-import org.yh.library.okhttp.YHRequestFactory;
-import org.yh.library.okhttp.callback.HttpCallBack;
 import org.yh.library.ui.BindView;
 import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.FileUtils;
-import org.yh.library.utils.JsonUitl;
-import org.yh.library.utils.LogUtils;
 import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.base.BaseActiciy;
-import org.yh.yhframe.bean.JsonLoginModel;
 import org.yh.yhframe.service.MyIntentService;
 import org.yh.yhframe.service.MyService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class MainActivity extends BaseActiciy
@@ -194,79 +187,102 @@ public class MainActivity extends BaseActiciy
 //            }
 //        }, TAG);
 
-        YHRequestFactory.getRequestManger().get("", "http://116.196.82.249:8181/login?name=youhao&pass=123456", null, new HttpCallBack()
-        {
-            @Override
-            public void onSuccess(String t)
-            {
-                super.onSuccess(t);
-                JsonLoginModel jsonMenuModel = JsonUitl.stringToTObject(t, JsonLoginModel.class);
-                LogUtils.e(TAG, jsonMenuModel + "");
-            }
-
-            @Override
-            public void onFailure(int errorNo, String strMsg)
-            {
-                super.onFailure(errorNo, strMsg);
-                LogUtils.e(TAG, strMsg + errorNo);
-            }
-
-            @Override
-            public void onFinish()
-            {
-                super.onFinish();
-                LogUtils.e(TAG, "onFinish()");
-            }
-        }, TAG);
-
-
-        Map<String, String> parms1 = new HashMap<>();
-        parms1.put("code", "admin");
-        parms1.put("password", "7c4a8d09ca3762af61e59520943dc26494f8941b");
-        YHRequestFactory.getRequestManger().post("", "http://192.168.0.129:8181/login", null, parms1, new HttpCallBack()
-        {
-            @Override
-            public void onSuccess(String t)
-            {
-                super.onSuccess(t);
-            }
-
-            @Override
-            public void onFailure(int errorNo, String strMsg)
-            {
-                super.onFailure(errorNo, strMsg);
-                LogUtils.e(TAG, strMsg + errorNo);
-            }
-
-            @Override
-            public void onFinish()
-            {
-                super.onFinish();
-                LogUtils.e(TAG, "onFinish()");
-            }
-        }, TAG+"1");
+//        YHRequestFactory.getRequestManger().get("", "http://116.196.82.249:8181/login?name=youhao&pass=123456", null, new HttpCallBack()
+//        {
+//            @Override
+//            public void onSuccess(String t)
+//            {
+//                super.onSuccess(t);
+//                JsonLoginModel jsonMenuModel = JsonUitl.stringToTObject(t, JsonLoginModel.class);
+//                LogUtils.e(TAG, jsonMenuModel + "");
+//            }
+//
+//            @Override
+//            public void onFailure(int errorNo, String strMsg)
+//            {
+//                super.onFailure(errorNo, strMsg);
+//                LogUtils.e(TAG, strMsg + errorNo);
+//            }
+//
+//            @Override
+//            public void onFinish()
+//            {
+//                super.onFinish();
+//                LogUtils.e(TAG, "onFinish()");
+//            }
+//        }, TAG);
 
 
-        YHRequestFactory.getRequestManger().postString("", "http://115.159.123.101:8085/interface/terminal_profile", null, "{\"sns\":\"123456789012345\"}", new HttpCallBack()
-        {
-            @Override
-            public void onSuccess(String t)
-            {
-                super.onSuccess(t);
-            }
+//        Map<String, String> parms1 = new HashMap<>();
+//        parms1.put("code", "admin");
+//        parms1.put("password", "7c4a8d09ca3762af61e59520943dc26494f8941b");
+//        YHRequestFactory.getRequestManger().post("", "http://192.168.0.129:8181/login", null, parms1, new HttpCallBack()
+//        {
+//            @Override
+//            public void onSuccess(String t)
+//            {
+//                super.onSuccess(t);
+//            }
+//
+//            @Override
+//            public void onFailure(int errorNo, String strMsg)
+//            {
+//                super.onFailure(errorNo, strMsg);
+//                LogUtils.e(TAG, strMsg + errorNo);
+//            }
+//
+//            @Override
+//            public void onFinish()
+//            {
+//                super.onFinish();
+//                LogUtils.e(TAG, "onFinish()");
+//            }
+//        }, TAG+"1");
 
-            @Override
-            public void onFailure(int errorNo, String strMsg)
-            {
-                super.onFailure(errorNo, strMsg);
-            }
 
-            @Override
-            public void onFinish()
-            {
-                super.onFinish();
-            }
-        },TAG);
+//        YHRequestFactory.getRequestManger().postString("", "http://115.159.123.101:8085/interface/terminal_profile", null, "{\"sns\":\"123456789012345\"}", new HttpCallBack()
+//        {
+//            @Override
+//            public void onSuccess(String t)
+//            {
+//                super.onSuccess(t);
+//            }
+//
+//            @Override
+//            public void onFailure(int errorNo, String strMsg)
+//            {
+//                super.onFailure(errorNo, strMsg);
+//            }
+//
+//            @Override
+//            public void onFinish()
+//            {
+//                super.onFinish();
+//            }
+//        },TAG);
+//        YHRequestFactory.getRequestManger().get("", "http://192.168.0.129:8181/patient/info?patient_id=802040&department_id=125", null, new HttpCallBack()
+//        {
+//            @Override
+//            public void onSuccess(String t)
+//            {
+//                super.onSuccess(t);
+//                LogUtils.e(TAG,t);
+//            }
+//
+//            @Override
+//            public void onFailure(int errorNo, String strMsg)
+//            {
+//                super.onFailure(errorNo, strMsg);
+//                LogUtils.e(TAG,errorNo + " " + strMsg);
+//            }
+//
+//            @Override
+//            public void onFinish()
+//            {
+//                super.onFinish();
+//                LogUtils.e(TAG,"onFinish()");
+//            }
+//        },TAG);
     }
 
     public String convert(String utfString)
