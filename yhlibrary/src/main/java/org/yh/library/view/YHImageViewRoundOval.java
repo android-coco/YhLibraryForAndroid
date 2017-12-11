@@ -11,9 +11,9 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.ImageView;
 
 /**
  * 作者：游浩 on 2017/12/11 10:46
@@ -21,7 +21,7 @@ import android.widget.ImageView;
  * 邮箱：yh_android@163.com
  * 实现圆形、圆角，椭圆等自定义图片View。
  */
-public class YHImageViewRoundOval extends ImageView
+public class YHImageViewRoundOval extends AppCompatImageView
 {
     private Paint mPaint;
 
