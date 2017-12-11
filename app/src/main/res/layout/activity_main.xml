@@ -25,10 +25,17 @@
 
     <ImageView
         android:id="@+id/img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_loading_rotate"/>
+
+    <org.yh.library.view.YHImageViewRoundOval
+        android:id="@+id/img1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="160dp"
-        android:src="@drawable/ic_loading_rotate"/>
+        android:src="@drawable/img_default"/>
 
 </android.support.design.widget.CoordinatorLayout>

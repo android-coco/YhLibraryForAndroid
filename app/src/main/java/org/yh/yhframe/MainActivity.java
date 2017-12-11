@@ -15,6 +15,7 @@ import org.yh.library.ui.I_PermissionListener;
 import org.yh.library.ui.YHViewInject;
 import org.yh.library.utils.Constants;
 import org.yh.library.utils.FileUtils;
+import org.yh.library.view.YHImageViewRoundOval;
 import org.yh.yhframe.app.MyApplication;
 import org.yh.yhframe.base.BaseActiciy;
 import org.yh.yhframe.service.MyIntentService;
@@ -31,7 +32,8 @@ public class MainActivity extends BaseActiciy
     Intent myIntentService;
     @BindView(id = R.id.img)
     private ImageView img;
-
+    @BindView(id = R.id.img1)
+    private YHImageViewRoundOval img1;
     @Override
     public void setRootView()
     {
@@ -55,6 +57,11 @@ public class MainActivity extends BaseActiciy
         //YHGlide.getInstanse(this).loadImgeForDrawable(R.mipmap.ic_launcher,img);
         YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl("http://image.51efan" +
                 ".com/storage/menu/201705/ca07a8ca27b3beae828b871d888cd88f.jpg", img);
+//        public static final int TYPE_CIRCLE = 0;// 圆形
+//        public static final int TYPE_ROUND = 1;// 圆角矩形
+//        public static final int TYPE_OVAL = 2;//椭圆形
+        img1.setType(YHImageViewRoundOval.TYPE_ROUND);
+        img1.setRoundRadius(20);//矩形凹行大小
     }
 
     private ServiceConnection connection = new ServiceConnection()
