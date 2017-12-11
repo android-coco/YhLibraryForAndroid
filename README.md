@@ -61,6 +61,7 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:last_version'
  13.ViewUtils.java        系统界面工具类(截屏)
  14.YHViewInject.java     侵入式View的调用工具类
  15.AnnotateUtil.java     注解工具类(View id绑定)
+ 16.YHImageViewRoundOval.java 实现圆形、圆角，椭圆等自定义图片View
  ```
  ## view包说明：
  ```java
@@ -126,6 +127,27 @@ compile 'org.yh.yhframe:YhLibraryForAndroid:last_version'
      其实YHLoadingBar在cancel的时候已经释放掉了，可以不用手动释放，但是这里也提供释放的方法，根据自己需要选择
      在Activity onDestroy调用，个人建议在BaseActivity，资源释放只会释放无效的资源
      YHLoadingBar.release();
+  16.布局中加入
+    <org.yh.library.view.YHImageViewRoundOval
+        android:id="@+id/img1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/img_default"/>
+    ...
+    @BindView(id = R.id.img1)
+    private YHImageViewRoundOval img1;
+
+    //    public static final int TYPE_CIRCLE = 0;// 圆形
+    //    public static final int TYPE_ROUND = 1;// 圆角矩形
+    //    public static final int TYPE_OVAL = 2;//椭圆形
+
+    img1.setType(YHImageViewRoundOval.TYPE_ROUND);
+    img1.setRoundRadius(20);//矩形凹行大小
+
+    img1.setType(ZQImageViewRoundOval.TYPE_OVAL);
+    img1.setRoundRadius(45);// 圆角大小
+
  ```
  
  ## 数据库操作
