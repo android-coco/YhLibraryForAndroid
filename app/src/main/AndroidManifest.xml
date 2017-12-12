@@ -33,7 +33,7 @@
             android:name="org.yh.library.img.YHGlideModule"
             android:value="GlideModule"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".DemoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DemoActivity"
+            android:name=".MainActivity"
             >
         </activity>
         <activity android:name=".YHRecyclerviewActivity"/>
