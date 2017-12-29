@@ -171,7 +171,7 @@ public class YHRecyclerviewActivity extends BaseActiciy implements I_YHItemClick
 
 
         //分割线为LinearLayoutManager
-        //mRecyclerView.addItemDecoration(mRecyclerView.new YHItemDecoration());//分割线
+        mRecyclerView.addItemDecoration(mRecyclerView.new YHItemDecoration());//分割线
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setEmptyView(empty_layout);//没有数据的空布局
 
