@@ -46,7 +46,7 @@ import okhttp3.Response;
  */
 public class MyApplication extends Application
 {
-    public static final String HOME_HOST = "http://116.196.82.249:8080/";//IP地址
+    public static final String HOME_HOST = "http://192.168.0.5/CI/";//IP地址
     private static final String TAG = MyApplication.class.getSimpleName();
     private static MyApplication mInstance = null;
     private static final long cacheSize = 1024 * 1024 * 20;//缓存文件最大限制大小20M
