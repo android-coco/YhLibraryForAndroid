@@ -272,7 +272,7 @@ public abstract class YHActivity extends AppCompatActivity implements
                     {  //不为空
                         //回调授权失败的接口
                         mlistener.onFailure(deniedPermissions);
-                        //回调授权成功的接口
+                        //回调部分授权成功的接口
                         mlistener.onGranted(grantedPermissions);
                     }
                 }
