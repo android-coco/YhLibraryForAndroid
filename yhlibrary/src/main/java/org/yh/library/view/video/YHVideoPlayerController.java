@@ -138,6 +138,35 @@ public class YHVideoPlayerController extends FrameLayout
 
     }
 
+
+    public void setImage(String imageUrl,int deault,int error)
+    {
+        if (!StringUtils.isEmpty(imageUrl))
+        {
+            if (imageUrl.endsWith(".gif"))
+            {
+                Glide.with(mContext)
+                        .load(imageUrl)
+                        .asGif()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(deault)
+                        .error(error)
+                        .crossFade()
+                        .into(mImage);
+            }else
+            {
+                //YHGlide.getInstanse(mContext).loadImgeForUrl(imageUrl,mImage);
+                Glide.with(mContext)
+                        .load(imageUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(deault)
+                        .error(error)
+                        .crossFade()
+                        .into(mImage);
+            }
+        }
+
+    }
     public void setImage(@DrawableRes int resId)
     {
         mImage.setImageResource(resId);

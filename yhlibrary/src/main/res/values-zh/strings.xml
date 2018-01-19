@@ -8,4 +8,12 @@
     <string name="loading_done">加载完成</string>
     <string name="listview_header_last_time">上次更新时间：</string>
     <string name="loading_default_message">正在提交</string>
+
+    <string name="just">刚刚</string>
+    <string name="seconds_before">秒前</string>
+    <string name="minutes_ago">分钟前</string>
+    <string name="hours_before">小时前</string>
+    <string name="days_ago">天前</string>
+    <string name="month_ago">月前</string>
+    <string name="years_ago">年前</string>
 </resources>

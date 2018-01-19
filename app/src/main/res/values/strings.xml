@@ -14,4 +14,15 @@
     <string name="two_fragment">Two fragment</string>
     <string name="three_fragment">Three fragment</string>
     <string name="four_fragment">Four fragment</string>
+
+
+    <string name="listview_header_hint_normal">下拉刷新1</string>
+    <string name="listview_header_hint_release">释放立即刷新1</string>
+    <string name="listview_loading">正在加载...1</string>
+    <string name="nomore_loading">没有了1</string>
+    <string name="refreshing">正在刷新...1</string>
+    <string name="refresh_done">刷新完成1</string>
+    <string name="loading_done">加载完成1</string>
+    <string name="listview_header_last_time">上次更新时间1：</string>
+    <string name="loading_default_message">正在提交1</string>
 </resources>

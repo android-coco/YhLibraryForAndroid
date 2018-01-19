@@ -112,6 +112,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
         mArrowImageView.setImageResource(resid);
     }
 
+
     public void setState(int state)
     {
         if (state == mState)
@@ -287,7 +288,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
         animator.start();
     }
     static Date oldtime = null;//记录最后刷新时间
-    public static String friendlyTime(Date time)
+    public String friendlyTime(Date time)
     {
 
         //获取time距离当前的秒数
@@ -296,38 +297,38 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
         if (ct == 0)
         {
             oldtime = time;
-            return "刚刚";
+            return getContext().getString(R.string.just);
         }
 
         if (ct > 0 && ct < 60)
         {
             oldtime = time;
-            return ct + "秒前";
+            return ct + getContext().getString(R.string.seconds_before);
         }
 
         if (ct >= 60 && ct < 3600)
         {
             oldtime = time;
-            return Math.max(ct / 60, 1) + "分钟前";
+            return Math.max(ct / 60, 1) + getContext().getString(R.string.minutes_ago);
         }
         if (ct >= 3600 && ct < 86400)
         {
             oldtime = time;
-            return ct / 3600 + "小时前";
+            return ct / 3600 + getContext().getString(R.string.hours_before);
         }
         if (ct >= 86400 && ct < 2592000)
         { //86400 * 30
             int day = ct / 86400;
             oldtime = time;
-            return day + "天前";
+            return day + getContext().getString(R.string.days_ago);
         }
         if (ct >= 2592000 && ct < 31104000)
         { //86400 * 30
             oldtime = time;
-            return ct / 2592000 + "月前";
+            return ct / 2592000 + getContext().getString(R.string.minutes_ago);
         }
         oldtime = time;
-        return ct / 31104000 + "年前";
+        return ct / 31104000 + getContext().getString(R.string.years_ago);
     }
 
 }
