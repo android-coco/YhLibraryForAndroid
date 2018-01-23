@@ -55,8 +55,7 @@ public class MainActivity extends BaseActiciy
         //LogUtils.e(TAG, Thread.currentThread().getId());
         //startService(myIntentService);
         //YHGlide.getInstanse(this).loadImgeForDrawable(R.mipmap.ic_launcher,img);
-        YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl("http://image.51efan" +
-                ".com/storage/menu/201705/ca07a8ca27b3beae828b871d888cd88f.jpg", img);
+        YHGlide.getInstanse(MyApplication.getInstance()).loadImgeForUrl("http://beeshomeimg.test.upcdn.net/mms/user/headImg/pj4xkvup9ijcxhqekoj9xqf3acn6c9n8.jpg", img);
 //        public static final int TYPE_CIRCLE = 0;// 圆形
 //        public static final int TYPE_ROUND = 1;// 圆角矩形
 //        public static final int TYPE_OVAL = 2;//椭圆形
