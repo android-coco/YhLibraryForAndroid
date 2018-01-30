@@ -295,7 +295,7 @@ public class YHVideoPlayerController extends FrameLayout
                 // 只显示准备中动画，其他不显示
                 mImage.setVisibility(View.GONE);
                 mLoading.setVisibility(View.VISIBLE);
-                mLoadText.setText("正在准备...");
+                mLoadText.setText(getResources().getString(R.string.videoview_being));
                 mError.setVisibility(View.GONE);
                 mCompleted.setVisibility(View.GONE);
                 mTop.setVisibility(View.GONE);
@@ -317,13 +317,13 @@ public class YHVideoPlayerController extends FrameLayout
             case YHVideoPlayer.STATE_BUFFERING_PLAYING:
                 mLoading.setVisibility(View.VISIBLE);
                 mRestartPause.setImageResource(R.drawable.ic_player_pause);
-                mLoadText.setText("正在缓冲...");
+                mLoadText.setText(getResources().getString(R.string.videoview_buffering));
                 startDismissTopBottomTimer();
                 break;
             case YHVideoPlayer.STATE_BUFFERING_PAUSED:
                 mLoading.setVisibility(View.VISIBLE);
                 mRestartPause.setImageResource(R.drawable.ic_player_start);
-                mLoadText.setText("正在缓冲...");
+                mLoadText.setText(getResources().getString(R.string.videoview_buffering));
                 cancelDismissTopBottomTimer();
             case YHVideoPlayer.STATE_COMPLETED:
                 cancelUpdateProgressTimer();

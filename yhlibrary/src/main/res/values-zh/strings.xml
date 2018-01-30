@@ -16,4 +16,7 @@
     <string name="days_ago">天前</string>
     <string name="month_ago">月前</string>
     <string name="years_ago">年前</string>
+
+    <string name="videoview_being">正在准备…</string>
+    <string name="videoview_buffering">正在缓冲...</string>
 </resources>
