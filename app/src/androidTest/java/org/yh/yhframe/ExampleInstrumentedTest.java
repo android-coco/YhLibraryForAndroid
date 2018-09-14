@@ -24,5 +24,6 @@ public class ExampleInstrumentedTest
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("org.yh.yhframe", appContext.getPackageName());
+		//assertEquals("2",);
     }
 }
